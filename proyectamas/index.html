@@ -1,4547 +1,9228 @@
 <!DOCTYPE html>
+
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Proyecta Más — Oficina Técnica</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=League+Spartan:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&family=Cormorant:ital,wght@1,600;1,700&display=swap" rel="stylesheet">
+
 <style>
+
   :root {
+
     --navy: #152F5A;
+
     --blue: #1E4982;
+
     --yellow: #FFE500;
+
     --yellow-pale: #FFF9CC;
+
     --white: #FFFFFF;
+
     --gray: #8A94A6;
+
     --light: #F4F6F9;
+
   }
+
+
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; max-width: 100vw; }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; max-width: 100%; }
+
+
 
   body {
+
     font-family: 'Montserrat', sans-serif;
+
     background: var(--white);
+
     color: var(--navy);
+
     overflow-x: hidden;
+
     cursor: none;
+
     width: 100%;
-    max-width: 100vw;
+
+    max-width: 100%;
+
   }
+
+
 
   /* CURSOR */
+
   .cursor {
+
     width: 10px; height: 10px;
+
     background: var(--yellow);
+
     border-radius: 50%;
+
     position: fixed;
+
     top: 0; left: 0;
+
     pointer-events: none;
+
     z-index: 9999;
+
     transition: transform 0.15s ease;
+
     mix-blend-mode: difference;
+
   }
+
   .cursor-ring {
+
     width: 40px; height: 40px;
+
     border: 1.5px solid var(--navy);
+
     border-radius: 50%;
+
     position: fixed;
+
     top: 0; left: 0;
+
     pointer-events: none;
+
     z-index: 9998;
+
     transition: all 0.25s ease;
+
   }
+
+
 
   /* NAV */
+
   nav {
+
     position: fixed;
+
     top: 0; left: 0; right: 0;
+
     z-index: 1100;
+
     padding: 28px 6%;
+
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
+
     gap: 40px;
+
     mix-blend-mode: normal;
+
     transition: padding 0.3s;
+
   }
+
+
 
   nav.scrolled {
+
     padding: 18px 6%;
+
     background: rgba(10,22,40,0.96);
+
     backdrop-filter: blur(12px);
+
   }
+
+
 
   .logo {
+
     font-family: 'Bangers', cursive;
+
     font-size: 28px;
+
     letter-spacing: 4px;
+
     color: var(--white);
+
     text-decoration: none;
+
     position: relative;
+
     z-index: 1;
+
     text-shadow:
+
       -6px 6px 0px rgba(0, 0, 0, 0.35),
+
       -3px 3px 0px rgba(0, 0, 0, 0.2);
+
   }
+
   .logo em { color: var(--white); font-style: normal; text-shadow: -6px 6px 0px rgba(0, 0, 0, 0.35); }
 
+
+
   .nav-right {
+
     display: flex;
+
     align-items: center;
+
     gap: 40px;
+
   }
+
+
 
   .nav-links {
+
     display: flex;
+
     gap: 22px;
+
     list-style: none;
+
     white-space: nowrap;
+
   }
+
+
 
   .nav-links a {
+
     color: rgba(255,255,255,0.7);
+
     text-decoration: none;
+
     white-space: nowrap;
+
     font-size: 11px;
+
     font-weight: 400;
+
     letter-spacing: 0.06em;
+
     text-transform: uppercase;
+
     transition: color 0.2s;
+
   }
+
   .nav-links a:hover { color: var(--yellow); }
 
+
+
   .nav-btn {
+
     border: 1px solid rgba(255,255,255,0.35);
+
     color: var(--white);
+
     font-size: 12px;
+
     font-weight: 500;
+
     letter-spacing: 0.1em;
+
     text-transform: uppercase;
+
     padding: 10px 22px;
+
     border-radius: 10px;
+
     text-decoration: none;
+
     transition: background 0.2s, border-color 0.2s, color 0.2s;
+
     font-family: 'Montserrat', sans-serif;
+
   }
+
   .nav-btn:hover {
+
     background: var(--yellow);
+
     border-color: var(--yellow);
+
     color: var(--navy);
+
   }
+
+
 
   /* HERO */
+
   #hero {
+
     min-height: 100vh;
+
     position: relative;
+
     display: flex;
+
     flex-direction: column;
+
     justify-content: center;
+
     padding: 0 6% 60px;
+
     overflow: hidden;
+
   }
+
+
 
   .hero-bg-text {
+
     position: absolute;
+
     top: 50%;
+
     left: 50%;
+
     transform: translate(-50%, -50%);
+
     font-family: 'League Spartan', sans-serif;
+
     font-weight: 800;
+
     font-size: clamp(140px, 18vw, 260px);
+
     letter-spacing: -4px;
+
     color: rgba(255,255,255,0.025);
+
     white-space: nowrap;
+
     user-select: none;
+
     pointer-events: none;
+
     z-index: 2;
+
 }
+
+
 
   /* VIDEO DE FONDO HERO */
+
   .hero-video {
+
     position: absolute;
+
     inset: 0;
+
     width: 100%;
+
     height: 100%;
+
     object-fit: cover;
+
     z-index: 0;
+
     pointer-events: none;
+
   }
+
+
 
   .hero-overlay {
+
     position: absolute;
+
     inset: 0;
+
     background: linear-gradient(
+
       160deg,
+
       rgba(10,22,40,0.3) 0%,
+
       rgba(10,22,40,0.55) 50%,
+
       rgba(10,22,40,0.85) 100%
+
     );
+
     z-index: 1;
+
   }
+
+
 
   .hero-line-top {
+
     position: absolute;
+
     top: 0; left: 0; right: 0;
+
     height: 3px;
+
     background: var(--yellow);
+
     z-index: 2;
+
 }
 
+
+
   .hero-inner {
+
     position: relative;
+
     z-index: 2;
+
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
+
     text-align: center;
+
     max-width: 880px;
+
     margin: 0 auto;
+
     padding-top: 90px;
+
   }
+
+
 
   .hslide-badge {
+
     font-size: 11px;
+
     font-weight: 600;
+
     letter-spacing: 0.16em;
+
     text-transform: uppercase;
+
     color: var(--yellow);
+
     border: 1px solid rgba(245,197,24,0.4);
+
     border-radius: 100px;
+
     padding: 8px 18px;
+
     display: inline-flex;
+
     align-items: center;
+
     gap: 10px;
+
     margin-bottom: 28px;
+
   }
+
   .hslide-badge i {
+
     width: 6px; height: 6px;
+
     border-radius: 50%;
+
     background: var(--yellow);
+
     display: inline-block;
+
   }
+
   .hslide-badge-soon {
+
     border-color: rgba(255,255,255,0.25);
+
     color: rgba(255,255,255,0.7);
+
   }
+
   .hslide-badge-soon i { background: var(--yellow); }
 
+
+
   .hero-title {
+
     font-family: 'Bangers', cursive;
+
     font-size: clamp(48px, 7.5vw, 110px);
+
     font-weight: 400;
+
     line-height: 0.95;
+
     color: var(--white);
+
     letter-spacing: 0.04em;
+
     text-shadow:
+
       -6px 6px 0px rgba(0,0,0,0.35),
+
       -3px 3px 0px rgba(0,0,0,0.2);
+
   }
+
+
 
   .hero-title .italic { font-style: normal; color: var(--yellow); }
 
+
+
   .hero-buttons {
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     gap: 16px;
+
     flex-wrap: wrap;
+
     margin-top: 36px;
+
   }
+
+
 
   .hero-desc {
+
     font-size: 16px;
+
     color: rgba(255,255,255,0.6);
+
     line-height: 1.8;
+
     text-align: center;
+
     max-width: 620px;
+
     font-weight: 300;
+
     margin: 0 auto;
+
   }
+
+
 
   .hero-cta {
+
     display: inline-flex;
+
     align-items: center;
+
     gap: 14px;
+
     background: var(--yellow);
+
     color: var(--navy);
+
     font-weight: 700;
+
     font-size: 13px;
+
     letter-spacing: 0.08em;
+
     text-transform: uppercase;
+
     padding: 16px 28px;
+
     text-decoration: none;
+
     border-radius: 10px;
+
     transition: transform 0.2s, box-shadow 0.2s;
+
     font-family: 'Montserrat', sans-serif;
+
   }
+
   .hero-cta:hover {
+
     transform: translateY(-2px);
+
     box-shadow: 0 8px 32px rgba(245,197,24,0.4);
+
   }
+
   .hero-cta .arrow { font-size: 18px; transition: transform 0.2s; }
 
+
+
   .hero-cta-ghost {
+
     display: inline-flex;
+
     align-items: center;
+
     gap: 14px;
+
     background: transparent;
+
     border: 1px solid rgba(255,255,255,0.3);
+
     color: var(--white);
+
     font-weight: 600;
+
     font-size: 13px;
+
     letter-spacing: 0.08em;
+
     text-transform: uppercase;
+
     padding: 16px 28px;
+
     text-decoration: none;
+
     border-radius: 10px;
+
     transition: border-color 0.2s, background 0.2s;
+
     font-family: 'Montserrat', sans-serif;
+
   }
+
   .hero-cta-ghost:hover {
+
     border-color: var(--white);
+
     background: rgba(255,255,255,0.06);
+
   }
+
   .hero-cta-ghost .arrow { font-size: 18px; }
 
+
+
   /* Flechas de navegación del carrusel */
+
   .hero-arrow {
+
     position: absolute;
+
     top: 50%;
+
     transform: translateY(-50%);
+
     z-index: 5;
+
     width: 44px;
+
     height: 44px;
+
     border-radius: 50%;
+
     border: 1px solid rgba(255,255,255,0.25);
+
     background: rgba(255,255,255,0.06);
+
     color: var(--white);
+
     font-size: 22px;
+
     line-height: 1;
+
     cursor: pointer;
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     transition: background 0.2s, border-color 0.2s, transform 0.2s;
+
   }
+
   .hero-arrow:hover {
+
     background: rgba(255,255,255,0.14);
+
     border-color: rgba(255,255,255,0.5);
+
   }
+
   .hero-arrow-l { left: 4%; }
+
   .hero-arrow-r { right: 4%; }
 
+
+
   @media (max-width: 900px) {
+
     .hero-arrow { display: none; }
+
   }
+
   .hero-cta:hover .arrow { transform: translateX(4px); }
 
+
+
   .hero-scroll {
+
     position: absolute;
+
     bottom: 40px;
+
     right: 6%;
+
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
+
     gap: 8px;
+
     color: rgba(255,255,255,0.3);
+
     font-size: 10px;
+
     letter-spacing: 0.15em;
+
     text-transform: uppercase;
+
     z-index: 2;
+
 }
+
   .scroll-line {
+
     width: 1px;
+
     height: 50px;
+
     background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+
     animation: scrollAnim 1.8s infinite;
+
   }
+
   @keyframes scrollAnim {
+
     0% { transform: scaleY(0); transform-origin: top; }
+
     50% { transform: scaleY(1); transform-origin: top; }
+
     51% { transform: scaleY(1); transform-origin: bottom; }
+
     100% { transform: scaleY(0); transform-origin: bottom; }
+
   }
+
+
 
   .hero-stats-bar {
+
     position: absolute;
+
     bottom: 0; left: 0;
+
     background: rgba(255,255,255,0.04);
+
     border-top: 1px solid rgba(255,255,255,0.08);
+
     padding: 20px 6%;
+
     display: flex;
+
     gap: 0;
+
     width: 65%;
+
     z-index: 2;
+
 }
 
+
+
   .hstat {
+
     flex: 1;
+
     padding: 0 32px;
+
     border-right: 1px solid rgba(255,255,255,0.1);
+
   }
+
   .hstat:first-child { padding-left: 0; }
+
   .hstat:last-child { border-right: none; }
 
+
+
   .hstat-num {
+
     font-family: 'League Spartan', sans-serif;
+
     font-weight: 800;
+
     font-size: 30px;
+
     color: var(--yellow);
+
     letter-spacing: 1px;
+
     line-height: 1;
+
   }
+
   .hstat-label {
+
     font-size: 11px;
+
     color: rgba(255,255,255,0.35);
+
     margin-top: 4px;
+
     font-weight: 400;
+
   }
+
+
 
   /* SECCION INTRO — layout partido tipo IDEA */
+
   #intro {
+
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     min-height: 80vh;
+
     align-items: stretch;
+
     /* imagen en .px-layer hijo */
+
   }
+
+
 
   /* IZQUIERDA: fondo blanco */
+
   .intro-left {
+
     padding: 100px 8% 100px 6%;
+
     display: flex;
+
     flex-direction: column;
+
     justify-content: center;
+
     gap: 24px;
+
     background: var(--white);
+
     margin-top: 24px;
+
     margin-left: 24px;
+
     border-radius: 18px;
+
   }
+
+
 
   .intro-label {
+
     font-size: 11px;
+
     font-weight: 600;
+
     letter-spacing: 0.2em;
+
     text-transform: uppercase;
+
     color: var(--blue);
+
     display: flex;
+
     align-items: center;
+
     gap: 12px;
+
   }
+
   .intro-label::before {
+
     content: '';
+
     width: 24px; height: 2px;
+
     background: var(--yellow);
+
   }
+
+
 
   .intro-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: clamp(32px, 3.5vw, 54px);
+
     font-weight: 700;
+
     line-height: 1.1;
+
     color: var(--navy);
+
     letter-spacing: -1px;
+
   }
+
   .intro-title em { font-style: italic; color: var(--blue); }
 
+
+
   .intro-text {
+
     font-size: 15px;
+
     color: #4A5568;
+
     line-height: 1.85;
+
     font-weight: 300;
+
   }
+
+
 
   .intro-pills {
+
     display: flex;
+
     flex-wrap: wrap;
+
     gap: 8px;
+
     margin-top: 8px;
+
   }
+
+
 
   .pill-item {
+
     display: flex;
+
     align-items: center;
+
     gap: 8px;
+
     font-size: 12px;
+
     font-weight: 500;
+
     color: var(--navy);
+
     padding: 7px 14px;
+
     border: 1.5px solid #DDE3EE;
+
     border-radius: 10px;
+
     transition: border-color 0.2s, background 0.2s;
+
   }
+
   .pill-item:hover { border-color: var(--yellow); background: var(--yellow-pale); }
+
   .pill-item .dot { width: 5px; height: 5px; background: var(--yellow); border-radius: 50%; }
 
+
+
   /* DERECHA: imagen FIXED de fondo — el efecto parallax igual que servicios */
+
   .intro-right-img {
+
     position: relative;
+
     /* imagen en .px-layer hijo */
+
     min-height: 700px;
+
     overflow: hidden;
+
   }
+
+
 
   /* Overlay oscuro sobre la imagen */
+
   .intro-right-img::before {
+
     content: '';
+
     position: absolute;
+
     inset: 0;
+
     background: rgba(8,18,36,0.45);
+
     z-index: 0;
+
   }
+
+
 
   /* La grilla flota encima con padding generoso — se ve la imagen por costados y arriba */
+
   .intro-grid-overlay {
+
     position: relative;
+
     z-index: 1;
+
     /* Margen arriba e izquierda para que asomen ~24px de imagen de fondo */
+
     margin-top: 24px;
+
     margin-left: 24px;
+
     padding: 60px 40px 60px 24px;
+
     height: calc(100% - 24px);
+
     display: flex;
+
     flex-direction: column;
+
     justify-content: center;
+
     gap: 24px;
+
   }
+
+
 
   .igrid-label {
+
     font-size: 10px;
+
     font-weight: 600;
+
     letter-spacing: 0.22em;
+
     text-transform: uppercase;
+
     color: var(--yellow);
+
     display: flex;
+
     align-items: center;
+
     gap: 10px;
+
   }
+
   .igrid-label::before { content: ''; width: 20px; height: 1px; background: var(--yellow); }
 
+
+
   /* Grilla 2x2 con gap para que se vea la imagen entre cards */
+
   .igrid {
+
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 6px;
+
   }
+
+
 
   .igrid-card {
+
     background: rgba(10,22,40,0.88);
+
     border: 1px solid rgba(255,255,255,0.06);
+
     padding: 28px 22px;
+
     text-decoration: none;
+
     display: flex;
+
     flex-direction: column;
+
     gap: 10px;
+
     position: relative;
+
     overflow: hidden;
+
     transition: background 0.3s;
+
     border-radius: 10px;
+
   }
+
+
 
   .igrid-card::after {
+
     content: '';
+
     position: absolute;
+
     bottom: 0; left: 0; right: 0;
+
     height: 2px;
+
     background: var(--yellow);
+
     transform: scaleX(0);
+
     transform-origin: left;
+
     transition: transform 0.3s ease;
+
   }
+
+
 
   .igrid-card:hover { background: rgba(16,40,100,0.92); }
+
   .igrid-card:hover::after { transform: scaleX(1); }
 
+
+
   .igrid-icon {
+
     color: var(--yellow);
+
     width: 26px;
+
     height: 26px;
+
     margin-bottom: 4px;
+
   }
+
   .igrid-icon svg { width: 100%; height: 100%; display: block; }
 
+
+
   .igrid-name {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: 16px;
+
     font-weight: 700;
+
     color: var(--white);
+
     line-height: 1.2;
+
     letter-spacing: -0.3px;
+
     transition: color 0.3s;
+
   }
+
   .igrid-card:hover .igrid-name { color: var(--yellow); }
 
+
+
   .igrid-sub {
+
     font-size: 11px;
+
     color: rgba(255,255,255,0.4);
+
     line-height: 1.5;
+
     font-weight: 300;
+
   }
 
+
+
   .igrid-arrow {
+
     font-size: 15px;
+
     color: rgba(255,255,255,0.2);
+
     margin-top: auto;
+
     transition: color 0.3s, transform 0.3s;
+
   }
+
   .igrid-card:hover .igrid-arrow { color: var(--yellow); transform: translateX(4px); }
 
 
 
+
+
+
+
   /* BANDA PARALLAX CTA */
+
   #cta-band {
+
     position: relative;
+
     background-image: url("assets/img_2.jpg");
+
     background-attachment: fixed;
+
     background-size: cover;
+
     background-position: center;
+
     padding: 160px 6% 160px;
+
     overflow: hidden;
+
   }
+
+
 
   #cta-band::before {
+
     content: '';
+
     position: absolute;
+
     inset: 0;
+
     background: linear-gradient(
+
       100deg,
+
       rgba(10,22,40,0.82) 0%,
+
       rgba(10,22,40,0.65) 55%,
+
       rgba(10,22,40,0.35) 100%
+
     );
+
     z-index: 0;
+
   }
+
+
 
   .cta-band-inner {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 48px;
-    flex-wrap: wrap;
-  }
 
-  .cta-band-left {}
+    position: relative;
+
+    z-index: 1;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 48px;
+
+    flex-wrap: wrap;
+
+  }
 
   .cta-band-tag {
+
     font-size: 10px;
+
     font-weight: 600;
+
     letter-spacing: 0.22em;
+
     text-transform: uppercase;
+
     color: var(--yellow);
+
     margin-bottom: 20px;
+
     display: flex;
+
     align-items: center;
+
     gap: 10px;
+
   }
+
   .cta-band-tag::before { content: ''; width: 24px; height: 1px; background: var(--yellow); }
 
+
+
   .cta-band-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: clamp(32px, 4vw, 62px);
+
     font-weight: 900;
+
     color: var(--white);
+
     line-height: 1.05;
+
     letter-spacing: -1.5px;
+
     max-width: 640px;
+
   }
+
   .cta-band-title em {
+
     font-style: italic;
+
     color: var(--yellow);
+
   }
+
+
 
   .cta-band-sub {
+
     font-size: 16px;
+
     color: rgba(255,255,255,0.55);
+
     margin-top: 20px;
+
     font-weight: 300;
+
     line-height: 1.7;
+
     max-width: 500px;
+
   }
+
+
 
   .cta-band-btn {
+
     display: inline-flex;
+
     align-items: center;
+
     gap: 14px;
+
     background: var(--yellow);
+
     color: var(--navy);
+
     font-weight: 700;
+
     font-size: 13px;
+
     letter-spacing: 0.1em;
+
     text-transform: uppercase;
+
     padding: 18px 36px;
+
     text-decoration: none;
+
     border-radius: 10px;
+
     white-space: nowrap;
+
     flex-shrink: 0;
+
     transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+
     font-family: 'Montserrat', sans-serif;
+
   }
+
   .cta-band-btn:hover {
+
     transform: translateY(-2px);
+
     box-shadow: 0 8px 32px rgba(245,197,24,0.4);
+
     background: var(--yellow-dark);
+
   }
+
   .cta-band-btn .arr { font-size: 18px; transition: transform 0.2s; }
+
   .cta-band-btn:hover .arr { transform: translateX(4px); }
 
+
+
   /* SERVICIOS - DISEÑO EDITORIAL */
+
   #servicios {
+
     background: var(--navy);
+
     padding: 120px 6%;
+
   }
 
+
+
   .servicios-header {
+
     display: flex;
+
     align-items: flex-end;
+
     justify-content: space-between;
+
     margin-bottom: 80px;
+
     padding-bottom: 32px;
+
     border-bottom: 1px solid rgba(255,255,255,0.1);
+
   }
+
+
 
   .servicios-header .sh-left .slabel {
+
     font-size: 11px;
+
     font-weight: 600;
+
     letter-spacing: 0.2em;
+
     text-transform: uppercase;
+
     color: var(--yellow);
+
     margin-bottom: 16px;
+
     display: flex;
+
     align-items: center;
+
     gap: 12px;
+
   }
+
   .servicios-header .sh-left .slabel::before { content: ''; width: 24px; height: 1px; background: var(--yellow); }
 
+
+
   .sh-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: clamp(42px, 5.5vw, 80px);
+
     font-weight: 900;
+
     color: var(--white);
+
     line-height: 0.95;
+
     letter-spacing: -2px;
+
   }
+
   .sh-title em { font-style: italic; color: var(--yellow); }
 
+
+
   .sh-right {
+
     max-width: 280px;
+
     font-size: 15px;
+
     color: rgba(255,255,255,0.45);
+
     line-height: 1.8;
+
     font-weight: 300;
+
     text-align: right;
+
   }
+
+
 
   /* ── SERVICIOS PARALLAX FIXED BACKGROUND ── */
+
   #servicios {
+
     padding: 0;
+
     background: var(--navy);
+
   }
+
+
 
   .servicios-header {
+
     padding: 120px 6% 80px;
+
     display: flex;
+
     align-items: flex-end;
+
     justify-content: space-between;
+
     border-bottom: 1px solid rgba(255,255,255,0.08);
+
   }
+
+
 
   /* ZONA CON IMAGEN FIJA DE FONDO — padding para que se vea la imagen arriba y abajo */
+
   .parallax-zone {
+
     position: relative;
+
     padding: 40px 0; /* imagen visible arriba y abajo */
+
     /* Imagen SVG inline como fondo fijo — patrón técnico arquitectónico */
+
     background-image: url("assets/img_3.jpg");
+
     background-attachment: fixed;
+
     background-size: cover;
+
     background-position: center;
+
   }
+
+
 
   /* Overlay oscuro sobre la imagen del parallax - visible en los gaps */
+
   .parallax-zone::after {
+
     content: '';
+
     position: absolute;
+
     inset: 0;
+
     background: rgba(10,22,40,0.35);
+
     pointer-events: none;
+
     z-index: 0;
+
   }
+
+
 
   /* Cada bloque de servicio tiene fondo sólido + gap entre ellos para ver la imagen */
+
   .sblock {
+
     background: var(--navy);
+
     padding: 72px 5%;
+
     margin: 0 5% 8px 5%; /* margen horizontal — imagen visible a los costados */
+
     position: relative;
+
     z-index: 1;
+
     transition: background 0.4s;
+
     border-radius: 12px;
+
   }
+
+
 
   /* El último bloque sin gap abajo */
+
   .sblock:last-child { margin-bottom: 0; }
 
+
+
   /* Hover: el fondo se aclara levemente */
+
   .sblock:hover { background: #0f2040; }
 
+
+
   /* Línea amarilla izquierda al hover */
+
   .sblock::before {
+
     content: '';
+
     position: absolute;
+
     left: 0; top: 0; bottom: 0;
+
     width: 3px;
+
     background: var(--yellow);
+
     transform: scaleY(0);
+
     transform-origin: bottom;
+
     transition: transform 0.4s ease;
+
   }
+
   .sblock:hover::before { transform: scaleY(1); }
 
+
+
   /* Layout interno del bloque */
+
   .sblock-inner {
+
     display: grid;
+
     grid-template-columns: 120px 1fr 1fr;
+
     gap: 48px;
+
     align-items: start;
+
     max-width: 1200px;
+
   }
+
+
 
   .sblock-num {
+
     font-family: 'League Spartan', sans-serif;
+
     font-weight: 800;
+
     font-size: 72px;
+
     line-height: 1;
+
     color: rgba(245,197,24,0.15);
+
     transition: color 0.4s;
+
   }
+
   .sblock:hover .sblock-num { color: rgba(245,197,24,0.4); }
 
-  .sblock-main {}
 
   .sblock-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: clamp(28px, 3.5vw, 52px);
+
     font-weight: 900;
+
     color: var(--white);
+
     line-height: 1;
+
     letter-spacing: -1.5px;
+
     margin-bottom: 20px;
+
     transition: color 0.3s;
+
   }
+
   .sblock:hover .sblock-title { color: var(--yellow); }
 
+
+
   .sblock-desc {
+
     font-size: 15px;
+
     color: rgba(255,255,255,0.4);
+
     line-height: 1.8;
+
     font-weight: 300;
+
   }
+
+
 
   .sblock-items {
+
     list-style: none;
+
     display: flex;
+
     flex-direction: column;
+
     gap: 0;
+
     padding-top: 4px;
+
   }
+
+
 
   .sblock-items li {
+
     display: flex;
+
     align-items: center;
+
     gap: 14px;
+
     font-size: 14px;
+
     color: rgba(255,255,255,0.55);
+
     font-weight: 400;
+
     padding: 14px 0;
+
     border-bottom: 1px solid rgba(255,255,255,0.06);
+
     transition: color 0.2s, padding-left 0.2s;
+
   }
+
   .sblock-items li:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
+
   .sblock-items li:hover { color: rgba(255,255,255,0.9); padding-left: 6px; }
 
+
+
   .li-num {
+
     font-family: 'League Spartan', sans-serif;
+
     font-weight: 800;
+
     font-size: 13px;
+
     color: var(--yellow);
+
     min-width: 20px;
+
     opacity: 0.7;
+
   }
+
+
 
   /* TECH SECTION */
+
   #tech {
+
     background: var(--light);
+
     padding: 120px 6%;
+
     overflow: hidden;
+
   }
+
+
 
   .tech-top {
+
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 80px;
+
     align-items: end;
+
     margin-bottom: 80px;
+
   }
+
+
 
   .tech-main-label {
+
     font-size: 11px;
+
     font-weight: 600;
+
     letter-spacing: 0.2em;
+
     text-transform: uppercase;
+
     color: var(--blue);
+
     margin-bottom: 24px;
+
     display: flex;
+
     align-items: center;
+
     gap: 12px;
+
   }
+
   .tech-main-label::before { content: ''; width: 24px; height: 2px; background: var(--yellow); }
 
+
+
   .tech-main-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: clamp(40px, 5vw, 72px);
+
     font-weight: 900;
+
     line-height: 0.95;
+
     letter-spacing: -2px;
+
     color: var(--navy);
+
   }
+
   .tech-main-title em { font-style: italic; color: var(--blue); }
 
+
+
   .tech-main-desc {
+
     font-size: 15px;
+
     color: #4A5568;
+
     line-height: 1.85;
+
     font-weight: 300;
+
     max-width: 400px;
+
     align-self: end;
+
   }
+
+
 
   .tech-items {
+
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 2px;
+
   }
+
+
 
   .tech-item {
+
     background: var(--white);
+
     padding: 40px 32px;
+
     position: relative;
+
     overflow: hidden;
+
     transition: background 0.3s;
+
     border-radius: 14px;
+
   }
+
   .tech-item:hover { background: var(--navy); }
 
+
+
   .tech-item-num {
+
     font-family: 'League Spartan', sans-serif;
+
     font-weight: 800;
+
     font-size: 72px;
+
     color: rgba(0,0,0,0.05);
+
     line-height: 1;
+
     position: absolute;
+
     top: 12px;
+
     right: 16px;
+
     transition: color 0.3s;
+
   }
+
   .tech-item:hover .tech-item-num { color: rgba(255,255,255,0.05); }
 
+
+
   .tech-item-label {
+
     font-size: 10px;
+
     font-weight: 600;
+
     letter-spacing: 0.18em;
+
     text-transform: uppercase;
+
     color: var(--yellow);
+
     margin-bottom: 16px;
+
     position: relative;
+
     z-index: 1;
+
   }
+
+
 
   .tech-item-name {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: 22px;
+
     font-weight: 700;
+
     color: var(--navy);
+
     margin-bottom: 12px;
+
     line-height: 1.2;
+
     position: relative;
+
     z-index: 1;
+
     transition: color 0.3s;
+
   }
+
   .tech-item:hover .tech-item-name { color: var(--white); }
 
+
+
   .tech-item-desc {
+
     font-size: 13px;
+
     color: var(--gray);
+
     line-height: 1.7;
+
     font-weight: 300;
+
     position: relative;
+
     z-index: 1;
+
     transition: color 0.3s;
+
   }
+
   .tech-item:hover .tech-item-desc { color: rgba(255,255,255,0.55); }
 
+
+
   /* COMING SOON */
+
   .tech-saas {
+
     margin-top: 2px;
+
     background: var(--navy);
+
     padding: 56px;
+
     display: grid;
+
     grid-template-columns: 1fr auto;
+
     gap: 40px;
+
     align-items: center;
+
     border-radius: 14px;
+
   }
+
+
 
   .saas-label {
+
     font-size: 10px;
+
     font-weight: 600;
+
     letter-spacing: 0.2em;
+
     text-transform: uppercase;
+
     color: var(--yellow);
+
     margin-bottom: 16px;
+
     display: flex;
+
     align-items: center;
+
     gap: 10px;
+
   }
+
   .saas-label .dot-anim {
+
     width: 8px; height: 8px;
+
     background: var(--yellow);
+
     border-radius: 50%;
+
     animation: blink 1.5s infinite;
+
   }
+
   @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
+
+
   .saas-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: clamp(30px, 3.5vw, 52px);
+
     font-weight: 900;
+
     color: var(--white);
+
     letter-spacing: -1px;
+
     line-height: 1;
+
     margin-bottom: 16px;
+
   }
+
   .saas-desc {
+
     font-size: 15px;
+
     color: rgba(255,255,255,0.45);
+
     line-height: 1.8;
+
     font-weight: 300;
+
     max-width: 500px;
+
   }
+
+
 
   /* PROCESO */
+
   #proceso {
+
     background: var(--white);
+
     padding: 120px 6%;
+
   }
+
+
 
   .proceso-grid {
+
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 80px;
+
     align-items: start;
+
   }
+
+
 
   .proceso-left .pl-label {
+
     font-size: 11px;
+
     font-weight: 600;
+
     letter-spacing: 0.2em;
+
     text-transform: uppercase;
+
     color: var(--blue);
+
     margin-bottom: 24px;
+
     display: flex;
+
     align-items: center;
+
     gap: 12px;
+
   }
+
   .proceso-left .pl-label::before { content: ''; width: 24px; height: 2px; background: var(--yellow); }
 
+
+
   .proceso-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: clamp(40px, 5vw, 72px);
+
     font-weight: 900;
+
     line-height: 0.95;
+
     color: var(--navy);
+
     letter-spacing: -2px;
+
     margin-bottom: 40px;
+
   }
+
   .proceso-title em { font-style: italic; color: var(--blue); }
+
+
 
   .steps-list { display: flex; flex-direction: column; gap: 0; }
 
+
+
   .step-item {
+
     display: grid;
+
     grid-template-columns: 56px 1fr;
+
     gap: 24px;
+
     padding: 28px 0;
+
     border-top: 1px solid #E2E8F0;
+
     align-items: start;
+
   }
+
   .step-item:last-child { border-bottom: 1px solid #E2E8F0; }
 
+
+
   .step-n {
+
     font-family: 'League Spartan', sans-serif;
+
     font-weight: 800;
+
     font-size: 40px;
+
     color: var(--yellow);
+
     line-height: 1;
+
   }
 
-  .step-body {}
   .step-body h4 {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: 20px;
+
     font-weight: 700;
+
     color: var(--navy);
+
     margin-bottom: 8px;
+
     letter-spacing: -0.3px;
+
   }
+
   .step-body p {
+
     font-size: 14px;
+
     color: var(--gray);
+
     line-height: 1.7;
+
     font-weight: 300;
+
   }
+
+
 
   /* Fix placeholders en contacto */
+
   .contacto-form-side .fgroup input::placeholder,
+
   .contacto-form-side .fgroup textarea::placeholder {
+
     color: rgba(0,0,0,0.3);
+
   }
+
   .contacto-form-side .fgroup input,
+
   .contacto-form-side .fgroup select,
+
   .contacto-form-side .fgroup textarea {
+
     border-bottom-color: rgba(0,0,0,0.15);
+
     color: var(--navy);
+
     background: white;
+
   }
+
+
 
   .contacto-form-side .fgroup select option {
+
     background: white;
+
     color: var(--navy);
+
   }
+
   .contacto-form-side .fgroup input:focus,
+
   .contacto-form-side .fgroup select:focus,
+
   .contacto-form-side .fgroup textarea:focus {
+
     border-bottom-color: var(--blue);
+
   }
+
   .contacto-form-side .fgroup label {
+
     color: rgba(0,0,0,0.4);
+
   }
+
   .contacto-form-side .c-form-title {
+
     color: var(--navy);
+
   }
+
+
 
   /* CONTACTO — layout partido tipo IDEA */
+
   #contacto {
+
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     min-height: 80vh;
+
     align-items: stretch;
+
     position: relative;
+
     /* Imagen de fondo para que se vea por los márgenes del form-side */
+
     /* imagen en .px-layer hijo */
+
   }
+
+
 
   /* IZQUIERDA: formulario sobre fondo blanco con margen arriba e izquierda */
+
   .contacto-form-side {
+
     background: var(--white);
+
     padding: 100px 8% 100px 6%;
+
     display: flex;
+
     flex-direction: column;
+
     justify-content: flex-start;
+
     margin-top: 24px;
+
     margin-left: 24px;
+
     border-radius: 18px;
+
   }
+
+
 
   /* DERECHA: imagen fija de fondo con texto encima */
+
   .contacto-img-side {
+
     position: relative;
+
     /* imagen en .px-layer hijo */
+
     min-height: 600px;
+
     overflow: hidden;
+
   }
+
+
 
   .contacto-img-side::before {
+
     content: '';
+
     position: absolute;
+
     inset: 0;
+
     background: linear-gradient(
+
       160deg,
+
       rgba(10,22,40,0.75) 0%,
+
       rgba(10,22,40,0.5) 60%,
+
       rgba(10,22,40,0.3) 100%
+
     );
+
     z-index: 1;
+
   }
+
+
 
   .contacto-img-content {
+
     position: relative;
+
     z-index: 2;
+
     padding: 100px 64px;
+
     height: 100%;
+
     display: flex;
+
     flex-direction: column;
+
     justify-content: flex-start;
+
     gap: 40px;
+
   }
+
+
 
   .cic-tag {
+
     font-size: 10px;
+
     font-weight: 600;
+
     letter-spacing: 0.22em;
+
     text-transform: uppercase;
+
     color: var(--yellow);
+
     display: flex;
+
     align-items: center;
+
     gap: 10px;
+
   }
+
   .cic-tag::before { content: ''; width: 20px; height: 1px; background: var(--yellow); }
 
+
+
   .cic-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: clamp(42px, 5.2vw, 78px);
+
     font-weight: 900;
+
     color: var(--white);
+
     line-height: 0.95;
+
     letter-spacing: -2px;
+
     margin-bottom: 8px;
+
   }
+
   .cic-title em { font-style: italic; color: var(--yellow); }
 
+
+
   .cic-data {
+
     display: flex;
+
     flex-direction: column;
+
     gap: 0;
+
     padding-top: 28px;
+
     border-top: 1px solid rgba(255,255,255,0.12);
+
   }
+
+
 
   .cic-item {
+
     display: flex;
+
     align-items: flex-start;
+
     gap: 18px;
+
     padding: 16px 0;
+
     border-bottom: 1px solid rgba(255,255,255,0.08);
+
   }
+
   .cic-item:last-child { border-bottom: none; }
 
+
+
   .cic-icon {
+
     color: var(--yellow);
+
     flex-shrink: 0;
+
     margin-top: 3px;
+
     width: 26px;
+
     height: 26px;
+
   }
+
   .cic-icon svg { width: 100%; height: 100%; display: block; }
 
+
+
   .cic-item-label {
+
     font-size: 10.5px;
+
     font-weight: 600;
+
     letter-spacing: 0.15em;
+
     text-transform: uppercase;
+
     color: rgba(255,255,255,0.4);
+
     margin-bottom: 5px;
+
   }
+
+
 
   .cic-item-value {
+
     font-size: 15.5px;
+
     color: rgba(255,255,255,0.85);
+
     font-weight: 400;
+
   }
+
+
 
   /* Estilos del formulario en el lado blanco */
+
   .contacto-bg-num { display: none; }
 
+
+
   .contacto-inner {
+
     display: flex;
+
     flex-direction: column;
+
     gap: 0;
+
   }
+
+
 
   .c-label {
+
     font-size: 11px;
+
     font-weight: 600;
+
     letter-spacing: 0.2em;
+
     text-transform: uppercase;
+
     color: var(--yellow);
+
     margin-bottom: 24px;
+
     display: flex;
+
     align-items: center;
+
     gap: 12px;
+
   }
+
   .c-label::before { content: ''; width: 24px; height: 1px; background: var(--yellow); }
 
+
+
   .c-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: clamp(44px, 6vw, 86px);
+
     font-weight: 900;
+
     color: var(--white);
+
     line-height: 0.95;
+
     letter-spacing: -2px;
+
     margin-bottom: 40px;
+
   }
+
   .c-title em { font-style: italic; color: var(--yellow); }
 
+
+
   .c-data {
+
     display: flex;
+
     flex-direction: column;
+
     gap: 20px;
+
   }
+
+
 
   .c-item {
+
     display: flex;
+
     align-items: flex-start;
+
     gap: 16px;
+
     padding-bottom: 20px;
+
     border-bottom: 1px solid rgba(255,255,255,0.07);
+
   }
+
   .c-item:last-child { border: none; }
 
+
+
   .c-item-icon {
+
     font-size: 20px;
+
     flex-shrink: 0;
+
     margin-top: 2px;
+
   }
+
+
 
   .c-item-label {
+
     font-size: 10px;
+
     font-weight: 600;
+
     letter-spacing: 0.15em;
+
     text-transform: uppercase;
+
     color: rgba(255,255,255,0.3);
+
     margin-bottom: 4px;
+
   }
+
   .c-item-value {
+
     font-size: 15px;
+
     color: rgba(255,255,255,0.8);
+
     font-weight: 400;
+
   }
+
+
 
   /* FORM */
+
   .c-form {
+
     display: flex;
+
     flex-direction: column;
+
     gap: 20px;
+
   }
+
+
 
   .c-form-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: 28px;
+
     font-weight: 700;
+
     color: var(--white);
+
     margin-bottom: 8px;
+
     letter-spacing: -0.5px;
+
   }
+
+
 
   .fgroup label {
+
     display: block;
+
     font-size: 10px;
+
     font-weight: 600;
+
     letter-spacing: 0.18em;
+
     text-transform: uppercase;
+
     color: rgba(255,255,255,0.35);
+
     margin-bottom: 8px;
+
   }
+
+
 
   .fgroup input,
+
   .fgroup select,
+
   .fgroup textarea {
+
     width: 100%;
+
     background: transparent;
+
     border: none;
+
     border-bottom: 1px solid rgba(255,255,255,0.15);
+
     padding: 12px 0;
+
     color: var(--white);
+
     font-size: 15px;
+
     font-family: 'Montserrat', sans-serif;
+
     font-weight: 300;
+
     transition: border-color 0.2s;
+
     outline: none;
+
     border-radius: 8px;
+
   }
+
   .fgroup input::placeholder,
+
   .fgroup textarea::placeholder { color: rgba(255,255,255,0.2); }
+
   .fgroup input:focus,
+
   .fgroup select:focus,
+
   .fgroup textarea:focus { border-color: var(--yellow); }
+
   .fgroup select option { background: var(--navy); }
+
   .fgroup textarea { resize: none; min-height: 80px; }
 
+
+
   .f-btn {
+
     margin-top: 12px;
+
     display: inline-flex;
+
     align-items: center;
+
     gap: 14px;
+
     background: var(--yellow);
+
     color: var(--navy);
+
     font-weight: 700;
+
     font-size: 12px;
+
     letter-spacing: 0.12em;
+
     text-transform: uppercase;
+
     padding: 18px 32px;
+
     border: none;
+
     cursor: pointer;
+
     font-family: 'Montserrat', sans-serif;
+
     border-radius: 10px;
+
     transition: transform 0.2s, box-shadow 0.2s;
+
     width: fit-content;
+
   }
+
   .f-btn:hover {
+
     transform: translateY(-2px);
+
     box-shadow: 0 8px 32px rgba(245,197,24,0.4);
+
   }
+
+
 
   /* FOOTER */
+
   footer {
+
     background: #060E1D;
+
     padding: 40px 6%;
+
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
+
     flex-wrap: wrap;
+
     gap: 16px;
+
     border-top: 1px solid rgba(255,255,255,0.04);
+
   }
 
+
+
   .f-logo {
+
     font-family: 'Bangers', cursive;
+
     font-size: 24px;
+
     letter-spacing: 4px;
+
     color: var(--white);
+
     text-shadow:
+
       -4px 4px 0px rgba(0,0,0,0.35),
+
       -2px 2px 0px rgba(0,0,0,0.2);
+
   }
+
   .f-logo em { color: var(--white); font-style: normal; text-shadow: -4px 4px 0px rgba(0,0,0,0.35); }
+
+
 
   .f-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
 
+
+
   .f-links { display: flex; gap: 28px; }
+
   .f-links a {
+
     font-size: 12px;
+
     color: rgba(255,255,255,0.3);
+
     text-decoration: none;
+
     letter-spacing: 0.06em;
+
     transition: color 0.2s;
+
   }
+
   .f-links a:hover { color: var(--yellow); }
 
+
+
   /* WA */
+
   .wa-btn {
+
     position: fixed;
+
     bottom: 32px; right: 32px;
+
     z-index: 400;
+
     width: 56px; height: 56px;
+
     background: #25D366;
+
     border-radius: 50%;
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     box-shadow: 0 4px 24px rgba(37,211,102,0.45);
+
     transition: transform 0.2s;
+
     text-decoration: none;
+
   }
+
   .wa-btn:hover { transform: scale(1.1); }
+
   .wa-btn svg { width: 26px; height: 26px; fill: white; }
 
+
+
   /* REVEAL */
+
   .r {
+
     opacity: 0;
+
     transform: translateY(32px);
+
     transition: opacity 0.7s ease, transform 0.7s ease;
+
   }
+
   .r.v { opacity: 1; transform: none; }
+
   .r.d1 { transition-delay: 0.1s; }
+
   .r.d2 { transition-delay: 0.2s; }
+
   .r.d3 { transition-delay: 0.3s; }
 
+
+
   /* MOBILE */
+
   @media (max-width: 900px) {
+
     .cursor, .cursor-ring { display: none; }
+
     body { cursor: auto; }
+
     nav { padding: 20px 5%; }
+
     .nav-links { display: none; }
+
     .nav-btn { display: none; }
+
     .nav-socials { display: none; }
+
     #hero { padding: 0 5% 100px; }
+
     .hero-inner { grid-template-columns: 1fr; }
+
     .hero-right { align-items: flex-start; min-width: auto; }
+
     .hero-desc { text-align: left; }
+
     .hero-stats-bar { width: 100%; }
+
     #intro { grid-template-columns: 1fr; gap: 40px; padding: 80px 5%; }
+
     #servicios { padding: 80px 5%; }
+
     .servicios-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+
     .sh-right { text-align: left; }
+
     .service-row { grid-template-columns: 56px 1fr; gap: 20px; }
+
     .sr-icon { display: none; }
+
     #cta-band { padding: 80px 5%; }
+
     .cta-band-inner { flex-direction: column; align-items: flex-start; }
+
     #intro { grid-template-columns: 1fr; }
+
     .intro-left { padding: 80px 5%; }
+
     .intro-right-img { min-height: 500px; }
+
     .intro-grid-overlay { padding: 40px 24px; }
+
     .igrid { grid-template-columns: 1fr 1fr; }
+
     .srv-grid { grid-template-columns: 1fr 1fr; }
+
     .srv-grid-section { padding: 60px 5%; }
+
     /* Sticky servicios mobile */
+
     .sticky-wrap { grid-template-columns: 1fr; }
+
     .sticky-img-col { display: none; }
+
     .sblock { padding: 56px 5%; margin: 0 4% 8px 4%; }
+
     .sblock-inner { grid-template-columns: 56px 1fr; gap: 20px; }
+
     .sblock-items { display: none; }
+
     .tech-top { grid-template-columns: 1fr; gap: 32px; }
+
     .tech-items { grid-template-columns: 1fr; }
+
     .tech-saas { grid-template-columns: 1fr; padding: 40px 32px; }
+
     .proceso-grid { grid-template-columns: 1fr; gap: 48px; }
+
     #contacto { grid-template-columns: 1fr; }
+
     .contacto-form-side { padding: 80px 5%; }
+
     .contacto-img-side { min-height: 500px; }
+
     .contacto-img-content { padding: 40px 5%; }
+
     footer { flex-direction: column; gap: 20px; }
+
     .f-links { flex-wrap: wrap; gap: 16px; }
+
   }
+
+
 
   /* BANNER FINAL */
+
   #banner-final {
+
     position: relative;
+
     height: 100vh;
+
     overflow: hidden;
+
   }
+
+
 
   .bf-img {
+
     position: absolute;
+
     inset: 0;
+
     /* imagen en .px-layer hijo */
+
     z-index: 0;
+
     overflow: hidden;
+
   }
+
+
 
   .bf-img::after {
+
     content: '';
+
     position: absolute;
+
     inset: 0;
+
     background: rgba(10,22,40,0.3);
+
     z-index: 1;
+
   }
+
+
 
   .bf-text {
+
     position: absolute;
+
     inset: 0;
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     z-index: 2;
+
     overflow: visible;
+
   }
 
+
+
   .bf-title {
+
     font-family: 'Bangers', cursive;
+
     font-weight: 400;
+
     font-style: normal;
+
     font-size: clamp(90px, 17vw, 240px);
+
     line-height: 1;
+
     color: rgba(255,255,255,0.95);
+
     letter-spacing: 0.03em;
+
     white-space: nowrap;
+
     text-shadow:
+
       -7px 7px 0px rgba(0,0,0,0.35),
+
       -3.5px 3.5px 0px rgba(0,0,0,0.2);
+
   }
+
+
 
   .bf-plus { color: var(--yellow); }
 
+
+
   .bfl {
+
     display: inline-block;
+
     opacity: 0;
+
     transform: translateX(-100vw);
+
   }
+
+
 
   .bf-title.bf-animate .bfl {
+
     animation: bfl-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
   }
+
+
 
   /* Orden inverso: el + primero (9° hijo), P al final (1° hijo) */
+
   .bf-title.bf-animate .bfl:nth-child(9) { animation-delay: 0.00s; }
+
   .bf-title.bf-animate .bfl:nth-child(8) { animation-delay: 0.35s; }
+
   .bf-title.bf-animate .bfl:nth-child(7) { animation-delay: 0.70s; }
+
   .bf-title.bf-animate .bfl:nth-child(6) { animation-delay: 1.05s; }
+
   .bf-title.bf-animate .bfl:nth-child(5) { animation-delay: 1.40s; }
+
   .bf-title.bf-animate .bfl:nth-child(4) { animation-delay: 1.75s; }
+
   .bf-title.bf-animate .bfl:nth-child(3) { animation-delay: 2.10s; }
+
   .bf-title.bf-animate .bfl:nth-child(2) { animation-delay: 2.45s; }
+
   .bf-title.bf-animate .bfl:nth-child(1) { animation-delay: 2.80s; }
 
+
+
   @keyframes bfl-in {
+
     to { opacity: 1; transform: translateX(0); }
+
   }
 
+
+
   @keyframes bf-slide-in {
+
     0%   { transform: translateX(-110%); }
+
     100% { transform: translateX(0); }
+
   }
+
+
+
 
 
   /* HERO CAROUSEL */
+
   .hero-carousel {
+
     position: relative;
+
     overflow: hidden;
+
   }
+
+
 
   .hslide {
+
     display: none;
+
     flex-direction: column;
+
     gap: 20px;
+
     animation: hfade 0.7s ease forwards;
+
   }
+
+
 
   .hslide.active {
+
     display: flex;
+
   }
+
+
 
   @keyframes hfade {
+
     from { opacity: 0; transform: translateY(16px); }
+
     to   { opacity: 1; transform: translateY(0); }
+
   }
+
+
 
   /* Dots */
+
   .hero-dots {
+
     display: flex;
+
     gap: 10px;
+
     justify-content: center;
+
     margin-top: 32px;
+
   }
+
+
 
   .hdot {
+
     width: 28px;
+
     height: 2px;
+
     background: rgba(255,255,255,0.3);
+
     cursor: pointer;
+
     transition: background 0.3s, width 0.3s;
+
   }
 
+
+
   .hdot.active {
+
     background: var(--yellow);
+
     width: 44px;
+
   }
+
+
+
 
 
   /* PARA QUIÉN */
+
   #paraquien {
+
     background: var(--navy);
+
     padding: 120px 6%;
+
   }
+
+
 
   .pq-label {
+
     font-size: 11px;
+
     font-weight: 600;
+
     letter-spacing: 0.2em;
+
     text-transform: uppercase;
+
     color: var(--yellow);
+
     display: flex;
+
     align-items: center;
+
     gap: 12px;
+
     margin-bottom: 16px;
+
   }
+
   .pq-label::before { content: ''; width: 24px; height: 2px; background: var(--yellow); }
 
+
+
   .pq-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: clamp(32px, 4vw, 56px);
+
     font-weight: 700;
+
     color: var(--white);
+
     line-height: 1.1;
+
     margin-bottom: 64px;
+
     letter-spacing: -1px;
+
   }
+
   .pq-title em { font-style: italic; color: var(--yellow); }
 
+
+
   .pq-grid {
+
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 2px;
+
   }
+
+
 
   .pq-card {
+
     background: rgba(255,255,255,0.04);
+
     border: 1px solid rgba(255,255,255,0.07);
+
     padding: 36px 28px;
+
     transition: background 0.3s;
+
     border-radius: 12px;
+
   }
+
   .pq-card:hover { background: rgba(255,255,255,0.08); }
 
+
+
   .pq-icon {
+
     color: var(--yellow);
+
     width: 30px;
+
     height: 30px;
+
     margin-bottom: 16px;
+
   }
+
   .pq-icon svg { width: 100%; height: 100%; display: block; }
 
+
+
   .pq-name {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: 18px;
+
     font-weight: 700;
+
     color: var(--white);
+
     margin-bottom: 10px;
+
   }
+
+
 
   .pq-desc {
+
     font-size: 13px;
+
     color: rgba(255,255,255,0.5);
+
     line-height: 1.7;
+
     font-weight: 300;
+
   }
+
+
 
   /* POR QUÉ */
+
   #porque {
+
     background: var(--light);
+
     padding: 120px 6%;
+
   }
+
+
 
   .pq2-inner {
+
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 80px;
+
     align-items: start;
+
   }
+
+
 
   .pq2-left .pq2-label {
+
     font-size: 11px;
+
     font-weight: 600;
+
     letter-spacing: 0.2em;
+
     text-transform: uppercase;
+
     color: var(--blue);
+
     display: flex;
+
     align-items: center;
+
     gap: 12px;
+
     margin-bottom: 24px;
+
   }
+
   .pq2-left .pq2-label::before { content: ''; width: 24px; height: 2px; background: var(--yellow); }
 
+
+
   .pq2-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: clamp(32px, 3.5vw, 52px);
+
     font-weight: 700;
+
     color: var(--navy);
+
     line-height: 1.1;
+
     letter-spacing: -1px;
+
     margin-bottom: 32px;
+
   }
+
   .pq2-title em { font-style: italic; color: var(--blue); }
 
+
+
   .pq2-list {
+
     list-style: none;
+
     display: flex;
+
     flex-direction: column;
+
     gap: 12px;
+
     margin-top: 0;
+
   }
+
+
 
   .pq2-list li {
+
     display: flex;
+
     align-items: flex-start;
+
     gap: 12px;
+
     font-size: 14px;
+
     color: #4A5568;
+
     line-height: 1.6;
+
   }
+
   .pq2-list li::before {
+
     content: '';
+
     width: 5px; height: 5px;
+
     background: var(--yellow);
+
     border-radius: 50%;
+
     flex-shrink: 0;
+
     margin-top: 7px;
+
   }
+
+
 
   .pq2-items {
+
     display: flex;
+
     flex-direction: column;
+
     gap: 0;
+
   }
+
+
 
   .pq2-item {
+
     display: flex;
+
     gap: 20px;
+
     padding: 24px 0;
+
     border-bottom: 1px solid #E8EBF0;
+
   }
+
   .pq2-item:first-child { border-top: 1px solid #E8EBF0; }
 
+
+
   .pq2-num {
+
     font-family: 'League Spartan', sans-serif;
+
     font-weight: 800;
+
     font-size: 22px;
+
     color: var(--yellow);
+
     flex-shrink: 0;
+
     width: 32px;
+
   }
+
+
 
   .pq2-item-title {
+
     font-size: 15px;
+
     font-weight: 600;
+
     color: var(--navy);
+
     margin-bottom: 4px;
+
   }
+
+
 
   .pq2-item-desc {
+
     font-size: 13px;
+
     color: #6B7280;
+
     line-height: 1.6;
+
   }
+
+
 
   /* FAQ */
+
   #faq {
+
     background: var(--white);
+
     padding: 120px 6%;
+
   }
+
+
 
   .faq-header {
+
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 80px;
+
     align-items: end;
+
     margin-bottom: 64px;
+
   }
+
+
 
   .faq-label {
+
     font-size: 11px;
+
     font-weight: 600;
+
     letter-spacing: 0.2em;
+
     text-transform: uppercase;
+
     color: var(--blue);
+
     display: flex;
+
     align-items: center;
+
     gap: 12px;
+
     margin-bottom: 20px;
+
   }
+
   .faq-label::before { content: ''; width: 24px; height: 2px; background: var(--yellow); }
 
+
+
   .faq-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: clamp(32px, 3.5vw, 52px);
+
     font-weight: 700;
+
     color: var(--navy);
+
     line-height: 1.1;
+
     letter-spacing: -1px;
+
   }
+
   .faq-title em { font-style: italic; color: var(--blue); }
 
+
+
   .faq-subtitle {
+
     font-size: 15px;
+
     color: #6B7280;
+
     line-height: 1.7;
+
     align-self: end;
+
   }
+
+
 
   .faq-list {
+
     display: flex;
+
     flex-direction: column;
+
     gap: 0;
+
     max-width: 860px;
+
   }
+
+
 
   .faq-item {
+
     border-bottom: 1px solid #E8EBF0;
+
   }
+
   .faq-item:first-child { border-top: 1px solid #E8EBF0; }
 
+
+
   .faq-q {
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
     padding: 22px 0;
+
     cursor: pointer;
+
     font-size: 15px;
+
     font-weight: 600;
+
     color: var(--navy);
+
     gap: 20px;
+
     user-select: none;
+
   }
 
+
+
   .faq-q .faq-icon {
+
     font-size: 20px;
+
     color: var(--yellow);
+
     flex-shrink: 0;
+
     transition: transform 0.3s;
+
     line-height: 1;
+
   }
+
+
 
   .faq-item.open .faq-icon { transform: rotate(45deg); }
 
+
+
   .faq-a {
+
     font-size: 14px;
+
     color: #6B7280;
+
     line-height: 1.75;
+
     padding-bottom: 20px;
+
     display: none;
+
   }
+
+
 
   .faq-item.open .faq-a { display: block; }
 
 
+
+
+
   /* BANDA PORQUE */
+
   #banda-porque {
+
     position: relative;
+
     min-height: 70vh;
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     /* imagen en .px-layer hijo */
+
     overflow: hidden;
+
   }
+
+
 
   #banda-porque::before {
+
     content: '';
+
     position: absolute;
+
     inset: 0;
+
     background: rgba(10,22,40,0.55);
+
     z-index: 1;
+
   }
+
+
 
   .banda-porque-inner {
+
     position: relative;
+
     z-index: 2;
+
     text-align: center;
+
     padding: 80px 6%;
+
   }
+
+
 
   .banda-porque-icon {
+
     font-family: 'Bangers', cursive;
+
     font-size: clamp(60px, 8vw, 84px);
+
     letter-spacing: 3px;
+
     color: var(--white);
+
     margin-bottom: 28px;
+
     text-shadow:
+
       -6px 6px 0px rgba(0,0,0,0.35),
+
       -3px 3px 0px rgba(0,0,0,0.2);
+
   }
+
   .banda-porque-icon em { font-style: normal; color: var(--white); }
 
+
+
   .banda-porque-tag {
+
     font-size: 15px;
+
     font-weight: 600;
+
     letter-spacing: 0.18em;
+
     text-transform: uppercase;
+
     color: var(--yellow);
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     gap: 12px;
+
     margin-bottom: 14px;
+
   }
+
   .banda-porque-tag::before,
+
   .banda-porque-tag::after {
+
     content: '';
+
     width: 32px;
+
     height: 1px;
+
     background: var(--yellow);
+
   }
+
+
 
   .banda-porque-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-weight: 800;
+
     font-size: clamp(80px, 14vw, 200px);
+
     line-height: 0.9;
+
     color: var(--white);
+
     letter-spacing: 0.04em;
+
   }
+
+
 
   .banda-porque-title em {
+
     font-style: normal;
+
     color: var(--yellow);
+
   }
 
+
+
   .banda-porque-sub {
+
     font-size: clamp(16px, 2vw, 22px);
+
     color: rgba(255,255,255,0.75);
+
     font-weight: 300;
+
     margin-top: 24px;
+
     letter-spacing: 0.05em;
+
   }
+
+
+
 
 
   /* SERVICIOS TABS */
+
   .srv-tabs {
+
     display: flex;
+
     border-bottom: 1px solid rgba(255,255,255,0.08);
+
     background: var(--navy);
+
     overflow-x: auto;
+
   }
+
+
 
   .srv-tab {
+
     display: flex;
+
     align-items: center;
+
     gap: 12px;
+
     padding: 24px 36px;
+
     background: none;
+
     border: none;
+
     border-bottom: 2px solid transparent;
+
     cursor: pointer;
+
     transition: all 0.25s;
+
     white-space: nowrap;
+
     flex-shrink: 0;
+
     border-radius: 10px;
+
   }
+
+
 
   .srv-tab-num {
+
     font-family: 'League Spartan', sans-serif;
+
     font-weight: 800;
+
     font-size: 13px;
+
     color: var(--yellow);
+
     letter-spacing: 1px;
+
   }
 
+
+
   .srv-tab-name {
+
     font-size: 12px;
+
     font-weight: 500;
+
     letter-spacing: 0.1em;
+
     text-transform: uppercase;
+
     color: rgba(255,255,255,0.4);
+
     transition: color 0.25s;
+
   }
+
+
 
   .srv-tab:hover .srv-tab-name { color: rgba(255,255,255,0.8); }
 
+
+
   .srv-tab.active {
+
     border-bottom-color: var(--yellow);
+
   }
+
   .srv-tab.active .srv-tab-name { color: var(--white); }
 
+
+
   /* PANELS */
+
   .srv-panels {
+
     background: var(--navy);
+
   }
+
+
 
   .srv-panel {
+
     display: none;
+
   }
+
   .srv-panel.active {
+
     display: block;
+
     animation: panelFade 0.4s ease forwards;
+
   }
+
+
 
   @keyframes panelFade {
+
     from { opacity: 0; transform: translateY(10px); }
+
     to   { opacity: 1; transform: translateY(0); }
+
   }
+
+
 
   .srv-panel-inner {
+
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 80px;
+
     padding: 80px 6%;
+
     align-items: start;
+
   }
+
+
 
   .srv-panel-num {
+
     font-family: 'League Spartan', sans-serif;
+
     font-weight: 800;
+
     font-size: 80px;
+
     color: rgba(255,255,255,0.06);
+
     line-height: 1;
+
     margin-bottom: -20px;
+
   }
+
+
 
   .srv-panel-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: clamp(32px, 4vw, 52px);
+
     font-weight: 700;
+
     color: var(--white);
+
     line-height: 1.1;
+
     letter-spacing: -1px;
+
     margin-bottom: 20px;
+
   }
+
+
 
   .srv-panel-desc {
+
     font-size: 15px;
+
     color: rgba(255,255,255,0.5);
+
     line-height: 1.8;
+
     font-weight: 300;
+
     margin-bottom: 36px;
+
   }
+
+
 
   .srv-panel-cta {
+
     display: inline-flex;
+
     align-items: center;
+
     gap: 8px;
+
     font-size: 12px;
+
     font-weight: 600;
+
     letter-spacing: 0.12em;
+
     text-transform: uppercase;
+
     color: var(--yellow);
+
     text-decoration: none;
+
     border-bottom: 1px solid rgba(245,197,24,0.3);
+
     padding-bottom: 4px;
+
     transition: border-color 0.2s, gap 0.2s;
+
   }
+
   .srv-panel-cta:hover { border-color: var(--yellow); gap: 12px; }
 
+
+
   .srv-panel-items {
+
     list-style: none;
+
     display: flex;
+
     flex-direction: column;
+
     gap: 0;
+
     padding-top: 16px;
+
   }
+
+
 
   .srv-panel-items li {
+
     font-size: 14px;
+
     color: rgba(255,255,255,0.6);
+
     line-height: 1.6;
+
     padding: 18px 0;
+
     border-bottom: 1px solid rgba(255,255,255,0.07);
+
     padding-left: 20px;
+
     position: relative;
+
   }
 
+
+
   .srv-panel-items li::before {
+
     content: '';
+
     position: absolute;
+
     left: 0;
+
     top: 50%;
+
     transform: translateY(-50%);
+
     width: 4px;
+
     height: 4px;
+
     background: var(--yellow);
+
     border-radius: 50%;
+
   }
+
+
 
   .srv-panel-items li:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
 
 
+
+
+
   /* ============ POLISH PASS ============ */
 
+
+
   /* Selección de texto con marca */
+
   ::selection {
+
     background: var(--yellow);
+
     color: var(--navy);
+
   }
+
+
 
   /* Scrollbar custom */
+
   ::-webkit-scrollbar { width: 10px; }
+
   ::-webkit-scrollbar-track { background: var(--navy); }
+
   ::-webkit-scrollbar-thumb {
+
     background: rgba(245,197,24,0.35);
+
     border-radius: 8px;
+
   }
+
   ::-webkit-scrollbar-thumb:hover { background: var(--yellow); }
 
+
+
   /* Nav links — subrayado animado */
+
   .nav-links a {
+
     position: relative;
+
     padding-bottom: 3px;
+
   }
+
   .nav-links a::after {
+
     content: '';
+
     position: absolute;
+
     left: 0; bottom: 0;
+
     width: 0;
+
     height: 1px;
+
     background: var(--yellow);
+
     transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
   }
+
   .nav-links a:hover::after { width: 100%; }
 
+
+
   /* Botones amarillos — hover con desplazamiento de flecha */
+
   .hero-cta .arrow,
+
   .srv-panel-cta { transition: gap 0.25s ease; }
+
   .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(245,197,24,0.25); }
+
   .hero-cta:hover .arrow { transform: translateX(4px); }
+
   .hero-cta .arrow { display: inline-block; transition: transform 0.25s ease; }
 
+
+
   .f-btn { transition: transform 0.2s, box-shadow 0.2s, background 0.2s; }
+
   .f-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(245,197,24,0.3); }
+
+
 
   .nav-btn:hover { background: var(--yellow); border-color: var(--yellow); color: var(--navy); }
 
+
+
   /* Cards "para quién" — línea amarilla que crece al hover */
+
   .pq-card { position: relative; }
+
   .pq-card::before {
+
     content: '';
+
     position: absolute;
+
     top: 0; left: 0;
+
     width: 0; height: 2px;
+
     background: var(--yellow);
+
     transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
   }
+
   .pq-card:hover::before { width: 100%; }
 
+
+
   /* FAQ — hover en pregunta */
+
   .faq-q { transition: color 0.2s; }
+
   .faq-q:hover { color: var(--blue); }
 
+
+
   /* Tabs servicios — refinamiento */
+
   .srv-tab { position: relative; }
+
   .srv-tab.active .srv-tab-num { color: var(--yellow); }
 
+
+
   /* Steps proceso — hover */
+
   .step-item { transition: transform 0.3s ease; }
+
   .step-item:hover { transform: translateX(6px); }
 
+
+
   /* Estados de foco accesibles */
+
   a:focus-visible,
+
   button:focus-visible,
+
   input:focus-visible,
+
   select:focus-visible,
+
   textarea:focus-visible {
+
     outline: 2px solid var(--yellow);
+
     outline-offset: 3px;
+
   }
+
+
 
   /* Reduced motion */
+
   @media (prefers-reduced-motion: reduce) {
+
     *, *::before, *::after {
+
       animation-duration: 0.01ms !important;
+
       animation-iteration-count: 1 !important;
+
       transition-duration: 0.01ms !important;
+
       scroll-behavior: auto !important;
+
     }
+
   }
+
+
 
   /* ============ FOOTER PRO ============ */
+
   .footer-pro {
+
     background: #060E1D;
+
     border-top: 1px solid rgba(255,255,255,0.05);
+
   }
+
+
 
   .fp-cta {
+
     padding: 90px 6% 70px;
+
     border-bottom: 1px solid rgba(255,255,255,0.06);
+
     display: flex;
+
     align-items: flex-end;
+
     justify-content: space-between;
+
     gap: 40px;
+
     flex-wrap: wrap;
+
   }
+
+
 
   .fp-cta-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: clamp(36px, 5vw, 72px);
+
     font-weight: 700;
+
     color: var(--white);
+
     line-height: 1.05;
+
     letter-spacing: -1.5px;
+
   }
+
   .fp-cta-title em { font-style: italic; color: var(--yellow); }
 
+
+
   .fp-cta-btn {
+
     display: inline-flex;
+
     align-items: center;
+
     gap: 14px;
+
     background: var(--yellow);
+
     color: var(--navy);
+
     font-weight: 700;
+
     font-size: 13px;
+
     letter-spacing: 0.1em;
+
     text-transform: uppercase;
+
     padding: 20px 36px;
+
     text-decoration: none;
+
     border-radius: 10px;
+
     transition: transform 0.2s, box-shadow 0.2s;
+
     flex-shrink: 0;
+
   }
+
   .fp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(245,197,24,0.25); }
 
+
+
   .fp-grid {
+
     display: grid;
+
     grid-template-columns: 2fr 1fr 1fr 1fr;
+
     gap: 48px;
+
     padding: 64px 6%;
+
   }
+
+
 
   .fp-brand .f-logo { margin-bottom: 18px; }
 
+
+
   .fp-brand-desc {
+
     font-size: 13px;
+
     color: rgba(255,255,255,0.4);
+
     line-height: 1.8;
+
     font-weight: 300;
+
     max-width: 280px;
+
   }
+
+
 
   .fp-col-title {
+
     font-size: 10px;
+
     font-weight: 600;
+
     letter-spacing: 0.22em;
+
     text-transform: uppercase;
+
     color: var(--yellow);
+
     margin-bottom: 20px;
+
   }
+
+
 
   .fp-col a, .fp-col span {
+
     display: block;
+
     font-size: 13px;
+
     color: rgba(255,255,255,0.5);
+
     text-decoration: none;
+
     margin-bottom: 12px;
+
     transition: color 0.2s, padding-left 0.2s;
+
     font-weight: 300;
+
     overflow-wrap: break-word;
+
     word-break: break-word;
+
   }
+
   .fp-col a:hover { color: var(--white); padding-left: 6px; }
 
+
+
   .fp-legal {
+
     padding: 24px 6%;
+
     border-top: 1px solid rgba(255,255,255,0.05);
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
     flex-wrap: wrap;
+
     gap: 12px;
+
   }
+
+
 
   .fp-legal span {
+
     font-size: 11px;
+
     color: rgba(255,255,255,0.3);
+
     letter-spacing: 0.05em;
+
   }
+
+
 
   .fp-legal .fp-ig {
+
     font-size: 11px;
+
     color: rgba(255,255,255,0.4);
+
     text-decoration: none;
+
     letter-spacing: 0.08em;
+
     text-transform: uppercase;
+
     transition: color 0.2s;
+
   }
+
   .fp-legal .fp-ig:hover { color: var(--yellow); }
 
+
+
   @media (max-width: 900px) {
+
     .fp-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+
     .fp-cta { flex-direction: column; align-items: flex-start; }
+
   }
+
+
+
 
 
   /* TICKER HORIZONTAL — transparente, separador entre hero e intro */
+
   .ticker-wrap {
+
     background: var(--navy);
+
     border-top: 1px solid rgba(255,255,255,0.08);
+
     border-bottom: 1px solid rgba(255,255,255,0.08);
+
     overflow: hidden;
+
     white-space: nowrap;
+
     padding: 16px 0;
+
   }
+
   .ticker-wrap .ticker {
+
     display: inline-flex;
+
     animation: tickerScroll 24s linear infinite;
+
   }
+
   .ticker-wrap .ticker span {
+
     font-size: 12px;
+
     font-weight: 500;
+
     letter-spacing: 0.12em;
+
     text-transform: uppercase;
+
     color: rgba(255,255,255,0.55);
+
     padding-right: 0;
+
   }
+
   .ticker-wrap .ticker span i {
+
     font-style: normal;
+
     color: var(--yellow);
+
     padding: 0 18px;
+
   }
+
   @keyframes tickerScroll { to { transform: translateX(-50%); } }
 
+
+
   /* TICKER AMARILLO — sólido, separador entre servicios y tech */
+
   .ticker-yellow {
+
     background: var(--yellow);
+
     overflow: hidden;
+
     white-space: nowrap;
+
     padding: 16px 0;
+
   }
+
   .ticker-yellow .ticker {
+
     display: inline-flex;
+
     animation: tickerScroll 20s linear infinite reverse;
+
   }
+
   .ticker-yellow .ticker span {
+
     font-size: 12px;
+
     font-weight: 700;
+
     letter-spacing: 0.12em;
+
     text-transform: uppercase;
+
     color: var(--navy);
+
     padding-right: 0;
+
   }
+
   .ticker-yellow .ticker span i {
+
     font-style: normal;
+
     color: rgba(10,22,40,0.4);
+
     padding: 0 18px;
+
   }
+
+
 
   /* FRASE GRANDE EN CURSIVA — quote breaker */
+
   .frase-quote {
+
     background: var(--white);
+
     padding: 110px 6%;
+
     text-align: center;
-  }
-  .frase-quote p {
-    font-family: 'League Spartan', sans-serif;
-    font-size: clamp(24px, 3.2vw, 44px);
-    line-height: 1.4;
-    color: var(--navy);
-    max-width: 920px;
-    margin: 0 auto;
-    font-weight: 400;
-  }
-  .frase-quote p i {
-    font-style: italic;
-    color: var(--blue);
-  }
-  .frase-quote p b {
-    font-weight: 700;
-    font-style: normal;
+
   }
 
-  /* FRASE SEPARADORA — dos líneas, antes de contacto */
-  .frase-cierre {
-    background: var(--navy);
-    padding: 130px 6%;
-    text-align: center;
-  }
-  .frase-cierre h2 {
+  .frase-quote p {
+
     font-family: 'League Spartan', sans-serif;
-    font-size: clamp(32px, 5vw, 68px);
-    line-height: 1.15;
-    color: var(--white);
-    font-weight: 700;
-    letter-spacing: -1px;
-  }
-  .frase-cierre h2 em {
-    font-style: italic;
-    color: var(--yellow);
+
+    font-size: clamp(24px, 3.2vw, 44px);
+
+    line-height: 1.4;
+
+    color: var(--navy);
+
+    max-width: 920px;
+
+    margin: 0 auto;
+
     font-weight: 400;
+
   }
+
+  .frase-quote p i {
+
+    font-style: italic;
+
+    color: var(--blue);
+
+  }
+
+  .frase-quote p b {
+
+    font-weight: 700;
+
+    font-style: normal;
+
+  }
+
+
+
+  /* FRASE SEPARADORA — dos líneas, antes de contacto */
+
+  .frase-cierre {
+
+    background: var(--navy);
+
+    padding: 130px 6%;
+
+    text-align: center;
+
+  }
+
+  .frase-cierre h2 {
+
+    font-family: 'League Spartan', sans-serif;
+
+    font-size: clamp(32px, 5vw, 68px);
+
+    line-height: 1.15;
+
+    color: var(--white);
+
+    font-weight: 700;
+
+    letter-spacing: -1px;
+
+  }
+
+  .frase-cierre h2 em {
+
+    font-style: italic;
+
+    color: var(--yellow);
+
+    font-weight: 400;
+
+  }
+
   .frase-cierre .fc-sub {
+
     margin-top: 24px;
+
     font-size: 15px;
+
     color: rgba(255,255,255,0.5);
+
     letter-spacing: 0.05em;
+
   }
+
+
+
 
 
   /* ===== PRELOADER ===== */
+
   #preloader {
+
     position: fixed;
+
     inset: 0;
+
     z-index: 99999;
+
     background: var(--blue);
+
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
+
     justify-content: center;
+
     transition: opacity 0.7s ease, visibility 0.7s ease;
+
   }
+
   #preloader.pl-hide {
+
     opacity: 0;
+
     visibility: hidden;
+
     pointer-events: none;
+
   }
+
+
 
   .pl-logo {
+
     font-family: 'Bangers', cursive;
+
     font-size: clamp(54px, 9vw, 110px);
+
     letter-spacing: 4px;
+
     color: var(--white);
+
     text-shadow:
+
       -8px 8px 0px rgba(0,0,0,0.35),
+
       -4px 4px 0px rgba(0,0,0,0.2);
+
     display: flex;
+
     align-items: center;
+
     gap: 18px;
+
     opacity: 0;
+
     transform: translateY(14px);
+
     animation: plIn 0.7s ease forwards;
+
     animation-delay: 0.15s;
+
   }
+
   .pl-logo em { font-style: normal; color: var(--white); }
 
+
+
   .pl-line {
+
     width: 0;
+
     height: 2px;
+
     background: var(--yellow);
+
     margin: 26px 0 20px;
+
     animation: plLine 0.6s ease forwards;
+
     animation-delay: 0.6s;
+
   }
+
+
 
   .pl-sub {
+
     font-size: 11px;
+
     font-weight: 500;
+
     letter-spacing: 0.26em;
+
     text-transform: uppercase;
+
     color: rgba(255,255,255,0.55);
+
     opacity: 0;
+
     animation: plFade 0.6s ease forwards;
+
     animation-delay: 0.85s;
+
   }
 
+
+
   @keyframes plIn { to { opacity: 1; transform: translateY(0); } }
+
   @keyframes plFade { to { opacity: 1; } }
+
   @keyframes plLine { to { width: 64px; } }
+
+
 
   body.pl-lock { overflow: hidden; }
 
 
+
+
+
   /* TICKER HERRAMIENTAS */
+
   .ticker-tools {
+
     background: var(--white);
+
     border-top: 1px solid rgba(10,22,40,0.08);
+
     border-bottom: 1px solid rgba(10,22,40,0.08);
+
     padding: 28px 0;
+
     overflow: hidden;
+
   }
+
   .tt-label {
+
     text-align: center;
+
     font-size: 10.5px;
+
     font-weight: 600;
+
     letter-spacing: 0.2em;
+
     text-transform: uppercase;
+
     color: var(--gray);
+
     margin-bottom: 18px;
+
   }
+
   .ticker-tools .ticker {
+
     display: inline-flex;
+
     white-space: nowrap;
+
     animation: tickerScroll 22s linear infinite;
+
   }
+
   .ticker-tools .ticker span {
+
     font-family: 'League Spartan', sans-serif;
+
     font-weight: 700;
+
     font-size: 22px;
+
     letter-spacing: 0.02em;
+
     color: var(--navy);
+
     padding-right: 0;
+
     opacity: 0.85;
+
   }
+
   .ticker-tools .ticker span i {
+
     font-style: normal;
+
     color: var(--yellow);
+
     padding: 0 22px;
+
     opacity: 1;
+
   }
+
+
+
 
 
   /* GALERÍA — columnas verticales en loop infinito (estilo Linktree) */
+
   #galeria {
+
     background: var(--navy);
+
     padding: 100px 0;
+
     overflow: hidden;
+
   }
+
+
 
   .gal-head {
+
     text-align: center;
+
     margin-bottom: 56px;
+
     padding: 0 6%;
+
   }
+
   .gal-label {
+
     font-size: 11px;
+
     font-weight: 600;
+
     letter-spacing: 0.2em;
+
     text-transform: uppercase;
+
     color: var(--yellow);
+
     display: inline-flex;
+
     align-items: center;
+
     gap: 12px;
+
     margin-bottom: 18px;
+
   }
+
   .gal-label::before, .gal-label::after { content: ''; width: 28px; height: 1px; background: var(--yellow); }
+
   .gal-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-weight: 800;
+
     font-size: clamp(28px, 3.6vw, 48px);
+
     color: var(--white);
+
     letter-spacing: -1px;
+
   }
+
   .gal-title em { font-style: normal; color: var(--yellow); }
 
+
+
   .gal-wrap {
+
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 18px;
+
     max-width: 1100px;
+
     margin: 0 auto;
+
     height: 620px;
+
     mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+
   }
+
+
 
   .gal-col {
+
     display: flex;
+
     flex-direction: column;
+
     gap: 18px;
+
     overflow: hidden;
+
   }
+
+
 
   .gal-track {
+
     display: flex;
+
     flex-direction: column;
+
     gap: 0;
+
     animation: galUp 26s linear infinite;
+
     will-change: transform;
-    -webkit-backface-visibility: hidden;
+
+
   }
+
   .gal-col-rev .gal-track { animation: galDown 26s linear infinite; }
 
+
+
   .gal-col img {
+
     width: 100%;
+
     height: 280px;
+
     border-radius: 10px;
+
     display: block;
+
     object-fit: cover;
+
     margin-bottom: 18px;  /* spacing sin afectar el cálculo de -50% */
+
   }
+
+
 
   @keyframes galUp { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+
   @keyframes galDown { from { transform: translateY(-50%); } to { transform: translateY(0); } }
 
+
+
   @media (max-width: 760px) {
+
     .gal-wrap { grid-template-columns: repeat(3, 1fr); gap: 8px; height: 480px; }
+
     .gal-col:nth-child(3) { display: flex; }
+
     .gal-col img { height: 200px; margin-bottom: 8px; }
+
   }
+
+
+
 
 
   /* HAMBURGUESA */
+
   .hamburger {
+
     display: flex;
+
     flex-direction: column;
+
     justify-content: center;
+
     gap: 5px;
+
     width: 32px;
+
     height: 32px;
+
     background: none;
+
     border: none;
+
     cursor: pointer;
+
     padding: 0;
+
     margin-left: 22px;
+
   }
+
   .hamburger span {
+
     display: block;
+
     width: 100%;
+
     height: 2px;
+
     background: var(--white);
+
     transition: transform 0.3s, opacity 0.3s;
+
   }
+
   .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+
   .hamburger.open span:nth-child(2) { opacity: 0; }
+
   .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+
+
   /* MENÚ MOBILE */
+
   .mobile-menu {
+
     position: fixed;
+
     top: 0;
+
     right: -100%;
+
     width: min(86vw, 380px);
+
     height: 100vh;
+
     background: var(--navy);
+
     z-index: 1000;
+
     transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
     display: flex;
+
     flex-direction: column;
+
     box-shadow: -20px 0 60px rgba(0,0,0,0.4);
+
   }
+
   .mobile-menu.open { right: 0; }
 
+
+
   .mm-header {
+
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
+
     padding: 24px 28px;
+
     border-bottom: 1px solid rgba(255,255,255,0.08);
+
   }
+
+
 
   .mm-close {
+
     background: none;
+
     border: 1px solid rgba(255,255,255,0.25);
+
     color: var(--white);
+
     width: 34px; height: 34px;
+
     border-radius: 50%;
+
     cursor: pointer;
+
     font-size: 14px;
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
   }
+
+
 
   .mm-body {
+
     flex: 1;
+
     overflow-y: auto;
+
     padding: 24px 28px;
+
     display: flex;
+
     flex-direction: column;
+
   }
+
+
 
   .mm-link {
+
     font-family: 'League Spartan', sans-serif;
+
     font-weight: 700;
+
     font-size: 19px;
+
     color: var(--white);
+
     text-decoration: none;
+
     padding: 14px 0;
+
     border-bottom: 1px solid rgba(255,255,255,0.07);
+
   }
+
+
 
   .mm-services-label {
+
     font-size: 10.5px;
+
     font-weight: 600;
+
     letter-spacing: 0.18em;
+
     text-transform: uppercase;
+
     color: var(--yellow);
+
     padding-top: 22px;
+
     padding-bottom: 6px;
+
   }
+
+
 
   .mm-sublink {
+
     font-family: 'Montserrat', sans-serif;
+
     font-size: 14.5px;
+
     color: rgba(255,255,255,0.65);
+
     text-decoration: none;
+
     padding: 10px 0 10px 6px;
+
   }
+
+
 
   .mm-cta {
+
     margin: 20px 28px 28px;
+
     background: var(--yellow);
+
     color: var(--navy);
+
     text-align: center;
+
     font-weight: 700;
+
     font-size: 13px;
+
     letter-spacing: 0.08em;
+
     text-transform: uppercase;
+
     padding: 16px;
+
     text-decoration: none;
+
     border-radius: 10px;
+
   }
 
+
+
   .mm-backdrop {
+
     position: fixed;
+
     inset: 0;
+
     background: rgba(0,0,0,0.5);
+
     z-index: 999;
+
     opacity: 0;
+
     visibility: hidden;
+
     transition: opacity 0.3s;
+
   }
+
   .mm-backdrop.open { opacity: 1; visibility: visible; }
 
 
+
+
+
   /* REDES SOCIALES EN EL NAV */
+
   .nav-socials {
+
     display: flex;
+
     align-items: center;
+
     gap: 16px;
+
     margin-left: 22px;
+
   }
+
   .nav-socials a {
+
     width: 18px;
+
     height: 18px;
+
     color: rgba(255,255,255,0.7);
+
     transition: color 0.2s;
+
   }
+
   .nav-socials a:hover { color: var(--yellow); }
+
   .nav-socials svg { width: 100%; height: 100%; display: block; }
 
+
+
   @media (max-width: 900px) {
+
     .nav-socials { display: none; }
+
   }
+
+
+
 
 
   /* CATÁLOGO DE PLANILLAS Y PACKS */
+
   .catalog-intro {
+
     background: var(--navy);
+
     border-radius: 16px;
+
     padding: 38px 42px;
+
     margin: 50px 0 40px;
+
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
+
     gap: 30px;
+
     flex-wrap: wrap;
+
     position: relative;
+
     overflow: hidden;
+
   }
+
   .catalog-intro::before {
+
     content: '';
+
     position: absolute;
+
     top: 0; left: 0;
+
     width: 5px; height: 100%;
+
     background: var(--yellow);
+
   }
+
   .catalog-intro-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-weight: 800;
+
     font-size: 24px;
+
     color: var(--white);
+
     margin-bottom: 8px;
+
   }
+
   .catalog-intro p {
+
     font-size: 13.5px;
+
     color: rgba(255,255,255,0.6);
+
     max-width: 560px;
+
     line-height: 1.7;
+
   }
+
   .catalog-intro-badge {
+
     font-size: 10px;
+
     font-weight: 700;
+
     letter-spacing: 0.14em;
+
     text-transform: uppercase;
+
     color: var(--navy);
+
     background: var(--yellow);
+
     padding: 8px 16px;
+
     border-radius: 100px;
+
     flex-shrink: 0;
+
   }
+
+
 
   .pack-list { display: flex; flex-direction: column; gap: 0; border-top: 1px solid #DDE3EE; }
 
+
+
   .pack-row { border-bottom: 1px solid #DDE3EE; }
 
+
+
   .pack-head {
+
     display: flex;
+
     align-items: center;
+
     flex-wrap: wrap;
+
     gap: 12px 22px;
+
     padding: 22px 16px;
+
     cursor: pointer;
+
     user-select: none;
+
     border-left: 4px solid transparent;
+
     transition: border-color 0.25s, background 0.25s;
+
   }
+
   .pack-row.open .pack-head {
+
     border-left-color: var(--yellow);
+
     background: var(--light);
+
   }
+
   .pack-head:hover { background: var(--light); }
 
+
+
   .pack-head-icon {
+
     width: 42px; height: 42px;
+
     min-width: 42px;
+
     background: var(--navy);
+
     color: var(--yellow);
+
     border-radius: 50%;
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     flex-shrink: 0;
+
   }
+
   .pack-head-icon svg { width: 20px; height: 20px; }
 
+
+
   .pack-head-name {
+
     font-family: 'League Spartan', sans-serif;
+
     font-weight: 700;
+
     font-size: 18px;
+
     color: var(--navy);
+
     flex: 1;
+
   }
 
+
+
     .pack-head-count {
+
     font-size: 10px;
+
     font-weight: 700;
+
     letter-spacing: 0.05em;
+
     text-transform: uppercase;
+
     color: var(--navy);
+
     background: var(--yellow-pale);
+
     padding: 5px 11px;
+
     border-radius: 100px;
+
     flex-shrink: 0;
+
   }
+
+
 
   .pack-head-toggle {
+
     font-size: 18px;
+
     color: #8A93A4;
+
     transition: transform 0.3s, color 0.3s;
+
     flex-shrink: 0;
+
   }
+
   .pack-row.open .pack-head-toggle { transform: rotate(45deg); color: var(--yellow); }
 
+
+
   .pack-body {
+
     max-height: 0;
+
     overflow: hidden;
+
     transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1);
+
   }
+
   .pack-row.open .pack-body { max-height: 600px; }
 
+
+
   .pack-items {
+
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 10px;
+
     padding: 4px 4px 28px;
+
   }
+
+
 
   .pack-item {
+
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
+
     gap: 10px;
+
     background: var(--white);
+
     border: 1px solid #E4E8F0;
+
     border-left: 3px solid var(--yellow);
+
     border-radius: 8px;
+
     padding: 11px 14px;
+
     font-size: 12.5px;
+
     font-weight: 500;
+
     color: var(--navy);
+
   }
 
-  .pack-item-soon {
-    font-size: 8.5px;
+
+
+  .pack-item-btn {
+
+    font-size: 9px;
+
     font-weight: 700;
+
     letter-spacing: 0.06em;
+
     text-transform: uppercase;
+
     color: var(--navy);
+
     background: var(--yellow);
-    padding: 4px 9px;
+
+    padding: 6px 14px;
+
     border-radius: 100px;
+
     flex-shrink: 0;
+
     white-space: nowrap;
+
+    text-decoration: none;
+
+    transition: transform 0.2s, background 0.2s;
+
+    cursor: pointer;
+
+    display: inline-block;
+
   }
+
+  .pack-item-btn:hover {
+
+    background: #E6CE00;
+
+    transform: translateY(-1px);
+
+  }
+
+
 
   @media (max-width: 760px) {
+
     .pack-items { grid-template-columns: 1fr 1fr; }
+
     .catalog-intro { padding: 28px 24px; }
+
   }
+
   @media (max-width: 540px) {
+
     .pack-items { grid-template-columns: 1fr; }
+
     .pq-grid { grid-template-columns: 1fr; }
+
     .fp-grid { grid-template-columns: 1fr; }
 
+
+
     .catalog-intro {
+
       flex-direction: column;
+
       align-items: flex-start;
+
       padding: 26px 22px;
+
     }
+
     .catalog-intro-title { font-size: 19px; }
+
     .catalog-intro-badge { align-self: flex-start; }
 
+
+
     .catalog-tabs {
+
       flex-direction: column;
+
       gap: 8px;
+
     }
+
     .catalog-tab {
+
       width: 100%;
+
       text-align: center;
+
       box-sizing: border-box;
+
     }
+
+
 
     .pack-head {
+
       flex-wrap: wrap;
+
       gap: 12px 14px;
+
       padding: 18px 12px;
+
     }
+
     .pack-head-icon { width: 36px; height: 36px; min-width: 36px; }
+
     .pack-head-icon svg { width: 17px; height: 17px; }
+
     .pack-head-name {
+
       font-size: 15px;
+
       flex: 1 1 auto;
+
       min-width: 0;
+
     }
+
     .pack-head-count {
+
       font-size: 9px;
+
       padding: 4px 9px;
+
       order: 3;
+
       margin-left: 50px;
+
     }
+
     .pack-head-toggle { font-size: 16px; }
 
+
+
     .pack-item {
+
       font-size: 12px;
+
       padding: 10px 12px;
+
     }
+
     .pack-item-soon {
+
       font-size: 7.5px;
+
       padding: 3px 7px;
+
     }
+
   }
+
+
+
 
 
   /* TABS CATÁLOGO: Packs vs Individuales */
+
   .catalog-tabs {
+
     display: flex;
+
     gap: 10px;
+
     margin-bottom: 28px;
+
   }
+
   .catalog-tab {
+
     font-family: 'League Spartan', sans-serif;
+
     font-weight: 700;
+
     font-size: 13px;
+
     color: var(--navy);
+
     background: var(--white);
+
     border: 1.5px solid var(--navy);
+
     border-radius: 100px;
+
     padding: 10px 22px;
+
     cursor: pointer;
+
     transition: all 0.2s;
+
   }
+
   .catalog-tab.active {
+
     background: var(--yellow);
+
     color: var(--navy);
+
     border-color: var(--yellow);
+
   }
+
+
 
   .catalog-view { display: none; }
+
   .catalog-view.active { display: block; }
 
+
+
   .individual-grid {
+
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 10px;
+
   }
 
+
+
   @media (max-width: 760px) {
+
     .individual-grid { grid-template-columns: 1fr 1fr; }
+
   }
+
   @media (max-width: 540px) {
+
     .individual-grid { grid-template-columns: 1fr; }
+
   }
+
+
+
 
 
   /* FIX RESPONSIVE MOBILE — debe ir al final para ganar la cascada sobre las reglas base */
+
   @media (max-width: 900px) {
+
     .pq2-inner { grid-template-columns: 1fr !important; gap: 40px !important; }
+
     .pq2-items { margin-top: 20px !important; }
+
     .srv-panel-inner { grid-template-columns: 1fr !important; gap: 36px !important; padding: 50px 5% !important; }
+
     .fp-grid { grid-template-columns: 1fr 1fr !important; gap: 36px !important; }
+
     .intro-right-img { min-height: 380px !important; }
+
   }
+
   @media (max-width: 540px) {
+
     .pq-grid { grid-template-columns: 1fr !important; }
+
     .fp-grid { grid-template-columns: 1fr !important; }
+
   }
+
+
 
   /* Hero: reducir altura en mobile para que el video panorámico se recorte menos al cubrir la pantalla */
+
   .hero-video-mobile { display: none; }
 
+
+
   @media (max-width: 900px) {
+
     .hero-video-desktop { display: none !important; }
+
     .hero-video-mobile { display: block !important; object-fit: cover !important; object-position: center center !important; }
+
   }
+
+
 
   /* Galería: desactivar animación infinita en mobile (inconsistente en iOS) — queda estática y nítida */
+
   @media (max-width: 900px) {
+
     /* Galería mobile: animación activa, sin mask, altura fija manejable */
+
     .gal-wrap {
+
       height: 480px !important;
+
       mask-image: none !important;
+
       -webkit-mask-image: none !important;
+
     }
+
     .gal-track {
+
       animation: galUp 26s linear infinite !important;
+
       -webkit-animation: galUp 26s linear infinite !important;
+
     }
+
     .gal-col-rev .gal-track {
+
       animation: galDown 26s linear infinite !important;
+
       -webkit-animation: galDown 26s linear infinite !important;
+
     }
+
     .gal-col { overflow: hidden !important; }
+
     /* Mostrar todas las imágenes (necesarias para el loop infinito) */
+
     .gal-track img:nth-child(n+3) { display: block !important; }
+
     /* Velocidad un poco más lenta en mobile */
+
     .gal-track { animation-duration: 32s !important; }
+
   }
+
+
 
   /* Reducir alturas que fuerzan demasiado recorte de la imagen (cover) en mobile */
+
   @media (max-width: 900px) {
+
     #banda-porque { min-height: 50vh !important; }
+
     #cta-band { padding: 90px 6% !important; }
+
   }
+
+
 
   /* CONTACTO — reducir alturas excesivas y mostrar la imagen primero en mobile */
+
   @media (max-width: 900px) {
+
     #contacto { min-height: auto !important; }
+
     .contacto-form-side {
+
       padding: 50px 6% !important;
+
       margin-top: 0 !important;
+
       margin-left: 0 !important;
+
       order: 2 !important;
+
     }
+
     .contacto-img-side {
+
       min-height: 360px !important;
+
       order: 1 !important;
+
     }
+
   }
+
+
 
   /* iOS Safari no soporta bien background-attachment:fixed — se desactiva en mobile */
+
   @media (max-width: 900px) {
+
     #banner-final {
+
       height: 72vh !important;
+
       overflow: visible !important; /* letras entran desde la izquierda sin cortes */
+
     }
+
     .bf-text {
+
       padding: 0 !important;
+
       overflow: visible !important;
+
     }
+
     .bf-title {
+
       font-size: min(17vw, 240px) !important; /* ~66px en iPhone 390px */
+
       white-space: nowrap !important;
+
       letter-spacing: 0 !important;
+
       /* Sombra hacia abajo y derecha — sin extensión hacia izquierda que se corte */
+
       text-shadow:
+
         3px 5px 0px rgba(0,0,0,0.4),
+
         1.5px 2.5px 0px rgba(0,0,0,0.2) !important;
+
     }
+
   }
 
+
+
   @media (max-width: 900px) {
+
     #intro,
+
     .intro-right-img,
+
     #cta-band,
+
     .parallax-zone,
+
     #contacto,
+
     .contacto-img-side,
+
     #banda-porque {
+
       background-attachment: scroll !important;
+
     }
+
   }
 
+
+
   @media (max-width: 900px) {
+
     .intro-grid-overlay { margin-top: 0 !important; margin-left: 0 !important; height: 100% !important; padding: 32px 24px !important; }
+
     .igrid { gap: 4px !important; }
+
     .igrid-card { padding: 18px 16px !important; gap: 6px !important; }
+
     .igrid-icon { width: 20px !important; height: 20px !important; margin-bottom: 0 !important; }
+
     .igrid-name { font-size: 14px !important; }
+
     .igrid-sub { font-size: 10px !important; line-height: 1.4 !important; }
+
     .igrid-arrow { display: none !important; }
 
+
+
     .srv-tabs {
+
       display: grid !important;
+
       grid-template-columns: 1fr 1fr !important;
+
       overflow-x: visible !important;
+
     }
+
     .srv-tab {
+
       flex-direction: column !important;
+
       align-items: flex-start !important;
+
       gap: 6px !important;
+
       padding: 18px 14px !important;
+
       white-space: normal !important;
+
       border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+
       border-right: 1px solid rgba(255,255,255,0.08) !important;
+
       border-radius: 0 !important;
+
     }
+
     .srv-tab-name { font-size: 11px !important; line-height: 1.3 !important; }
 
+
+
     .tech-saas {
+
       grid-template-columns: 1fr !important;
+
       padding: 32px 24px !important;
+
     }
+
     .saas-cta { width: 100% !important; justify-content: center !important; white-space: normal !important; }
+
   }
+
+
+
 
 
   /* SERVICIOS — ACORDEÓN (fondo navy) */
+
   .srv-rows { border-top: 1px solid rgba(255,255,255,0.1); }
+
+
 
   .srv-row { border-bottom: 1px solid rgba(255,255,255,0.1); }
 
+
+
   .srv-row-head {
+
     display: flex;
+
     align-items: center;
+
     gap: 22px;
+
     padding: 26px 16px;
+
     cursor: pointer;
+
     user-select: none;
+
     border-left: 4px solid transparent;
+
     transition: border-color 0.25s, background 0.25s;
+
   }
+
   .srv-row-head:hover { background: rgba(255,255,255,0.03); }
+
   .srv-row.open .srv-row-head {
+
     border-left-color: var(--yellow);
+
     background: rgba(255,255,255,0.04);
+
   }
+
+
 
   .srv-row-icon {
+
     width: 42px; height: 42px;
+
     min-width: 42px;
+
     background: rgba(255,255,255,0.06);
+
     color: var(--yellow);
+
     border-radius: 50%;
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     flex-shrink: 0;
+
   }
+
   .srv-row-icon svg { width: 20px; height: 20px; }
 
+
+
   .srv-row-name {
+
     font-family: 'League Spartan', sans-serif;
+
     font-weight: 700;
+
     font-size: 19px;
+
     color: var(--white);
+
     flex: 1;
+
   }
+
+
 
   .srv-row-toggle {
+
     font-size: 20px;
+
     color: rgba(255,255,255,0.4);
+
     transition: transform 0.3s, color 0.3s;
+
     flex-shrink: 0;
+
   }
+
   .srv-row.open .srv-row-toggle { transform: rotate(45deg); color: var(--yellow); }
 
+
+
   .srv-row-body {
+
     max-height: 0;
+
     overflow: hidden;
+
     transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1);
+
   }
+
   .srv-row.open .srv-row-body { max-height: 700px; }
+
+
 
   .srv-row-inner { padding: 4px 16px 36px 80px; }
 
+
+
   .srv-row-desc {
+
     font-size: 14.5px;
+
     color: rgba(255,255,255,0.55);
+
     line-height: 1.8;
+
     max-width: 560px;
+
     margin-bottom: 22px;
+
   }
+
+
 
   .srv-row-items {
+
     list-style: none;
+
     margin-bottom: 22px;
+
   }
+
   .srv-row-items li {
+
     font-size: 13.5px;
+
     color: rgba(255,255,255,0.7);
+
     line-height: 1.7;
+
     padding: 10px 0 10px 20px;
+
     border-bottom: 1px solid rgba(255,255,255,0.06);
+
     position: relative;
+
   }
+
   .srv-row-items li::before {
+
     content: '';
+
     position: absolute;
+
     left: 0; top: 17px;
+
     width: 6px; height: 6px;
+
     border-radius: 50%;
+
     background: var(--yellow);
+
   }
+
   .srv-row-items li:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
 
+
+
   .srv-row-cta {
+
     font-size: 12px;
+
     font-weight: 700;
+
     letter-spacing: 0.06em;
+
     text-transform: uppercase;
+
     color: var(--yellow);
+
     text-decoration: none;
+
     border-bottom: 1px solid rgba(245,197,24,0.4);
+
     padding-bottom: 4px;
+
     transition: border-color 0.2s;
+
   }
+
   .srv-row-cta:hover { border-color: var(--yellow); }
 
+
+
   @media (max-width: 540px) {
+
     .srv-row-inner { padding: 4px 14px 30px 14px; }
+
   }
+
+
+
 
 
   /* ── PARALLAX VÍA TRANSFORM (GPU, estable en iOS) ── */
+
   .px-layer {
+
     position: absolute;
+
     inset: 0;             /* desktop: sin zoom extra (el parallax JS no corre en desktop) */
+
     background-size: cover;
+
     background-position: center;
+
     will-change: transform;
+
     z-index: 0;
+
     pointer-events: none;
+
   }
+
   /* Mobile: inset negativo da margen para que el JS parallax mueva la imagen */
+
   @media (max-width: 900px) {
+
     .px-layer { inset: -8% 0; }
+
     .bf-img .px-layer { inset: -8% 0 !important; }
+
   }
+
   /* Banner final mobile: menos zoom en la imagen */
 
+
+
   #banda-porque,
+
   .contacto-img-side,
+
   .bf-img,
+
   .intro-right-img {
+
     overflow: hidden;     /* recortar lo que sobresale del inset:-25% */
+
   }
+
+
+
 
 
   .mm-socials {
+
     display: flex;
+
     align-items: center;
+
     gap: 20px;
+
     padding: 20px 28px;
+
     border-top: 1px solid rgba(255,255,255,0.08);
+
   }
+
   .mm-socials a {
+
     color: rgba(255,255,255,0.6);
+
     transition: color 0.2s;
+
     display: flex;
+
     align-items: center;
+
   }
+
   .mm-socials a:hover { color: var(--yellow); }
 
 
 
+
+
+
+
   /* DESKTOP: ocultar px-layer (solo para JS parallax mobile) y restaurar fondos originales */
+
   @media (min-width: 901px) {
+
     .px-layer { display: none; }
+
     #banda-porque {
+
       background-image: url('assets/img_6.jpg');
+
       background-attachment: fixed;
+
       background-size: cover;
+
       background-position: center;
+
     }
+
     .intro-right-img {
+
       background-image: url('assets/img_1.jpg');
+
       background-attachment: fixed;
+
       background-size: cover;
+
       background-position: center right;
+
     }
+
     .contacto-img-side {
+
       background-image: url('assets/img_4.jpg');
+
       background-attachment: fixed;
+
       background-size: cover;
+
       background-position: center;
+
     }
+
     .bf-img {
+
       background-image: url('assets/img_5.jpg');
+
       background-size: cover;
+
       background-position: center;
+
     }
+
   }
+
+
+
 
 
   /* ═══ ECOSISTEMA ═══ */
+
   #ecosistema {
+
     background: var(--navy);
+
     padding: 100px 6vw 110px;
+
     position: relative;
+
     overflow: hidden;
+
   }
+
   #ecosistema::before {
+
     content: '';
+
     position: absolute;
+
     top: 0; left: 0; right: 0;
+
     height: 3px;
+
     background: var(--yellow);
+
   }
+
   .eco-head { max-width: 760px; margin: 0 auto 60px; text-align: center; }
+
   .eco-label {
+
     font-family: 'Montserrat', sans-serif;
+
     font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+
     color: var(--yellow); margin-bottom: 18px;
+
   }
+
   .eco-title {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: clamp(30px, 4.4vw, 52px);
+
     font-weight: 700; line-height: 1.05; color: var(--white);
+
   }
+
   .eco-title em { font-style: normal; color: var(--yellow); }
+
   .eco-sub {
+
     margin-top: 18px; color: rgba(255,255,255,0.65);
+
     font-family: 'Montserrat', sans-serif; font-size: 15px; line-height: 1.7;
+
   }
+
   .eco-grid {
+
     display: grid;
+
     grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+
     gap: 18px; max-width: 1200px; margin: 0 auto;
+
   }
+
   .eco-card {
+
     background: rgba(255,255,255,0.04);
+
     border: 1px solid rgba(255,255,255,0.10);
+
     border-radius: 14px; padding: 28px 24px 26px;
+
     display: flex; flex-direction: column; gap: 12px;
+
     transition: transform 0.3s, border-color 0.3s, background 0.3s;
+
   }
+
   .eco-card:hover {
+
     transform: translateY(-5px);
+
     border-color: var(--yellow);
+
     background: rgba(255,255,255,0.07);
+
   }
+
   .eco-tag {
+
     align-self: flex-start;
+
     font-family: 'Montserrat', sans-serif;
+
     font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase;
+
     padding: 4px 10px; border-radius: 100px; font-weight: 600;
+
   }
+
   .eco-tag.hoy { background: var(--yellow); color: var(--navy); }
+
   .eco-tag.pronto { background: rgba(255,229,0,0.14); color: var(--yellow); border: 1px solid rgba(255,229,0,0.4); }
+
   .eco-tag.futuro { background: transparent; color: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.25); }
+
   .eco-name {
+
     font-family: 'League Spartan', sans-serif;
+
     font-size: 21px; font-weight: 700; color: var(--white);
+
   }
+
   .eco-desc {
+
     font-family: 'Montserrat', sans-serif;
+
     font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.62);
+
   }
+
   @media (max-width: 720px) {
+
     #ecosistema { padding: 70px 6vw 80px; }
+
     .eco-grid { grid-template-columns: 1fr 1fr; }
+
   }
+
   @media (max-width: 480px) {
+
     .eco-grid { grid-template-columns: 1fr; }
+
   }
+
+  /* (Tu código anterior...) */
+
+  .r.d3 { transition-delay: 0.3s; }
+
+
+
+  /* Ajustes de navegación para pantallas medianas (Notebooks) */
+
+  @media (max-width: 1366px) and (min-width: 901px) {
+
+    nav { 
+
+      padding: 20px 4%; 
+
+      gap: 20px; 
+
+    }
+
+    .nav-right { 
+
+      gap: 20px; 
+
+    }
+
+    .nav-links { 
+
+      gap: 14px; 
+
+    }
+
+    .nav-links a {
+
+      font-size: 10.5px;
+
+    }
+
+    .nav-socials { 
+
+      margin-left: 10px; 
+
+      gap: 12px; 
+
+    }
+
+    .nav-btn { 
+
+      padding: 10px 16px; 
+
+    }
+
+  }
+
+
+
+  /* MOBILE */
+
+  @media (max-width: 900px) {
+
+    .cursor, .cursor-ring { display: none; }
+
+    body { cursor: auto; }
+
+  /* (Sigue tu código...) */
+
 </style>
+
 </head>
+
 <body class="pl-lock">
 
+
+
 <!-- PRELOADER -->
+
 <div id="preloader">
+
   <div class="pl-logo">PROYECTA<em>+</em></div>
+
   <div class="pl-line"></div>
+
   <div class="pl-sub">Oficina técnica externa · 100% digital</div>
+
 </div>
 
+
+
 <!-- CURSOR -->
+
 <div class="cursor" id="cur"></div>
+
 <div class="cursor-ring" id="curRing"></div>
 
+
+
 <!-- NAV -->
+
 <nav id="mainNav">
+
   <a href="#" class="logo">PROYECTA<em>+</em></a>
+
   <div class="nav-right">
+
     <ul class="nav-links">
+
       <li><a href="#intro">Nosotros</a></li>
+
       <li><a href="#paraquien">Para quién</a></li>
+
       <li><a href="#servicios">Servicios</a></li>
+
       <li><a href="#tech">Software & Planillas</a></li>
-      <li><a href="#porque">Por qué elegirnos</a></li>
+
       <li><a href="#proceso">Cómo trabajamos</a></li>
+
       <li><a href="#faq">FAQ</a></li>
+
     </ul>
+
     <a href="#contacto" class="nav-btn">Cotizá tu proyecto</a>
+
     <div class="nav-socials">
-      <a href="https://instagram.com/proyectamas.arq" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/></svg></a>
+
+      <a href="https://instagram.com/_proyectamas_" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/></svg></a>
+
       <a href="https://wa.me/5493425104877" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 4h4l2 5-2.5 2a11 11 0 0 0 5.5 5.5l2-2.5 5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></a>
+
       <a href="mailto:hola@proyectamas.com.ar" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 6l9 7 9-7"/></svg></a>
+
     </div>
+
     <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-label="Abrir menú">
+
       <span></span><span></span><span></span>
+
     </button>
+
   </div>
+
 </nav>
+
+
 
 <div class="mm-backdrop" id="mmBackdrop" onclick="toggleMobileMenu()"></div>
 
+
+
 <!-- MENÚ MOBILE -->
+
 <div class="mobile-menu" id="mobileMenu">
+
   <div class="mm-header">
+
     <a href="#" class="logo">PROYECTA<em>+</em></a>
+
     <button class="mm-close" onclick="toggleMobileMenu()" aria-label="Cerrar menú">✕</button>
+
   </div>
+
+
 
   <div class="mm-body">
+
     <a href="#intro" class="mm-link" onclick="toggleMobileMenu()">Nosotros</a>
+
     <a href="#paraquien" class="mm-link" onclick="toggleMobileMenu()">Para quién</a>
 
+
     <div class="mm-services-label">Servicios</div>
+
     <a href="#servicios" class="mm-sublink" onclick="goToService(0)">— Planificación</a>
+
     <a href="#servicios" class="mm-sublink" onclick="goToService(1)">— Documentación técnica</a>
+
     <a href="#servicios" class="mm-sublink" onclick="goToService(2)">— Visualización 3D</a>
+
     <a href="#servicios" class="mm-sublink" onclick="goToService(3)">— Diseño de interiores</a>
 
+
+
     <a href="#tech" class="mm-link" onclick="toggleMobileMenu()">Software & Planillas</a>
+
     <a href="#ecosistema" class="mm-link" onclick="toggleMobileMenu()">Ecosistema</a>
+
     <a href="#porque" class="mm-link" onclick="toggleMobileMenu()">Por qué elegirnos</a>
+
     <a href="#proceso" class="mm-link" onclick="toggleMobileMenu()">Cómo trabajamos</a>
+
     <a href="#faq" class="mm-link" onclick="toggleMobileMenu()">FAQ</a>
+
   </div>
+
+
 
   <div class="mm-socials">
-    <a href="https://instagram.com/proyectamas.arq" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="width:20px;height:20px"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/></svg></a>
+
+    <a href="https://instagram.com/_proyectamas_" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="width:20px;height:20px"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/></svg></a>
+
     <a href="https://wa.me/5493425104877" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="width:20px;height:20px"><path d="M5 4h4l2 5-2.5 2a11 11 0 0 0 5.5 5.5l2-2.5 5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></a>
+
     <a href="mailto:hola@proyectamas.com.ar" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="width:20px;height:20px"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 6l9 7 9-7"/></svg></a>
+
   </div>
+
   <a href="#contacto" class="mm-cta" onclick="toggleMobileMenu()">Cotizá tu proyecto</a>
+
 </div>
 
+
+
 <!-- HERO -->
+
 <section id="hero">
+
   <!-- VIDEO DE FONDO -->
+
   <video class="hero-video hero-video-desktop" autoplay muted loop playsinline preload="auto">
+
     <source src="assets/video_1.mp4" type="video/mp4">
+
   </video>
+
   <video class="hero-video hero-video-mobile" autoplay muted loop playsinline preload="auto">
+
     <source src="assets/video_mobile.mp4" type="video/mp4">
+
   </video>
+
   <div class="hero-overlay"></div>
+
   <div class="hero-line-top"></div>
+
   <div class="hero-bg-text">PROYECTA+</div>
 
+
+
   <button class="hero-arrow hero-arrow-l" onclick="goSlide(hCurrent - 1)" aria-label="Anterior">‹</button>
+
   <button class="hero-arrow hero-arrow-r" onclick="goSlide(hCurrent + 1)" aria-label="Siguiente">›</button>
 
+
+
   <div class="hero-inner">
+
     <div class="hero-carousel">
 
+
+
       <div class="hslide active">
+
         <div class="hslide-badge"><i></i>Oficina técnica · Argentina</div>
+
         <h1 class="hero-title">
+
           Planos,<br>renders y<br><span class="italic">diseño interior</span>
+
         </h1>
+
         <p class="hero-desc">
+
           Planificación, documentación técnica, visualización y diseño interior. Tu equipo técnico externo cuando lo necesitás — sin costos fijos.
+
         </p>
+
         <div class="hero-buttons">
+
           <a href="#contacto" class="hero-cta">Cotizá tu proyecto <span class="arrow">→</span></a>
+
           <a href="#servicios" class="hero-cta-ghost">Ver servicios <span class="arrow">→</span></a>
+
         </div>
+
       </div>
 
+
+
       <div class="hslide">
-        <div class="hslide-badge hslide-badge-soon"><i></i>Próximamente disponibles</div>
+
+        <div class="hslide-badge hslide-badge-soon"><i></i>YA A LA VENTA!</div>
+
         <h1 class="hero-title">
+
           Planillas<br>Excel<br><span class="italic">profesionales</span>
+
         </h1>
+
         <p class="hero-desc">
+
           Presupuestá tu obra vos mismo — materiales, mano de obra y cómputos listos para usar. Ingresás los metros y el precio se arma solo.
+
         </p>
+
         <div class="hero-buttons">
+
           <a href="#contacto" class="hero-cta">Avisarme cuando salgan <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="width:16px;height:16px;display:inline-block;vertical-align:-3px;"><path d="M18 8a6 6 0 1 0-12 0c0 3-1 5-2 6.5h16c-1-1.5-2-3.5-2-6.5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg></span></a>
+
           <a href="#tech" class="hero-cta-ghost">Ver planillas <span class="arrow">→</span></a>
+
         </div>
+
       </div>
 
+
+
       <div class="hslide">
+
         <div class="hslide-badge hslide-badge-soon"><i></i>En desarrollo — próximamente</div>
+
         <h1 class="hero-title">
+
           Software<br>de<br><span class="italic">presupuesto</span>
+
         </h1>
+
         <p class="hero-desc">
+
           Calculadoras por rubro, presupuestos en minutos y cómputos automáticos. Para arquitectos, constructores e independientes.
+
         </p>
+
         <div class="hero-buttons">
+
           <a href="#contacto" class="hero-cta">Anotarme en la lista <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="width:16px;height:16px;display:inline-block;vertical-align:-3px;"><path d="M18 8a6 6 0 1 0-12 0c0 3-1 5-2 6.5h16c-1-1.5-2-3.5-2-6.5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg></span></a>
+
           <a href="#tech" class="hero-cta-ghost">Ver más <span class="arrow">→</span></a>
+
         </div>
+
       </div>
+
+
 
     </div>
+
+
 
     <div class="hero-dots">
+
       <span class="hdot active" onclick="goSlide(0)"></span>
+
       <span class="hdot" onclick="goSlide(1)"></span>
+
       <span class="hdot" onclick="goSlide(2)"></span>
+
     </div>
+
   </div>
+
+
 
   
 
+
+
   <div class="hero-scroll">
+
     <div class="scroll-line"></div>
+
     <span>scroll</span>
+
   </div>
+
 </section>
+
+
 
 <!-- TICKER HORIZONTAL -->
+
 <div class="ticker-wrap">
+
   <div class="ticker">
+
     <span>Planos<i>·</i>Renders<i>·</i>Documentación técnica<i>·</i>Instalaciones<i>·</i>Diseño interior<i>·</i>Planillas Excel<i>·</i></span>
+
     <span>Planos<i>·</i>Renders<i>·</i>Documentación técnica<i>·</i>Instalaciones<i>·</i>Diseño interior<i>·</i>Planillas Excel<i>·</i></span>
+
   </div>
+
 </div>
 
+
+
 <!-- INTRO + GRILLA SERVICIOS — layout tipo IDEA -->
+
 <section id="intro">
 
+
+
 <!-- IZQUIERDA: fondo blanco con texto -->
+
   <div class="intro-left r">
+
     <div class="intro-label">Quiénes somos</div>
+
     <h2 class="intro-title">
+
       Tu equipo técnico<br>externo cuando<br><em>lo necesitás</em>
+
     </h2>
+
     <p class="intro-text">
+
       Proyecta+ somos profesionales comprometidos con el diseño, la planificación y la ejecución de proyectos que combinan estética, funcionalidad y eficiencia. Trabajamos en viviendas, comercios, oficinas, cafeterías, hoteles y más.
+
     </p>
+
     <p class="intro-text">
+
       Sin costos fijos — pagás solo lo que necesitás. Todo el proceso es 100% digital.
+
     </p>
+
     <div class="intro-pills">
+
       <div class="pill-item"><div class="dot"></div>Arquitectos y estudios</div>
+
       <div class="pill-item"><div class="dot"></div>Constructoras</div>
+
       <div class="pill-item"><div class="dot"></div>Particulares</div>
+
       <div class="pill-item"><div class="dot"></div>Comercios y oficinas</div>
+
       <div class="pill-item"><div class="dot"></div>Desarrolladoras</div>
+
       <div class="pill-item"><div class="dot"></div>Estudiantes</div>
+
     </div>
+
   </div>
+
+
 
   <!-- DERECHA: imagen de fondo con grilla de cards encima -->
+
   <div class="intro-right-img">
+
     <div class="px-layer" style="background-image:url('assets/img_1.jpg')"></div>
+
     <div class="intro-grid-overlay r d1">
+
       <div class="igrid-label">Nuestros servicios</div>
+
       <div class="igrid">
 
+
+
         <a class="igrid-card" href="#servicios" onclick="scrollToBlock(0)">
+
           <div class="igrid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><path d="M9 15l3-7 3 7-3-1.6z"/></svg></div>
+
           <div class="igrid-name">Planificación</div>
+
           <div class="igrid-sub">Anteproyecto · Municipal · Regularización</div>
+
           <div class="igrid-arrow">→</div>
+
         </a>
+
+
 
         <a class="igrid-card" href="#servicios" onclick="scrollToBlock(1)">
+
           <div class="igrid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M7 3h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 15h6M9 18h4"/></svg></div>
+
           <div class="igrid-name">Documentación<br>Técnica</div>
+
           <div class="igrid-sub">Sanitario · Eléctrico · Gas · Estructural</div>
+
           <div class="igrid-arrow">→</div>
+
         </a>
+
+
 
         <a class="igrid-card" href="#servicios" onclick="scrollToBlock(2)">
+
           <div class="igrid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="12" rx="1"/><path d="M9 20h6M12 17v3"/></svg></div>
+
           <div class="igrid-name">Visualización 3D</div>
+
           <div class="igrid-sub">Renders · Video · Modelado · Maquetas</div>
+
           <div class="igrid-arrow">→</div>
+
         </a>
+
+
 
         <a class="igrid-card" href="#servicios" onclick="scrollToBlock(3)">
+
           <div class="igrid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 11V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3"/><path d="M3 11h18v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5z"/><path d="M5 18v2M19 18v2"/></svg></div>
+
           <div class="igrid-name">Diseño de<br>Interiores</div>
+
           <div class="igrid-sub">Integral · Mobiliario · Asesoramiento</div>
+
           <div class="igrid-arrow">→</div>
+
         </a>
 
+
+
       </div>
+
     </div>
+
   </div>
+
+
 
 </section>
 
 
+
+
+
+<!-- === SECCIÓN AUTORIDAD === -->
+<style>
+  #autoridad-proyecta {
+    width: 92%;
+    max-width: 900px;
+    margin: 60px auto;
+    background: #0A1628; /* Adaptado al color oscuro de tu web */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 35px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    font-family: 'Montserrat', sans-serif;
+  }
+  .autoridad-img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--yellow);
+    box-shadow: 0 10px 20px rgba(245,197,24,0.2);
+    flex-shrink: 0;
+  }
+  .autoridad-text h3 {
+    font-family: 'League Spartan', sans-serif;
+    color: var(--white);
+    font-size: clamp(24px, 3vw, 32px);
+    letter-spacing: -0.5px;
+    margin: 0 0 15px 0;
+    font-weight: 800;
+  }
+  .autoridad-text h3 span {
+    color: var(--yellow);
+  }
+  .autoridad-text p {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 14.5px;
+    line-height: 1.8;
+    margin-bottom: 15px;
+    font-weight: 300;
+  }
+  .autoridad-firma {
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    color: var(--yellow);
+    font-size: 18px;
+    margin-top: 15px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 768px) {
+    #autoridad-proyecta {
+      flex-direction: column;
+      text-align: center;
+      padding: 30px 20px;
+      gap: 24px;
+    }
+  }
+</style>
+
+<div id="autoridad-proyecta" class="r">
+  <img src="assets/img_2035.jpg" alt="img_2035" class="autoridad-img">
+  
+  <div class="autoridad-text">
+    <h3>HOLA, SOY <span>NICOLÁS</span> FUNDADOR DE <span>PROYECTA MÁS</span></h3>
+    <p>Hace años que vengo en el rubro de la construcción, tanto en obras como en oficina técnica, y hoy en día me estoy profesionalizando en el área de presupuestación y gestión de obras. Proyecta Más es mi emprendimiento, pensado y construido desde los cimientos con el fin de ayudar y acompañar a MMO, Arquitectos, Estudiantes, Ingenieros, Inmobiliarias, Empresas y Estudios.</p>
+    <p>Sé perfectamente lo frustrante que es perder horas valiosas armando cómputos métricos y presupuestos a mano. Por eso transformé esa necesidad en herramientas automatizadas y planillas por rubro que ayudan a los profesionales a recuperar su tiempo y cobrar lo que realmente vale su trabajo.</p>
+    <div class="autoridad-firma">Nicolás · Proyecta Más</div>
+  </div>
+</div>
+<!-- === FIN AUTORIDAD === -->
 
 <!-- PARA QUIÉN -->
+
 <section id="paraquien">
+
   <div class="pq-label r">Para quién trabajamos</div>
+
   <h2 class="pq-title r">Soluciones para<br>cada <em>profesional</em></h2>
+
   <div class="pq-grid r d1">
+
     <div class="pq-card">
+
       <div class="pq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="9" width="20" height="6" rx="1" transform="rotate(-10 12 12)"/><path d="M7 11l1 2M11 10.4l1 2M15 9.8l1 2" transform="rotate(-10 12 12)"/></svg></div>
+
       <div class="pq-name">Arquitectos y Estudios</div>
+
       <p class="pq-desc">Documentación técnica, renders y presentaciones para complementar tu flujo de trabajo.</p>
+
     </div>
+
     <div class="pq-card">
+
       <div class="pq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 21V8l9-5v6"/><path d="M13 9h7M17 9v4"/><path d="M4 21h16"/><path d="M9 21v-6h4v6"/></svg></div>
+
       <div class="pq-name">Constructoras y Empresas</div>
+
       <p class="pq-desc">Planos de instalaciones, cómputos y documentación municipal para soluciones técnicas ágiles.</p>
+
     </div>
+
     <div class="pq-card">
+
       <div class="pq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/><path d="M10 20v-6h4v6"/></svg></div>
+
       <div class="pq-name">Particulares</div>
+
       <p class="pq-desc">Construir, reformar o remodelar tu espacio con acompañamiento técnico profesional.</p>
+
     </div>
+
     <div class="pq-card">
+
       <div class="pq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/><path d="M10 21v-3h4v3"/></svg></div>
+
       <div class="pq-name">Comercios y Oficinas</div>
+
       <p class="pq-desc">Diseño de interiores y planos técnicos para locales con identidad y funcionalidad.</p>
+
     </div>
+
     <div class="pq-card">
+
       <div class="pq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 8l10-4 10 4-10 4z"/><path d="M6 10v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/><path d="M22 8v6"/></svg></div>
+
       <div class="pq-name">Estudiantes de Arquitectura</div>
+
       <p class="pq-desc">Renders, maquetas e isométricas 3D para entregas académicas con calidad profesional.</p>
+
     </div>
+
     <div class="pq-card">
+
       <div class="pq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2c3 2 5 6 5 10 0 3-1 5-2 6l-3 2-3-2c-1-1-2-3-2-6 0-4 2-8 5-10z"/><path d="M9 16l-3 3M15 16l3 3"/><circle cx="12" cy="9" r="1.4"/></svg></div>
+
       <div class="pq-name">Desarrolladoras Inmobiliarias</div>
+
       <p class="pq-desc">Visualizaciones fotorrealistas y documentación para proyectos que necesitan impactar.</p>
+
     </div>
+
   </div>
+
 </section>
+
+
+
 
 
 <!-- FRASE CURSIVA -->
+
 <section class="frase-quote">
+
   <p class="r"><b>Proyecta+</b> no es solo un servicio — es <i>tu equipo técnico</i> trabajando a la distancia de un WhatsApp.</p>
+
 </section>
+
+
 
 <!-- SERVICIOS -->
+
 <section id="servicios">
+
   <div class="servicios-header r">
+
     <div class="sh-left">
+
       <div class="slabel">Lo que hacemos</div>
+
       <h2 class="sh-title">Todo en<br><em>un solo lugar</em></h2>
+
     </div>
+
     <p class="sh-right">Desde el anteproyecto hasta el diseño de interiores — elegí el servicio para ver el detalle.</p>
+
   </div>
 
+
+
   <!-- SERVICIOS ACORDEÓN -->
+
   <div class="srv-rows r">
+
     <div class="srv-row open">
+
       <div class="srv-row-head" onclick="toggleSrv(this)">
+
         <div class="srv-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><path d="M9 15l3-7 3 7-3-1.6z"/></svg></div>
+
         <div class="srv-row-name">Planificación</div>
+
         <div class="srv-row-toggle">+</div>
+
       </div>
+
       <div class="srv-row-body">
+
         <div class="srv-row-inner">
+
           <p class="srv-row-desc">Documentación técnica y planos para cada etapa del proyecto — desde el anteproyecto hasta la presentación municipal.</p>
+
           <ul class="srv-row-items">
+
           <li>Anteproyecto: plantas, corte, fachada, cuadro FOT/FOS y memoria descriptiva</li>
+
           <li>Proyecto Municipal: planos obligatorios, firma profesional y armado de carpeta</li>
+
           <li>Regularización: planos para construcciones sin documentación aprobada</li>
+
           </ul>
+
           <a href="#contacto" class="srv-row-cta">Cotizá este servicio →</a>
+
         </div>
+
       </div>
+
     </div>
+
     <div class="srv-row">
+
       <div class="srv-row-head" onclick="toggleSrv(this)">
+
         <div class="srv-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M7 3h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 15h6M9 18h4"/></svg></div>
+
         <div class="srv-row-name">Documentación Técnica</div>
+
         <div class="srv-row-toggle">+</div>
+
       </div>
+
       <div class="srv-row-body">
+
         <div class="srv-row-inner">
+
           <p class="srv-row-desc">Proyectos completos de instalaciones con planillas, cómputos y normativa vigente.</p>
+
           <ul class="srv-row-items">
+
           <li>Sanitario: agua fría/caliente y cloacas, proyecto completo con cómputo</li>
+
           <li>Eléctrico: circuitos, tablero, puesta a tierra y unifilares</li>
+
           <li>Gas: instalación completa con planillas y cómputo de materiales</li>
+
           <li>Estructural: cimientos, columnas, vigas y losas</li>
+
           </ul>
+
           <a href="#contacto" class="srv-row-cta">Cotizá este servicio →</a>
+
         </div>
+
       </div>
+
     </div>
+
     <div class="srv-row">
+
       <div class="srv-row-head" onclick="toggleSrv(this)">
+
         <div class="srv-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="12" rx="1"/><path d="M9 20h6M12 17v3"/></svg></div>
+
         <div class="srv-row-name">Visualización 3D & Renders</div>
+
         <div class="srv-row-toggle">+</div>
+
       </div>
+
       <div class="srv-row-body">
+
         <div class="srv-row-inner">
+
           <p class="srv-row-desc">Representaciones fotorrealistas para presentar tu proyecto con el impacto visual que se merece.</p>
+
           <ul class="srv-row-items">
+
           <li>Modelado 3D: representación tridimensional de espacialidad y distribución</li>
+
           <li>Renders fotorrealistas: interior y exterior con iluminación, texturas y mobiliario</li>
+
           <li>Video recorrido: animación interior/exterior — ideal para redes</li>
+
           <li>Maquetas físicas: básica en balsa o completa con materialidades</li>
+
           </ul>
+
           <a href="#contacto" class="srv-row-cta">Cotizá este servicio →</a>
+
         </div>
+
       </div>
+
     </div>
+
     <div class="srv-row">
+
       <div class="srv-row-head" onclick="toggleSrv(this)">
+
         <div class="srv-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 11V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3"/><path d="M3 11h18v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5z"/><path d="M5 18v2M19 18v2"/></svg></div>
+
         <div class="srv-row-name">Diseño de Interiores</div>
+
         <div class="srv-row-toggle">+</div>
+
       </div>
+
       <div class="srv-row-body">
+
         <div class="srv-row-inner">
+
           <p class="srv-row-desc">Propuestas completas de estilo, distribución y materialidades para espacios con identidad propia.</p>
+
           <ul class="srv-row-items">
+
           <li>Diseño integral: estilo, distribución de mobiliario, iluminación y acabados</li>
+
           <li>Mobiliario a medida: planos de cocinas, placares y escritorios para fabricar</li>
+
           <li>Asesoramiento estético: pintura, revestimientos, textiles e iluminación decorativa</li>
+
           <li>Listas detalladas: muebles, pisos y acabados con precio, marca y dónde comprar</li>
+
           </ul>
+
           <a href="#contacto" class="srv-row-cta">Cotizá este servicio →</a>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
+
 </section>
+
+
+
+
+
+
 
 
 
 
 
 <!-- GALERIA -->
+
 <section id="galeria">
+
   <div class="gal-head r">
+
     <div class="gal-label">Nuestro trabajo</div>
+
     <h2 class="gal-title">Renders y proyectos<br><em>realizados</em></h2>
+
   </div>
+
   <div class="gal-wrap r d1">
+
     <div class="gal-col">
+
       <div class="gal-track">
+
         <img src="assets/render_1.jpg" alt="Render Proyecta+ 1">
+
         <img src="assets/render_6.jpg" alt="Render Proyecta+ 2">
+
         <img src="assets/render_1.jpg" alt="Render Proyecta+ 1">
+
         <img src="assets/render_6.jpg" alt="Render Proyecta+ 2">
+
       </div>
+
     </div>
+
     <div class="gal-col gal-col-rev">
+
       <div class="gal-track">
+
         <img src="assets/render_2.jpg" alt="Render Proyecta+ 3">
+
         <img src="assets/render_7.jpg" alt="Render Proyecta+ 4">
+
         <img src="assets/render_2.jpg" alt="Render Proyecta+ 3">
+
         <img src="assets/render_7.jpg" alt="Render Proyecta+ 4">
+
       </div>
+
     </div>
+
     <div class="gal-col">
+
       <div class="gal-track">
+
         <img src="assets/render_4.jpg" alt="Render Proyecta+ 5">
+
         <img src="assets/render_9.jpg" alt="Render Proyecta+ 6">
+
         <img src="assets/render_4.jpg" alt="Render Proyecta+ 5">
+
         <img src="assets/render_9.jpg" alt="Render Proyecta+ 6">
+
       </div>
+
     </div>
+
   </div>
+
 </section>
 
+
+
 <!-- TICKER AMARILLO -->
+
 <div class="ticker-yellow">
+
   <div class="ticker">
+
     <span>100% Digital<i>·</i>Toda Argentina<i>·</i>Sin costos fijos<i>·</i>2 revisiones incluidas<i>·</i>Entrega ágil<i>·</i></span>
+
     <span>100% Digital<i>·</i>Toda Argentina<i>·</i>Sin costos fijos<i>·</i>2 revisiones incluidas<i>·</i>Entrega ágil<i>·</i></span>
+
   </div>
+
 </div>
 
+
+
 <!-- TECH -->
+
 <section id="tech">
+
   <div class="tech-top">
+
     <div class="r">
+
       <div class="tech-main-label">Software & Planillas</div>
+
       <h2 class="tech-main-title">
+
         Herramientas<br>para presupuestar<br><em>más rápido</em>
+
       </h2>
+
     </div>
+
     <p class="tech-main-desc r d1">
+
       Presupuestá tu obra vos mismo con nuestras planillas Excel profesionales — listas para usar, sin fórmulas complicadas. Ingresás los metros y el precio se arma solo.
+
     </p>
+
   </div>
+
+
+
+
+
 
 
 
 
   <div class="catalog-tabs">
+
     <button class="catalog-tab active" onclick="switchCatalogView('packs', this)">Por Pack</button>
+
     <button class="catalog-tab" onclick="switchCatalogView('individual', this)">Planillas Individuales (34)</button>
+
   </div>
+
+
 
   <div class="catalog-intro">
+
     <div>
+
       <div class="catalog-intro-title">Planilla Maestra de Obra</div>
-      <p>Consolidá los 34 rubros de tu obra en un presupuesto único, con curva de inversión y actualización por índices. Cada rubro también se vende por separado, agrupado en los packs de abajo.</p>
+
+      <p>Consolidá los 31 rubros de tu obra en un presupuesto único, con curva de inversión y actualización por índices. Cada rubro también se vende por separado, agrupado en los packs de abajo.</p>
+
     </div>
-    <div class="catalog-intro-badge">Próximamente</div>
+
+    <a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
   </div>
+
+
 
   <div class="catalog-view active" id="view-packs">
+
   <div class="pack-list">
+
     <div class="pack-row open">
+
       <div class="pack-head" onclick="togglePack(this)">
+
         <div class="pack-head-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 21V8l9-5v6"/><path d="M13 9h7M17 9v4"/><path d="M4 21h16"/><path d="M9 21v-6h4v6"/></svg></div>
+
         <div class="pack-head-name">Pack Obra Gruesa y Estructuras</div>
+
         <div class="pack-head-count">7 planillas</div>
+
         <div class="pack-head-toggle">+</div>
+
       </div>
+
       <div class="pack-body">
+
         <div class="pack-items">
-        <div class="pack-item">Trabajos Preliminares<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Movimiento de Suelos<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Hormigón Armado<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Estructura Metálica<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Albañilería<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Contrapisos y Carpetas<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Impermeabilizaciones<span class="pack-item-soon">Próximamente</span></div>
+
+    <div class="pack-item">Trabajos Preliminares<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+    <div class="pack-item">Movimiento de Suelos<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+    <div class="pack-item">Hormigón Armado<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+    <div class="pack-item">Estructura Metálica<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+    <div class="pack-item">Albañilería<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+    <div class="pack-item">Contrapisos y Carpetas<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+    <div class="pack-item">Impermeabilizaciones<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+</div>
+
         </div>
+
       </div>
+
     </div>
+
     <div class="pack-row">
+
       <div class="pack-head" onclick="togglePack(this)">
+
         <div class="pack-head-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg></div>
+
         <div class="pack-head-name">Pack Instalaciones</div>
+
         <div class="pack-head-count">5 planillas</div>
+
         <div class="pack-head-toggle">+</div>
+
       </div>
+
       <div class="pack-body">
+
         <div class="pack-items">
-        <div class="pack-item">Instalación Sanitaria<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Instalación de Gas<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Instalación Eléctrica<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Climatización<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Griferías y Artefactos<span class="pack-item-soon">Próximamente</span></div>
+
+        <div class="pack-item">Instalación Sanitaria<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Instalación de Gas<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Instalación Eléctrica<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Climatización<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Griferías y Artefactos<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
         </div>
+
       </div>
+
     </div>
+
     <div class="pack-row">
+
       <div class="pack-head" onclick="togglePack(this)">
+
         <div class="pack-head-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9l9-6 9 6v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21V12h6v9"/></svg></div>
+
         <div class="pack-head-name">Pack Construcción en Seco</div>
+
         <div class="pack-head-count">3 planillas</div>
+
         <div class="pack-head-toggle">+</div>
+
       </div>
+
       <div class="pack-body">
+
         <div class="pack-items">
-        <div class="pack-item">Wood Frame<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Steel Frame<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Paneles SIP<span class="pack-item-soon">Próximamente</span></div>
+
+        <div class="pack-item">Wood Frame<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Steel Frame<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Paneles SIP<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
         </div>
+
       </div>
+
     </div>
+
     <div class="pack-row">
+
       <div class="pack-head" onclick="togglePack(this)">
+
         <div class="pack-head-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 7l4-4 4 4M7 3v18"/><path d="M21 21l-4-4-4 4M17 21V7"/></svg></div>
+
         <div class="pack-head-name">Pack Terminaciones</div>
+
         <div class="pack-head-count">14 planillas</div>
+
         <div class="pack-head-toggle">+</div>
+
       </div>
+
       <div class="pack-body">
+
         <div class="pack-items">
-        <div class="pack-item">Revoques<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Yesería<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Cielorrasos<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Tabiquería en Seco (Durlock)<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Cubiertas y Techos<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Solados y Pisos<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Revestimientos<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Carpintería de Madera<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Herrería<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Carpintería de Aluminio<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Aberturas de PVC<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Vidrios<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Pintura<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Amoblamiento Cocina y Baño<span class="pack-item-soon">Próximamente</span></div>
+
+        <div class="pack-item">Revoques<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Yesería<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Cielorrasos<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Tabiquería en Seco (Durlock)<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Cubiertas y Techos<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Solados y Pisos<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Revestimientos<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Carpintería de Madera<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Herrería<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Carpintería de Aluminio<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Aberturas de PVC<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Vidrios<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Pintura<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Amoblamiento Cocina y Baño<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
         </div>
+
       </div>
+
     </div>
+
     <div class="pack-row">
+
       <div class="pack-head" onclick="togglePack(this)">
+
         <div class="pack-head-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="12" rx="1"/><path d="M9 20h6M12 17v3"/></svg></div>
+
         <div class="pack-head-name">Pack Tecnología</div>
+
         <div class="pack-head-count">4 planillas</div>
+
         <div class="pack-head-toggle">+</div>
+
       </div>
+
       <div class="pack-body">
+
         <div class="pack-items">
-        <div class="pack-item">Domótica<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Corrientes Débiles<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">CCTV y Alarmas<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Energía Solar<span class="pack-item-soon">Próximamente</span></div>
+
+        <div class="pack-item">Domótica<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Corrientes Débiles<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">CCTV y Alarmas<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Energía Solar<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
         </div>
+
       </div>
+
     </div>
+
     <div class="pack-row">
+
       <div class="pack-head" onclick="togglePack(this)">
+
         <div class="pack-head-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+
         <div class="pack-head-name">Pack Obras Especiales</div>
+
         <div class="pack-head-count">7 planillas</div>
+
         <div class="pack-head-toggle">+</div>
+
       </div>
+
       <div class="pack-body">
+
         <div class="pack-items">
-        <div class="pack-item">Demoliciones<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Pavimentos y Veredas<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Parquización y Riego<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Pileta de Natación<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Ascensores<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Seguridad e Higiene<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Limpieza de Obra<span class="pack-item-soon">Próximamente</span></div>
+
+        <div class="pack-item">Demoliciones<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Pavimentos y Veredas<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Parquización y Riego<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Pileta de Natación<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Ascensores<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Seguridad e Higiene<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Limpieza de Obra<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
         </div>
+
       </div>
+
     </div>
+
     <div class="pack-row">
+
       <div class="pack-head" onclick="togglePack(this)">
+
         <div class="pack-head-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><path d="M9 15l3-7 3 7-3-1.6z"/></svg></div>
+
         <div class="pack-head-name">Topografía</div>
-        <div class="pack-head-count">Próximamente</div>
+
+        <div class="pack-head-count">OBTENER</div>
+
         <div class="pack-head-toggle">+</div>
+
       </div>
+
       <div class="pack-body">
+
         <div class="pack-items">
-        <div class="pack-item">Levantamiento y documentación topográfica<span class="pack-item-soon">Próximamente</span></div>
+
+        <div class="pack-item">Levantamiento y documentación topográfica<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
+
   </div>
+
+
 
   <div class="catalog-view" id="view-individual">
+
     <div class="individual-grid">
-        <div class="pack-item">Trabajos Preliminares<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Movimiento de Suelos<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Demoliciones<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Hormigón Armado<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Albañilería<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Estructura Metálica<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Contrapisos y Carpetas<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Impermeabilizaciones<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Revoques<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Yesería<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Cielorrasos<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Tabiquería en Seco (Durlock)<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Cubiertas y Techos<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Solados y Pisos<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Revestimientos<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Carpintería de Madera<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Herrería<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Carpintería de Aluminio<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Aberturas de PVC<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Vidrios<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Pintura<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Instalación Sanitaria<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Instalación de Gas<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Instalación Eléctrica<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Climatización<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Energía Solar<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Griferías y Artefactos<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Amoblamiento Cocina y Baño<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Pavimentos y Veredas<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Parquización y Riego<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Pileta de Natación<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Ascensores<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Seguridad e Higiene<span class="pack-item-soon">Próximamente</span></div>
-        <div class="pack-item">Limpieza de Obra<span class="pack-item-soon">Próximamente</span></div>
+
+        <div class="pack-item">Trabajos Preliminares<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Movimiento de Suelos<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Demoliciones<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Hormigón Armado<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Albañilería<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Estructura Metálica<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Contrapisos y Carpetas<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Impermeabilizaciones<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Revoques<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Yesería<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Cielorrasos<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Tabiquería en Seco (Durlock)<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Cubiertas y Techos<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Solados y Pisos<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Revestimientos<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Carpintería de Madera<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Herrería<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Carpintería de Aluminio<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Aberturas de PVC<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Vidrios<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Pintura<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Instalación Sanitaria<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Instalación de Gas<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Instalación Eléctrica<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Climatización<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Energía Solar<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Griferías y Artefactos<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Amoblamiento Cocina y Baño<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Pavimentos y Veredas<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Parquización y Riego<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Pileta de Natación<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Ascensores<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Seguridad e Higiene<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
+        <div class="pack-item">Limpieza de Obra<a href="https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra" target="_blank" class="pack-item-btn">Obtener</a></div>
+
     </div>
+
   </div>
+
+
 
   <div class="tech-saas r">
+
     <div>
+
       <div class="saas-label"><div class="dot-anim"></div>En desarrollo · Software propio</div>
+
       <div class="saas-title">Software de Presupuesto</div>
+
       <p class="saas-desc">Estamos desarrollando una herramienta que va a cambiar la forma de presupuestar en obra. Calculadoras por rubro (hormigón, revoque, pintura, carpintería y más), presupuestos en minutos y cómputos automáticos de materiales. Para arquitectos, constructores e independientes.</p>
+
     </div>
+
     <a href="#contacto" class="hero-cta saas-cta">
+
       Anotarme en lista de espera <span class="arrow">→</span>
+
     </a>
+
   </div>
+
 </section>
 
+
+
 <!-- ECOSISTEMA -->
+
 <section id="ecosistema">
+
   <div class="eco-head r">
+
     <div class="eco-label">Ecosistema Proyecta+</div>
+
     <h2 class="eco-title">Lo que hacemos hoy,<br>y todo lo que <em>viene</em></h2>
+
     <p class="eco-sub">Proyecta+ no es solo una oficina técnica: es un ecosistema en crecimiento que integra servicios, software, formación y desarrollo de proyectos propios.</p>
+
   </div>
+
   <div class="eco-grid r d1">
+
     <div class="eco-card">
+
       <span class="eco-tag hoy">Activo</span>
+
       <div class="eco-name">Estudio</div>
+
       <p class="eco-desc">Oficina técnica externa: planificación, documentación, visualización 3D y diseño de interiores para toda Argentina.</p>
+
     </div>
+
     <div class="eco-card">
+
       <span class="eco-tag hoy">Activo</span>
+
       <div class="eco-name">Tech</div>
+
       <p class="eco-desc">Planillas profesionales de cómputo y presupuesto, y software propio para presupuestar obras más rápido y con precisión.</p>
+
     </div>
+
     <div class="eco-card">
+
       <span class="eco-tag pronto">Próximamente</span>
+
       <div class="eco-name">Academia</div>
+
       <p class="eco-desc">Cursos de presupuestación, instalaciones, oficios, lectura de planos, software técnico y gestión de obra.</p>
+
     </div>
+
     <div class="eco-card">
+
       <span class="eco-tag futuro">En camino</span>
+
       <div class="eco-name">Desarrollos</div>
+
       <p class="eco-desc">Desarrollo de proyectos inmobiliarios propios, aplicando todo nuestro conocimiento técnico de punta a punta.</p>
+
     </div>
+
     <div class="eco-card">
+
       <span class="eco-tag futuro">En camino</span>
+
       <div class="eco-name">Logística</div>
+
       <p class="eco-desc">Gestión de compras y provisión de materiales para obras, optimizando costos y tiempos de entrega.</p>
+
     </div>
+
   </div>
+
 </section>
+
+
+
+
 
 
 
 <!-- BANDA PORQUE -->
+
 <section id="banda-porque">
+
   <div class="px-layer" style="background-image:url('assets/img_6.jpg')"></div>
+
   <div class="banda-porque-inner r">
+
     <div class="banda-porque-icon">PROYECTA<em>+</em></div>
+
     <div class="banda-porque-tag">¿Por qué Proyecta+?</div>
+
     <div class="banda-porque-sub">Tu equipo técnico externo — sin costos fijos</div>
+
   </div>
+
 </section>
 
+
+
 <!-- POR QUÉ -->
+
 <section id="porque">
+
   <div class="pq2-inner">
+
     <div class="pq2-left r">
+
       <div class="pq2-label">Por qué elegirnos</div>
+
       <h2 class="pq2-title">Lo que nos<br><em>diferencia</em></h2>
+
       <ul class="pq2-list r d1">
+
         <li>Sin costos fijos — pagás solo lo que necesitás</li>
+
         <li>Entrega rápida y ágil en cada etapa</li>
+
         <li>Calidad profesional en cada entregable</li>
+
         <li>Comunicación directa, sin intermediarios</li>
+
         <li>Flexibilidad para proyectos de cualquier escala</li>
+
         <li>Hasta 2 rondas de revisiones sin costo adicional</li>
+
         <li>Archivos listos para presentar o construir</li>
+
       </ul>
+
     </div>
+
     <div class="pq2-items r d1">
+
       <div class="pq2-item">
+
         <div class="pq2-num">01</div>
+
         <div>
+
           <div class="pq2-item-title">Oficina técnica externa de confianza</div>
+
           <p class="pq2-item-desc">Tu equipo técnico cuando lo necesitás, sin costos fijos ni estructuras innecesarias.</p>
+
         </div>
+
       </div>
+
       <div class="pq2-item">
+
         <div class="pq2-num">02</div>
+
         <div>
+
           <div class="pq2-item-title">Soluciones para todos los rubros</div>
+
           <p class="pq2-item-desc">Planificación, documentación, visualización y diseño en un solo lugar.</p>
+
         </div>
+
       </div>
+
       <div class="pq2-item">
+
         <div class="pq2-num">03</div>
+
         <div>
+
           <div class="pq2-item-title">Atención personalizada</div>
+
           <p class="pq2-item-desc">Definís el nivel de detalle y nos adaptamos a las necesidades reales del proyecto.</p>
+
         </div>
+
       </div>
+
       <div class="pq2-item">
+
         <div class="pq2-num">04</div>
+
         <div>
+
           <div class="pq2-item-title">Tecnología aplicada</div>
+
           <p class="pq2-item-desc">Herramientas de última generación y software propio de presupuestación próximamente.</p>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
+
 </section>
+
+
+
 
 
 <!-- TICKER HERRAMIENTAS -->
+
 <div class="ticker-tools">
+
   <div class="tt-label">Trabajamos con</div>
+
   <div class="ticker">
+
     <span>AutoCAD<i>·</i>Revit<i>·</i>SketchUp<i>·</i>Excel<i>·</i>Lumion<i>·</i></span>
+
     <span>AutoCAD<i>·</i>Revit<i>·</i>SketchUp<i>·</i>Excel<i>·</i>Lumion<i>·</i></span>
+
   </div>
+
 </div>
 
+
+
 <!-- PROCESO -->
+
 <section id="proceso">
+
   <div class="proceso-grid">
+
     <div class="r">
+
       <div class="proceso-left">
+
         <div class="pl-label">Cómo trabajamos</div>
+
         <h2 class="proceso-title">
+
           Simple,<br>claro,<br><em>sin sorpresas</em>
+
         </h2>
+
       </div>
+
     </div>
+
     <div class="steps-list r d1">
+
       <div class="step-item">
+
         <div class="step-n">01</div>
+
         <div class="step-body">
+
           <h4>Nos contactás</h4>
+
           <p>Por WhatsApp o el formulario. Te enviamos un presupuesto personalizado a la brevedad.</p>
+
         </div>
+
       </div>
+
       <div class="step-item">
+
         <div class="step-n">02</div>
+
         <div class="step-body">
+
           <h4>Confirmás con el 50%</h4>
+
           <p>Abonás el adelanto y nos enviás toda la información del proyecto: fotos, medidas, croquis o planos existentes.</p>
+
         </div>
+
       </div>
+
       <div class="step-item">
+
         <div class="step-n">03</div>
+
         <div class="step-body">
+
           <h4>Producción con revisiones</h4>
+
           <p>Trabajamos y te mostramos avances. Incluye hasta 2 rondas de revisión sin costo adicional.</p>
+
         </div>
+
       </div>
+
       <div class="step-item">
+
         <div class="step-n">04</div>
+
         <div class="step-body">
+
           <h4>Entrega final</h4>
+
           <p>Abonás el 50% restante y recibís todos los archivos digitales: PDF, DWG, imágenes — listos para presentar o construir.</p>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
+
 </section>
+
+
+
 
 
 <!-- FAQ -->
+
 <section id="faq">
+
   <div class="faq-header r">
+
     <div>
+
       <div class="faq-label">Preguntas frecuentes</div>
+
       <h2 class="faq-title">Todo lo que<br>necesitás <em>saber</em></h2>
+
     </div>
+
     <p class="faq-subtitle">Resolvemos las dudas más comunes antes de que arranques tu proyecto con nosotros.</p>
+
   </div>
+
   <div class="faq-list r d1">
+
     <div class="faq-item">
+
       <div class="faq-q">¿Para quién sirve Proyecta+? <span class="faq-icon">+</span></div>
+
       <div class="faq-a">Para arquitectos, constructores, particulares, comercios, estudiantes y desarrolladoras inmobiliarias. Cualquier persona o empresa que necesite documentación técnica, renders, planos o diseño de interiores puede trabajar con nosotros, sin importar la escala del proyecto.</div>
+
     </div>
+
     <div class="faq-item">
+
       <div class="faq-q">¿Trabajan en toda Argentina? <span class="faq-icon">+</span></div>
+
       <div class="faq-a">Sí, trabajamos en todo el país. Todo el proceso es 100% digital — el cliente nos envía la información por WhatsApp o email, y nosotros entregamos los archivos por el mismo medio. No hay necesidad de reuniones presenciales.</div>
+
     </div>
+
     <div class="faq-item">
+
       <div class="faq-q">¿Cómo es el proceso para contratar un servicio? <span class="faq-icon">+</span></div>
+
       <div class="faq-a">Es muy simple: 1) Nos contactás por WhatsApp o el formulario. 2) Te enviamos un presupuesto personalizado. 3) Confirmás con el adelanto del 50%. 4) Nos mandás la información del proyecto. 5) Trabajamos y te entregamos el resultado.</div>
+
     </div>
+
     <div class="faq-item">
+
       <div class="faq-q">¿Cuánto tarda la entrega? <span class="faq-icon">+</span></div>
+
       <div class="faq-a">Los plazos dependen del servicio contratado y se acuerdan antes de empezar. El tiempo comienza a correr desde que confirmás el pago del adelanto y nos enviás toda la información necesaria del proyecto.</div>
+
     </div>
+
     <div class="faq-item">
+
       <div class="faq-q">¿Qué necesito para empezar? <span class="faq-icon">+</span></div>
+
       <div class="faq-a">Depende del servicio. En general necesitamos fotos del lugar, medidas, croquis o planos existentes. Si no tenés nada de eso, contanos el proyecto y vemos cómo arrancamos. Cuanta más información nos des, mejor será el resultado.</div>
+
     </div>
+
     <div class="faq-item">
+
       <div class="faq-q">¿En qué formato entregan los archivos? <span class="faq-icon">+</span></div>
+
       <div class="faq-a">Entregamos en PDF o imagen según el tipo de trabajo. Los archivos editables (DWG, Revit, etc.) se entregan solo si están incluidos expresamente en el presupuesto.</div>
+
     </div>
+
     <div class="faq-item">
+
       <div class="faq-q">¿Puedo pedir cambios después de recibir el trabajo? <span class="faq-icon">+</span></div>
+
       <div class="faq-a">Sí, incluimos hasta 2 rondas de revisión sin costo adicional. Si necesitás más cambios después de esas dos rondas, se presupuestan por separado.</div>
+
     </div>
+
     <div class="faq-item">
+
       <div class="faq-q">¿Cómo se paga? <span class="faq-icon">+</span></div>
+
       <div class="faq-a">50% de adelanto para arrancar el trabajo y 50% antes de la entrega final. En servicios de menor valor puede requerirse el 100% anticipado. Los medios de pago se coordinan por WhatsApp.</div>
+
     </div>
+
     <div class="faq-item">
+
       <div class="faq-q">¿Las planillas funcionan sin conocimientos técnicos? <span class="faq-icon">+</span></div>
+
       <div class="faq-a">Sí, están diseñadas para cualquier persona. Ingresás los metros cuadrados o las cantidades que necesitás y la planilla calcula automáticamente materiales, mano de obra y presupuesto total. Sin fórmulas complicadas.</div>
+
     </div>
+
   </div>
+
 </section>
+
+
+
 
 
 <!-- CONTACTO -->
+
 <section id="contacto">
 
+
+
   <!-- IZQUIERDA: formulario fondo blanco -->
+
   <div class="contacto-form-side">
+
     <div class="c-label r">Hablemos</div>
+
     <h2 class="c-title r" style="color:var(--navy); margin-bottom:40px;">¿Tenés un<br>proyecto?<br><em style="color:var(--blue);">Cotizalo.</em></h2>
 
+
+
     <div class="c-form r d1">
+
       <div class="c-form-title" style="color:var(--navy);">Completá el formulario</div>
+
       <div class="fgroup">
+
         <label style="color:rgba(0,0,0,0.4);">Nombre</label>
+
         <input type="text" placeholder="Juan Pérez" id="f-nombre"
+
           style="border-bottom-color:rgba(0,0,0,0.15); color:var(--navy);">
+
       </div>
+
       <div class="fgroup">
+
         <label style="color:rgba(0,0,0,0.4);">Teléfono o email</label>
+
         <input type="text" placeholder="Para contactarte" id="f-contacto"
+
           style="border-bottom-color:rgba(0,0,0,0.15); color:var(--navy);">
+
       </div>
+
       <div class="fgroup">
+
         <label style="color:rgba(0,0,0,0.4);">¿Qué necesitás?</label>
+
         <select id="f-servicio"
+
           style="border-bottom-color:rgba(0,0,0,0.15); color:var(--navy); background:white;">
+
           <option value="">Seleccioná un servicio</option>
+
           <option>Planificación (anteproyecto, municipal, regularización)</option>
+
           <option>Documentación técnica (sanitario, eléctrico, gas, estructural)</option>
+
           <option>Visualización 3D y renders</option>
+
           <option>Diseño de interiores</option>
+
           <option>Software de presupuesto — lista de espera</option>
+
           <option>Planillas Excel — avisarme cuando salgan</option>
+
           <option>Consulta general</option>
+
         </select>
+
       </div>
+
       <div class="fgroup">
+
         <label style="color:rgba(0,0,0,0.4);">Mensaje</label>
+
         <textarea placeholder="Contanos tu proyecto: tipo, superficie, plazo..." id="f-detalle"
+
           style="border-bottom-color:rgba(0,0,0,0.15); color:var(--navy);"></textarea>
+
       </div>
+
       <button class="f-btn" onclick="enviarWA()">
+
         Enviar por WhatsApp <span>→</span>
+
       </button>
+
     </div>
+
   </div>
+
+
 
   <!-- DERECHA: imagen fija con datos de contacto encima -->
+
   <div class="contacto-img-side">
+
       <div class="px-layer" style="background-image:url('assets/img_4.jpg')"></div>
+
     <div class="contacto-img-content r">
+
       <div class="cic-tag">Contacto</div>
+
       <h3 class="cic-title">Mucho más<br>que una<br><em>oficina técnica</em></h3>
+
       <div class="cic-data">
+
         <div class="cic-item">
+
           <div class="cic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 4h4l2 5-2.5 2a11 11 0 0 0 5.5 5.5l2-2.5 5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></div>
+
           <div>
+
             <div class="cic-item-label">WhatsApp</div>
+
             <div class="cic-item-value">342 - 5104877</div>
+
           </div>
+
         </div>
+
         <div class="cic-item">
+
           <div class="cic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 6l9 7 9-7"/></svg></div>
+
           <div>
+
             <div class="cic-item-label">Email</div>
+
             <div class="cic-item-value">hola@proyectamas.com.ar</div>
+
           </div>
+
         </div>
+
         <div class="cic-item">
+
           <div class="cic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/></svg></div>
+
           <div>
+
             <div class="cic-item-label">Instagram</div>
+
             <div class="cic-item-value">@proyectamas.arq</div>
+
           </div>
+
         </div>
+
         <div class="cic-item">
+
           <div class="cic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
+
           <div>
+
             <div class="cic-item-label">Cobertura</div>
+
             <div class="cic-item-value">Todo Argentina · 100% digital</div>
+
           </div>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
 
+
+
 </section>
+
+
+
 
 
 <!-- BANNER FINAL -->
+
 <section id="banner-final">
+
   <div class="bf-img">
+
   <div class="px-layer" style="background-image:url('assets/img_5.jpg')"></div></div>
+
   <div class="bf-text">
+
     <div class="bf-title" id="bfTitle">
+
       <span class="bfl">P</span><span class="bfl">R</span><span class="bfl">O</span><span class="bfl">Y</span><span class="bfl">E</span><span class="bfl">C</span><span class="bfl">T</span><span class="bfl">A</span><span class="bfl bf-plus">+</span>
+
     </div>
+
   </div>
+
 </section>
 
+
+
 <!-- FOOTER -->
+
 <footer class="footer-pro">
+
   <div class="fp-cta">
+
     <h2 class="fp-cta-title">¿Empezamos<br>tu <em>proyecto?</em></h2>
+
     <a href="#contacto" class="fp-cta-btn">Cotizá ahora <span class="arrow">→</span></a>
+
   </div>
+
   <div class="fp-grid">
+
     <div class="fp-brand">
+
       <div class="f-logo">PROYECTA<em>+</em></div>
+
       <p class="fp-brand-desc">Oficina técnica externa. Planificación, documentación, visualización y diseño — 100% digital, en toda Argentina.</p>
+
     </div>
+
     <div class="fp-col">
+
       <div class="fp-col-title">Servicios</div>
+
       <a href="#servicios">Planificación</a>
+
       <a href="#servicios">Documentación técnica</a>
+
       <a href="#servicios">Visualización 3D</a>
+
       <a href="#servicios">Diseño de interiores</a>
+
     </div>
+
     <div class="fp-col">
+
       <div class="fp-col-title">Empresa</div>
+
       <a href="#intro">Nosotros</a>
+
       <a href="#paraquien">Para quién</a>
+
       <a href="#proceso">Cómo trabajamos</a>
+
       <a href="#faq">Preguntas frecuentes</a>
+
     </div>
+
     <div class="fp-col">
+
       <div class="fp-col-title">Contacto</div>
+
       <span>hola@proyectamas.com.ar</span>
+
       <a href="https://wa.me/5493425104877" target="_blank">WhatsApp</a>
+
       <a href="https://instagram.com/proyectamas.arq" target="_blank">Instagram</a>
+
     </div>
+
   </div>
+
   <div class="fp-legal">
+
     <span>© 2026 Proyecta+ · Todos los derechos reservados</span>
+
     <a href="https://instagram.com/proyectamas.arq" target="_blank" class="fp-ig">@proyectamas.arq</a>
+
   </div>
+
 </footer>
 
+
+
 <!-- WA FLOTANTE -->
+
 <a href="https://wa.me/5493425104877" target="_blank" class="wa-btn">
+
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+
 </a>
 
+
+
 <script>
+
   // CURSOR
+
   const cur = document.getElementById('cur');
+
   const ring = document.getElementById('curRing');
+
   let mx = 0, my = 0, rx = 0, ry = 0;
 
+
+
   document.addEventListener('mousemove', e => {
+
     mx = e.clientX; my = e.clientY;
+
     cur.style.left = mx - 5 + 'px';
+
     cur.style.top = my - 5 + 'px';
+
   });
+
+
 
   function animRing() {
+
     rx += (mx - rx - 20) * 0.12;
+
     ry += (my - ry - 20) * 0.12;
+
     ring.style.left = rx + 'px';
+
     ring.style.top = ry + 'px';
+
     requestAnimationFrame(animRing);
+
   }
+
   animRing();
 
+
+
   // NAV SCROLL
+
   window.addEventListener('scroll', () => {
+
     document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+
   });
 
+
+
   // REVEAL
+
   const obs = new IntersectionObserver(entries => {
+
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('v'); obs.unobserve(e.target); } });
+
   }, { threshold: 0.1 });
+
   document.querySelectorAll('.r').forEach(el => obs.observe(el));
 
+
+
   function scrollToBlock(index) {
+
     const el = document.getElementById('srv-' + index);
+
     if (el) {
+
       setTimeout(() => {
+
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
       }, 80);
+
     }
+
   }
+
+
 
   function enviarWA() {
+
     const n = document.getElementById('f-nombre').value || 'Sin nombre';
+
     const c = document.getElementById('f-contacto').value || 'No indicado';
+
     const s = document.getElementById('f-servicio').value || 'No especificado';
+
     const d = document.getElementById('f-detalle').value || 'Sin detalle';
+
     const msg = `Hola Proyecta Más! Te escribo desde la web.\n\n*Nombre:* ${n}\n*Contacto:* ${c}\n*Servicio:* ${s}\n*Detalle:* ${d}`;
+
     window.open(`https://wa.me/5493425104877?text=${encodeURIComponent(msg)}`, '_blank');
+
   }
 
+
+
   // Banner final — slide-in al entrar en viewport
+
   const bfTitle = document.querySelector('.bf-title');
+
   if (bfTitle) {
+
     const bfObs = new IntersectionObserver((entries) => {
+
       entries.forEach(e => {
+
         if (e.isIntersecting) {
+
           bfTitle.classList.add('bf-animate');
+
           bfObs.disconnect();
+
         }
+
       });
+
     }, { threshold: 0.3 });
+
     bfObs.observe(document.getElementById('banner-final'));
+
   }
+
+
+
 
 
   // Hero carousel
+
   let hCurrent = 0;
+
   const hSlides = document.querySelectorAll('.hslide');
+
   const hDots   = document.querySelectorAll('.hdot');
+
   const hTotal  = hSlides.length;
 
+
+
   function goSlide(n) {
+
     hSlides[hCurrent].classList.remove('active');
+
     hDots[hCurrent].classList.remove('active');
+
     hCurrent = (n + hTotal) % hTotal;
+
     hSlides[hCurrent].classList.add('active');
+
     hDots[hCurrent].classList.add('active');
+
   }
+
+
 
   setInterval(() => goSlide(hCurrent + 1), 4000);
 
 
+
+
+
   // FAQ accordion
+
   document.querySelectorAll('.faq-q').forEach(q => {
+
     q.addEventListener('click', () => {
+
       const item = q.parentElement;
+
       const isOpen = item.classList.contains('open');
+
       document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+
       if (!isOpen) item.classList.add('open');
+
     });
+
   });
+
+
+
 
 
   // Servicios acordeón
+
   function toggleSrv(head) {
+
     const row = head.parentElement;
+
     const isOpen = row.classList.contains('open');
+
     document.querySelectorAll('.srv-row').forEach(r => r.classList.remove('open'));
+
     if (!isOpen) row.classList.add('open');
+
   }
+
+
+
 
 
   // Preloader
+
   window.addEventListener('load', () => {
+
     setTimeout(() => {
+
       const pl = document.getElementById('preloader');
+
       if (pl) {
+
         pl.classList.add('pl-hide');
+
         document.body.classList.remove('pl-lock');
+
         setTimeout(() => pl.remove(), 800);
+
       }
+
     }, 1400);
+
   });
 
 
+
+
+
   // Menú mobile
+
   function toggleMobileMenu() {
+
     document.getElementById('hamburgerBtn').classList.toggle('open');
+
     document.getElementById('mobileMenu').classList.toggle('open');
+
     document.getElementById('mmBackdrop').classList.toggle('open');
+
     document.body.classList.toggle('pl-lock');
+
     // Forzar fondo sólido en el nav mientras el menú está abierto
+
     const navEl = document.getElementById('mainNav');
+
     const isOpen = document.getElementById('mobileMenu').classList.contains('open');
+
     if (isOpen) {
+
       navEl.classList.add('scrolled');
+
     } else if (window.scrollY < 60) {
+
       navEl.classList.remove('scrolled');
+
     }
+
   }
 
+
+
   function goToService(n) {
+
     toggleMobileMenu();
+
     setTimeout(() => {
+
       const el = document.getElementById('servicios');
+
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
       setTimeout(() => {
+
         const rows = document.querySelectorAll('.srv-row');
+
         rows.forEach(r => r.classList.remove('open'));
+
         if (rows[n]) rows[n].classList.add('open');
+
       }, 350);
+
     }, 300);
+
   }
+
+
+
 
 
   // Catálogo de packs
+
   function togglePack(head) {
+
     const row = head.parentElement;
+
     const isOpen = row.classList.contains('open');
+
     document.querySelectorAll('.pack-row').forEach(r => r.classList.remove('open'));
+
     if (!isOpen) row.classList.add('open');
+
   }
+
+
+
 
 
   // Catálogo: Packs vs Individuales
+
   function switchCatalogView(view, btn) {
+
     document.querySelectorAll('.catalog-tab').forEach(t => t.classList.remove('active'));
+
     btn.classList.add('active');
+
     const packsView = document.getElementById('view-packs');
+
     const indivView = document.getElementById('view-individual');
+
     packsView.classList.toggle('active', view === 'packs');
+
     indivView.classList.toggle('active', view === 'individual');
+
     // Forzar visibilidad inmediata (sin esperar al scroll) en la vista recién activada
+
     const target = view === 'packs' ? packsView : indivView;
+
     target.querySelectorAll('.r').forEach(el => el.classList.add('v'));
+
   }
+
+
+
+
 
 
 
   // Parallax con transform translateY sobre .px-layer (GPU, estable en iOS)
+
   (function() {
+
     var layers = document.querySelectorAll('.px-layer');
+
     if (!layers.length) return;
 
+
+
     var FACTOR = 0.2; // 0 = sin efecto, 0.4 = muy marcado
+
     var ticking = false;
 
+
+
     function update() {
+
       var wh = window.innerHeight;
+
       layers.forEach(function(layer) {
+
         var parent = layer.parentElement;
+
         var rect = parent.getBoundingClientRect();
+
         if (rect.bottom < -200 || rect.top > wh + 200) return;
+
         var progress = (wh / 2 - (rect.top + rect.height / 2)) / (wh + rect.height);
+
         var shift = progress * FACTOR * 100;
+
         layer.style.transform = 'translateY(' + shift.toFixed(2) + '%)';
+
       });
+
       ticking = false;
+
     }
 
+
+
     window.addEventListener('scroll', function() {
+
       if (!ticking) { requestAnimationFrame(update); ticking = true; }
+
     }, { passive: true });
 
+
+
     window.addEventListener('load', update);
+
     update();
+
   })();
 
 
 
 
+
+
+
+
+
 </script>
+
 </body>
+
 </html>
