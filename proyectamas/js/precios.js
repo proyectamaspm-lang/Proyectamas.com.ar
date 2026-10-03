@@ -177,6 +177,7 @@ window.PRECIOS = {
       lod: true,
       productos: [
         {
+          imagen: "assets/lod/lod-100.jpg",
           nombre: "LOD 100", sub: "Conceptual",
           precio: 1, desde: true, unidad: "/m²",
           extra: "Mínimo USD 100",
@@ -184,6 +185,7 @@ window.PRECIOS = {
           incluye: ["Volumetría y masas", "Estudio de alternativas", "Vistas de presentación conceptual"]
         },
         {
+          imagen: "assets/lod/lod-200.jpg",
           nombre: "LOD 200", sub: "Anteproyecto",
           precio: 2, desde: true, unidad: "/m²",
           extra: "Mínimo USD 150",
@@ -191,6 +193,7 @@ window.PRECIOS = {
           incluye: ["Geometría y ubicación aproximadas", "Estudio de distribución", "Plantas y vistas esquemáticas"]
         },
         {
+          imagen: "assets/lod/lod-300.jpg",
           nombre: "LOD 300", sub: "Proyecto",
           destacado: true,
           precio: 5, desde: true, unidad: "/m²",
@@ -199,6 +202,7 @@ window.PRECIOS = {
           incluye: ["Modelo medible: dimensiones, forma y ubicación definidas", "Plantas, cortes y fachadas desde el modelo", "Tablas de cantidades", "Láminas + archivo .rvt"]
         },
         {
+          imagen: "assets/lod/lod-350.jpg",
           nombre: "LOD 350", sub: "Coordinación",
           precio: null,
           extra: "Arquitectura + estructura + instalaciones",
@@ -206,6 +210,7 @@ window.PRECIOS = {
           incluye: ["Interfaces entre disciplinas", "Detección de interferencias", "Informe y modelo corregido"]
         },
         {
+          imagen: "assets/lod/lod-400.jpg",
           nombre: "LOD 400", sub: "Fabricación",
           precio: null,
           extra: "Modelo para fabricación o montaje",
@@ -213,6 +218,7 @@ window.PRECIOS = {
           incluye: ["Información suficiente para fabricar o montar componentes"]
         },
         {
+          imagen: "assets/lod/lod-500.jpg",
           nombre: "LOD 500", sub: "As-built",
           precio: null,
           extra: "Modelo verificado de lo construido",

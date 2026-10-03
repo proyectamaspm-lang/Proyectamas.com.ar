@@ -370,7 +370,9 @@
     var tabs = cat.productos.map(function (p, i) {
       return '<button role="tab" type="button" aria-selected="' + (i === 2 ? "true" : "false") + '" data-i="' + i + '">' + esc(p.nombre.replace("LOD ", "")) + "</button>";
     }).join("");
-    return '<div class="lod" data-lod><div class="lod-dibujo">' + muroSVG() + '<img class="lod-img" alt="" hidden></div>' +
+    return '<div class="lod" data-lod><div class="lod-dibujo">' + muroSVG() + cat.productos.map(function (p, i) {
+        return p.imagen ? '<img class="lod-img" data-i="' + i + '" src="' + esc(p.imagen) + '" alt="Modelo ' + esc(p.nombre + " · " + p.sub) + '"' + (i === 2 ? "" : ' loading="lazy"') + ">" : "";
+      }).join("") + '</div>' +
       '<div class="lod-panel"><p class="note" style="margin:0 0 10px">Nivel de desarrollo</p><div class="lod-tabs" role="tablist" aria-label="Nivel de desarrollo">' + tabs + '</div><div class="lod-info" aria-live="polite"></div></div></div>';
   }
   function muroSVG() {
@@ -402,9 +404,9 @@
         g.style.transition = reduce ? "none" : "opacity .35s";
       });
       // si el nivel tiene imagen propia (precios.js → imagen), se muestra en lugar del dibujo
-      var img = box.querySelector(".lod-img"), svg = box.querySelector(".lod-dibujo svg");
-      if (p.imagen) { img.src = p.imagen; img.alt = p.nombre + " · " + p.sub; img.hidden = false; svg.style.display = "none"; }
-      else { img.hidden = true; svg.style.display = ""; }
+      var svg = box.querySelector(".lod-dibujo svg");
+      box.querySelectorAll(".lod-img").forEach(function (im) { im.classList.toggle("activa", +im.getAttribute("data-i") === i); });
+      svg.style.display = p.imagen ? "none" : "";
       info.innerHTML = "<h3>" + esc(p.nombre) + " · " + esc(p.sub) + "</h3>" + precioHTML(p) +
         '<div class="extra">' + esc(p.extra || "") + "</div><ul>" + p.incluye.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" +
         '<a class="btn btn--ink" style="align-self:flex-start;margin-top:auto" target="_blank" rel="noopener" href="' + waLink("Hola Proyecta+, quiero cotizar modelado BIM en Revit — " + p.nombre + ".") + '">' + (p.precio === null ? "Pedir cotización" : "Pedir este nivel") + "</a>";
@@ -421,6 +423,31 @@
       });
     });
     show(2);
+  }
+
+
+  /* ---------- Plano real: selección sincronizada plano ↔ lista ---------- */
+  var pr = document.querySelector("[data-plano-real]");
+  if (pr) {
+    var orden = ["estudio", "construcciones", "tech", "desarrollos"], k = 0, timer = null, manual = false;
+    var marcar = function (u) {
+      pr.querySelectorAll("[data-u]").forEach(function (el) { el.classList.toggle("on", el.getAttribute("data-u") === u); });
+    };
+    var auto = function () {
+      if (reduce || manual) return;
+      clearInterval(timer);
+      marcar(orden[k]);
+      timer = setInterval(function () { k = (k + 1) % orden.length; marcar(orden[k]); }, 2600);
+    };
+    pr.querySelectorAll("[data-u]").forEach(function (el) {
+      var u = el.getAttribute("data-u");
+      el.addEventListener("pointerenter", function () { manual = true; clearInterval(timer); marcar(u); k = orden.indexOf(u); });
+      el.addEventListener("focus", function () { manual = true; clearInterval(timer); marcar(u); });
+    });
+    pr.addEventListener("pointerleave", function () { manual = false; auto(); });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (en) { if (en[0].isIntersecting) auto(); else clearInterval(timer); }).observe(pr);
+    } else auto();
   }
 
   /* ---------------- Contacto ---------------- */

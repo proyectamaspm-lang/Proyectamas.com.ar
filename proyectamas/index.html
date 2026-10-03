@@ -58,62 +58,53 @@
           <p class="lead">Cada unidad hace una cosa y la hace con alcance claro. Entrá a la que necesitás.</p>
         </div>
 
-        <div class="planta-wrap">
-          <svg class="planta" viewBox="0 0 1200 760" role="list" aria-label="Las cuatro unidades de Proyecta Más">
-            <!-- cotas generales -->
-            <path class="dim" d="M40 40 H1160 M40 30 V50 M600 30 V50 M1160 30 V50"/>
-            <text class="dim-t" x="320" y="28" text-anchor="middle">Hoy</text>
-            <text class="dim-t" x="880" y="28" text-anchor="middle">Mañana y a futuro</text>
-
-            <a class="room" href="estudio.html" role="listitem" aria-label="Estudio: proyectos, BIM, documentación y renders">
-              <rect class="fill" x="40" y="70" width="560" height="380"/>
-              <text class="r-plus" x="80" y="160">+</text><text class="r-name" x="112" y="158">Estudio</text>
-              <text class="r-desc" x="80" y="200">Proyectos, instalaciones, BIM en Revit,</text>
-              <text class="r-desc" x="80" y="226">renders y cómputos con precio cerrado.</text>
-              <text class="r-go" x="80" y="410">Ver servicios y tarifas</text>
+        <div class="plano-real" data-plano-real>
+          <figure class="plano-img">
+            <img src="assets/plano-unidades.jpg" width="736" height="847" alt="Planta de una vivienda con living, dormitorio, comedor-cocina, baño y hall de acceso" loading="lazy">
+            <a class="zona" data-u="estudio" href="estudio.html" style="left:6.4%;top:7.3%;width:40.9%;height:42.9%" aria-label="Estudio: Proyectos, instalaciones, BIM en Revit, renders y cómputos con precio de referencia.">
+              <i class="g g1"></i><i class="g g2"></i><i class="g g3"></i><i class="g g4"></i>
+              <span class="zona-tag"><b>+</b> Estudio</span>
             </a>
-            <a class="room" href="tech.html" role="listitem" aria-label="Tech: planillas y herramientas digitales">
-              <rect class="fill" x="40" y="450" width="560" height="270"/>
-              <text class="r-plus" x="80" y="540">+</text><text class="r-name" x="112" y="538">Tech</text>
-              <text class="r-desc" x="80" y="580">Planillas de cómputo y presupuesto</text>
-              <text class="r-desc" x="80" y="606">y herramientas para profesionales.</text>
-              <text class="r-go" x="80" y="685">Ver herramientas</text>
+            <a class="zona" data-u="construcciones" href="construcciones.html" style="left:47.8%;top:7.3%;width:45.2%;height:42.9%" aria-label="Construcciones: Del proyecto a la obra: viviendas, locales y reformas, cotizado por obra.">
+              <i class="g g1"></i><i class="g g2"></i><i class="g g3"></i><i class="g g4"></i>
+              <span class="zona-tag"><b>+</b> Construcciones</span>
             </a>
-            <a class="room" href="construcciones.html" role="listitem" aria-label="Construcciones: obras y reformas">
-              <rect class="fill" x="600" y="70" width="560" height="320"/>
-              <text class="r-plus" x="640" y="160">+</text><text class="r-name" x="672" y="158">Construcciones</text>
-              <text class="r-desc" x="640" y="200">Del proyecto a la obra: viviendas,</text>
-              <text class="r-desc" x="640" y="226">locales y reformas, cotizado por obra.</text>
-              <text class="r-go" x="640" y="350">Conocer Construcciones</text>
+            <a class="zona" data-u="tech" href="tech.html" style="left:6.4%;top:50.8%;width:48.0%;height:42.5%" aria-label="Tech: Planillas de cómputo y presupuesto y herramientas para profesionales.">
+              <i class="g g1"></i><i class="g g2"></i><i class="g g3"></i><i class="g g4"></i>
+              <span class="zona-tag"><b>+</b> Tech</span>
             </a>
-            <a class="room" href="desarrollos.html" role="listitem" aria-label="Desarrollos: proyectos inmobiliarios e inversores">
-              <rect class="fill" x="600" y="390" width="560" height="330"/>
-              <text class="r-plus" x="640" y="480">+</text><text class="r-name" x="672" y="478">Desarrollos</text>
-              <text class="r-desc" x="640" y="520">Terrenos, sistema SIP y proyectos</text>
-              <text class="r-desc" x="640" y="546">para inversores.</text>
-              <text class="r-go" x="640" y="685">Ver Desarrollos</text>
+            <a class="zona" data-u="desarrollos" href="desarrollos.html" style="left:56.4%;top:50.8%;width:36.7%;height:42.5%" aria-label="Desarrollos: Terrenos, sistema SIP y proyectos para inversores.">
+              <i class="g g1"></i><i class="g g2"></i><i class="g g3"></i><i class="g g4"></i>
+              <span class="zona-tag"><b>+</b> Desarrollos</span>
             </a>
-
-            <!-- muros (con vanos de puerta) -->
-            <path class="wall" d="M40 70 H1160 V720 H40 Z"/>
-            <path class="wall" d="M600 70 V250 M600 330 V560 M600 640 V720"/>
-            <path class="wall" d="M40 450 H260 M340 450 H600"/>
-            <path class="wall" d="M600 390 H820 M900 390 H1160"/>
-            <!-- puertas -->
-            <path class="door" d="M600 250 A80 80 0 0 1 680 330"/><path class="thin" d="M600 250 L680 250"/>
-            <path class="door" d="M600 560 A80 80 0 0 0 520 640"/><path class="thin" d="M600 560 L520 560"/>
-            <path class="door" d="M260 450 A80 80 0 0 0 340 370"/><path class="thin" d="M260 450 L260 370"/>
-            <path class="door" d="M820 390 A80 80 0 0 1 900 470"/><path class="thin" d="M820 390 L820 470"/>
-            <!-- flecha de flujo: Estudio alimenta Construcciones y Desarrollos -->
-            <path class="dim" d="M40 742 H1160 M40 732 V752 M1160 732 V752"/>
-            <text class="dim-t" x="600" y="758" text-anchor="middle">Un mismo cliente puede recorrer las cuatro</text>
-          </svg>
-        </div>
-        <div class="unidades-list" role="list">
-          <a href="estudio.html" role="listitem"><h3><span>+</span> Estudio</h3><p>Proyectos, instalaciones, BIM en Revit, renders y cómputos con precio cerrado.</p></a>
-          <a href="tech.html" role="listitem"><h3><span>+</span> Tech</h3><p>Planillas de cómputo y presupuesto y herramientas para profesionales.</p></a>
-          <a href="construcciones.html" role="listitem"><h3><span>+</span> Construcciones</h3><p>Viviendas, locales y reformas, cotizado por obra.</p></a>
-          <a href="desarrollos.html" role="listitem"><h3><span>+</span> Desarrollos</h3><p>Terrenos, sistema SIP y proyectos para inversores.</p></a>
+            <figcaption class="note">Una casa, cuatro ambientes, cuatro unidades. Pasá el mouse por el plano.</figcaption>
+          </figure>
+          <ol class="unidades-lista">
+            <li><a data-u="estudio" href="estudio.html">
+              <span class="u-amb">Living · 17.3 m²</span>
+              <h3><span>+</span> Estudio</h3>
+              <p>Proyectos, instalaciones, BIM en Revit, renders y cómputos con precio de referencia.</p>
+              <span class="u-cta">Ver servicios y tarifas →</span>
+            </a></li>
+            <li><a data-u="construcciones" href="construcciones.html">
+              <span class="u-amb">Dormitorio · 13.8 m²</span>
+              <h3><span>+</span> Construcciones</h3>
+              <p>Del proyecto a la obra: viviendas, locales y reformas, cotizado por obra.</p>
+              <span class="u-cta">Conocer Construcciones →</span>
+            </a></li>
+            <li><a data-u="tech" href="tech.html">
+              <span class="u-amb">Comedor · cocina · 16.6 m²</span>
+              <h3><span>+</span> Tech</h3>
+              <p>Planillas de cómputo y presupuesto y herramientas para profesionales.</p>
+              <span class="u-cta">Ver herramientas →</span>
+            </a></li>
+            <li><a data-u="desarrollos" href="desarrollos.html">
+              <span class="u-amb">Baño + hall · 10.4 m²</span>
+              <h3><span>+</span> Desarrollos</h3>
+              <p>Terrenos, sistema SIP y proyectos para inversores.</p>
+              <span class="u-cta">Ver Desarrollos →</span>
+            </a></li>
+          </ol>
         </div>
       </div>
     </section>
