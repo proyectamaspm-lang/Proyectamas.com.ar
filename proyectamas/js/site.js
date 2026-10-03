@@ -450,6 +450,50 @@
     } else auto();
   }
 
+
+  /* ---------- Galería: ver más + lightbox ---------- */
+  var gal = document.getElementById("galeria");
+  if (gal) {
+    var mas = document.getElementById("ver-mas");
+    if (mas) mas.addEventListener("click", function () {
+      var abierta = gal.classList.toggle("todas");
+      mas.setAttribute("aria-expanded", abierta ? "true" : "false");
+      mas.textContent = abierta ? "Ver menos" : "Ver todos los trabajos (" + gal.querySelectorAll("figure").length + ")";
+      if (!abierta) gal.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    });
+    var lb = document.getElementById("lightbox");
+    if (lb && lb.showModal) {
+      var lbImg = lb.querySelector("img"), lbPie = lb.querySelector(".lb-pie"), actual = 0;
+      var visibles = function () { return Array.prototype.filter.call(gal.querySelectorAll("[data-lightbox]"), function (a) { return a.offsetParent !== null; }); };
+      var abrir = function (i) {
+        var items = visibles(); if (!items.length) return;
+        actual = (i + items.length) % items.length;
+        var a = items[actual], im = a.querySelector("img");
+        lbImg.src = a.getAttribute("href"); lbImg.alt = im.alt;
+        lbPie.textContent = im.alt + "  ·  " + (actual + 1) + " / " + items.length;
+        if (!lb.open) lb.showModal();
+      };
+      gal.addEventListener("click", function (e) {
+        var a = e.target.closest("[data-lightbox]"); if (!a) return;
+        e.preventDefault(); abrir(visibles().indexOf(a));
+      });
+      lb.querySelector(".lb-cerrar").addEventListener("click", function () { lb.close(); });
+      lb.querySelector(".lb-prev").addEventListener("click", function () { abrir(actual - 1); });
+      lb.querySelector(".lb-next").addEventListener("click", function () { abrir(actual + 1); });
+      lb.addEventListener("click", function (e) { if (e.target === lb) lb.close(); });
+      lb.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight") abrir(actual + 1);
+        if (e.key === "ArrowLeft") abrir(actual - 1);
+      });
+      var x0 = null;
+      lb.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+      lb.addEventListener("touchend", function (e) {
+        if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null;
+        if (Math.abs(dx) > 50) abrir(actual + (dx < 0 ? 1 : -1));
+      });
+    }
+  }
+
   /* ---------------- Contacto ---------------- */
   var form = document.getElementById("form-contacto");
   if (form) {
