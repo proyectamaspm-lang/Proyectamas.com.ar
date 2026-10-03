@@ -162,13 +162,15 @@
       var s = 1.3 + hot * 2.2;
       ctx.fillRect(q.x - s / 2, q.y - s / 2, s, s);
     }
-    // mira del cursor
+    // mira: solo cuando se mueve sola (con mouse se ve el cursor de la unidad)
+    if (!this.mouse.active) {
     ctx.strokeStyle = "rgba(" + YELLOW + ",0.9)";
     ctx.beginPath();
     ctx.moveTo(mx - 14, my); ctx.lineTo(mx + 14, my);
     ctx.moveTo(mx, my - 14); ctx.lineTo(mx, my + 14);
     ctx.stroke();
     ctx.beginPath(); ctx.arc(mx, my, 22, 0, Math.PI * 2); ctx.stroke();
+    }
 
     if (conCotas) this.cotas(ctx, mx, my);
   };
@@ -331,11 +333,12 @@
         html += precioHTML(p);
         html += '<div class="extra">' + esc(p.extra || "") + "</div>";
         html += "<ul>" + p.incluye.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>";
-        html += '<div class="meta"><span>Plazo: ' + esc(p.plazo) + "</span>" + (p.revisiones ? "<span>" + p.revisiones + (p.revisiones === 1 ? " revisión" : " revisiones") + "</span>" : "") + "</div>";
+        html += '<div class="meta">' + (p.plazo ? "<span>Plazo: " + esc(p.plazo) + "</span>" : "") + (p.revisiones ? "<span>" + p.revisiones + (p.revisiones === 1 ? " revisión incluida" : " revisiones incluidas") + "</span>" : "") + "</div>";
         html += '<a class="btn" target="_blank" rel="noopener" href="' + waLink("Hola Proyecta+, quiero cotizar " + cat.nombre + " — " + p.nombre + ".") + '">Pedir este servicio</a>';
         html += "</article>";
       });
       if (visibles.length) html += "</div>";
+      if (P.aviso) html += '<p class="aviso">' + esc(P.aviso) + "</p>";
       html += '<div class="cat-pie">';
       if (cat.adicionales && cat.adicionales.length) html += "<div><h4>Adicionales</h4><ul>" + cat.adicionales.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul></div>";
       if (cat.noIncluye && cat.noIncluye.length) html += "<div><h4>No incluye</h4><ul>" + cat.noIncluye.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul></div>";
@@ -367,7 +370,7 @@
     var tabs = cat.productos.map(function (p, i) {
       return '<button role="tab" type="button" aria-selected="' + (i === 2 ? "true" : "false") + '" data-i="' + i + '">' + esc(p.nombre.replace("LOD ", "")) + "</button>";
     }).join("");
-    return '<div class="lod" data-lod><div class="lod-dibujo" aria-hidden="true">' + muroSVG() + '</div>' +
+    return '<div class="lod" data-lod><div class="lod-dibujo">' + muroSVG() + '<img class="lod-img" alt="" hidden></div>' +
       '<div class="lod-panel"><p class="note" style="margin:0 0 10px">Nivel de desarrollo</p><div class="lod-tabs" role="tablist" aria-label="Nivel de desarrollo">' + tabs + '</div><div class="lod-info" aria-live="polite"></div></div></div>';
   }
   function muroSVG() {
@@ -398,6 +401,10 @@
         g.style.opacity = on ? 1 : 0;
         g.style.transition = reduce ? "none" : "opacity .35s";
       });
+      // si el nivel tiene imagen propia (precios.js → imagen), se muestra en lugar del dibujo
+      var img = box.querySelector(".lod-img"), svg = box.querySelector(".lod-dibujo svg");
+      if (p.imagen) { img.src = p.imagen; img.alt = p.nombre + " · " + p.sub; img.hidden = false; svg.style.display = "none"; }
+      else { img.hidden = true; svg.style.display = ""; }
       info.innerHTML = "<h3>" + esc(p.nombre) + " · " + esc(p.sub) + "</h3>" + precioHTML(p) +
         '<div class="extra">' + esc(p.extra || "") + "</div><ul>" + p.incluye.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" +
         '<a class="btn btn--ink" style="align-self:flex-start;margin-top:auto" target="_blank" rel="noopener" href="' + waLink("Hola Proyecta+, quiero cotizar modelado BIM en Revit — " + p.nombre + ".") + '">' + (p.precio === null ? "Pedir cotización" : "Pedir este nivel") + "</a>";

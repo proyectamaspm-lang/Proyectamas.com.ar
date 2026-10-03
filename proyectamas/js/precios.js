@@ -10,6 +10,8 @@
    - desde:  true  -> muestra "desde USD 400"
    - unidad: texto que va después del precio (ej. "/m²", "/imagen", "")
    - extra:  línea chica debajo del precio (ej. m² adicional)
+   - plazo:  dejalo "" para no mostrarlo, o escribí uno (ej. "10 días hábiles")
+   - imagen: (solo BIM/LOD) ruta de una imagen, ej. "assets/lod/lod-300.jpg"
    - Para agregar un producto, copiá un bloque { ... } completo,
      pegalo debajo y cambiá los datos. Ojo con las comas.
 
@@ -21,10 +23,14 @@ window.PRECIOS = {
   whatsapp: "5493425104877",
   email: "hola@proyectamas.com.ar",
 
+  aviso: "Precios de referencia. El valor final depende de la complejidad, la superficie y el alcance de cada proyecto, y queda fijado en el presupuesto escrito que te enviamos antes de empezar.",
+
   condiciones: [
+    "Los precios publicados son de referencia (\"desde\"). El valor final depende de la complejidad, superficie y alcance de cada proyecto y se fija en un presupuesto escrito antes de empezar. Ese presupuesto es el único valor válido.",
     "Valores en dólares para una vivienda de hasta 100 m², salvo que se indique otra cosa.",
+    "Los plazos de entrega se acuerdan en cada presupuesto, según el proyecto y la información disponible.",
     "Forma de pago: 50 % de anticipo para empezar y 50 % contra entrega.",
-    "Urgencia (plazo reducido a la mitad): +30 %.",
+    "Urgencia (entrega prioritaria): +30 %.",
     "Revisión extra fuera de las incluidas: USD 20 cada una.",
     "Edificios, locales y obras de más de 2 plantas: cotización personalizada.",
     "Firma, visado y trámites ante municipio, EPE o Litoral Gas no están incluidos: quedan sujetos a la matrícula profesional correspondiente."
@@ -40,9 +46,9 @@ window.PRECIOS = {
       productos: [
         {
           nombre: "Básico",
-          precio: 200, desde: false, unidad: "",
+          precio: 200, desde: true, unidad: "",
           extra: "USD 1,5 por m² adicional",
-          plazo: "5 días hábiles", revisiones: 1,
+          plazo: "", revisiones: 1,
           incluye: [
             "Planta de bocas, tomas, llaves e iluminación",
             "Recorrido de circuitos",
@@ -54,9 +60,9 @@ window.PRECIOS = {
         {
           nombre: "Completo",
           destacado: true,
-          precio: 400, desde: false, unidad: "",
+          precio: 400, desde: true, unidad: "",
           extra: "USD 3 por m² adicional",
-          plazo: "7 días hábiles", revisiones: 2,
+          plazo: "", revisiones: 2,
           incluye: [
             "Todo lo del Básico",
             "Cuadro de cargas y grado de electrificación",
@@ -68,9 +74,9 @@ window.PRECIOS = {
         },
         {
           nombre: "Integral",
-          precio: 840, desde: false, unidad: "",
+          precio: 840, desde: true, unidad: "",
           extra: "USD 6 por m² adicional",
-          plazo: "12 días hábiles", revisiones: 2,
+          plazo: "", revisiones: 2,
           incluye: [
             "Eléctrico Completo",
             "Sanitaria: agua fría, caliente y cloacas",
@@ -101,9 +107,9 @@ window.PRECIOS = {
       productos: [
         {
           nombre: "Anteproyecto",
-          precio: 400, desde: false, unidad: "",
+          precio: 400, desde: true, unidad: "",
           extra: "USD 4 por m² adicional",
-          plazo: "7 días hábiles", revisiones: 2,
+          plazo: "", revisiones: 2,
           incluye: [
             "Programa de necesidades",
             "2 alternativas de distribución",
@@ -113,9 +119,9 @@ window.PRECIOS = {
         },
         {
           nombre: "Proyecto",
-          precio: 600, desde: false, unidad: "",
+          precio: 600, desde: true, unidad: "",
           extra: "USD 6 por m² adicional",
-          plazo: "10 días hábiles", revisiones: 2,
+          plazo: "", revisiones: 2,
           incluye: [
             "Plantas, cortes y fachadas acotados",
             "Planilla de locales",
@@ -126,9 +132,9 @@ window.PRECIOS = {
         {
           nombre: "Proyecto + Documentación",
           destacado: true,
-          precio: 1000, desde: false, unidad: "",
+          precio: 1000, desde: true, unidad: "",
           extra: "USD 10 por m² adicional",
-          plazo: "15 días hábiles", revisiones: 2,
+          plazo: "", revisiones: 2,
           incluye: [
             "Todo lo del Proyecto",
             "Detalles constructivos",
@@ -138,9 +144,9 @@ window.PRECIOS = {
         },
         {
           nombre: "Proyecto + BIM + Visualización",
-          precio: 1300, desde: false, unidad: "",
+          precio: 1300, desde: true, unidad: "",
           extra: "USD 13 por m² adicional",
-          plazo: "20 días hábiles", revisiones: 2,
+          plazo: "", revisiones: 2,
           incluye: [
             "Proyecto + Documentación desarrollado en Revit (LOD 300)",
             "4 renders fotorrealistas",
@@ -172,45 +178,45 @@ window.PRECIOS = {
       productos: [
         {
           nombre: "LOD 100", sub: "Conceptual",
-          precio: 1, desde: false, unidad: "/m²",
+          precio: 1, desde: true, unidad: "/m²",
           extra: "Mínimo USD 100",
-          plazo: "según superficie", revisiones: 1,
+          plazo: "", revisiones: 1,
           incluye: ["Volumetría y masas", "Estudio de alternativas", "Vistas de presentación conceptual"]
         },
         {
           nombre: "LOD 200", sub: "Anteproyecto",
-          precio: 2, desde: false, unidad: "/m²",
+          precio: 2, desde: true, unidad: "/m²",
           extra: "Mínimo USD 150",
-          plazo: "según superficie", revisiones: 1,
+          plazo: "", revisiones: 1,
           incluye: ["Geometría y ubicación aproximadas", "Estudio de distribución", "Plantas y vistas esquemáticas"]
         },
         {
           nombre: "LOD 300", sub: "Proyecto",
           destacado: true,
-          precio: 5, desde: false, unidad: "/m²",
+          precio: 5, desde: true, unidad: "/m²",
           extra: "Mínimo USD 400",
-          plazo: "según superficie", revisiones: 2,
+          plazo: "", revisiones: 2,
           incluye: ["Modelo medible: dimensiones, forma y ubicación definidas", "Plantas, cortes y fachadas desde el modelo", "Tablas de cantidades", "Láminas + archivo .rvt"]
         },
         {
           nombre: "LOD 350", sub: "Coordinación",
           precio: null,
           extra: "Arquitectura + estructura + instalaciones",
-          plazo: "a definir", revisiones: 2,
+          plazo: "", revisiones: 2,
           incluye: ["Interfaces entre disciplinas", "Detección de interferencias", "Informe y modelo corregido"]
         },
         {
           nombre: "LOD 400", sub: "Fabricación",
           precio: null,
           extra: "Modelo para fabricación o montaje",
-          plazo: "a definir", revisiones: 2,
+          plazo: "", revisiones: 2,
           incluye: ["Información suficiente para fabricar o montar componentes"]
         },
         {
           nombre: "LOD 500", sub: "As-built",
           precio: null,
           extra: "Modelo verificado de lo construido",
-          plazo: "a definir", revisiones: 2,
+          plazo: "", revisiones: 2,
           incluye: ["Geometría verificada en obra", "Requiere relevamiento"]
         }
       ],
@@ -231,38 +237,38 @@ window.PRECIOS = {
       productos: [
         {
           nombre: "Render express IA",
-          precio: 30, desde: false, unidad: "/imagen",
+          precio: 30, desde: true, unidad: "/imagen",
           extra: "A partir de una foto o modelo simple",
-          plazo: "48 h", revisiones: 1,
+          plazo: "", revisiones: 1,
           incluye: ["1 imagen en alta resolución", "Ideal para redes e inmobiliarias"]
         },
         {
           nombre: "Modelado 3D",
-          precio: 160, desde: false, unidad: "",
+          precio: 160, desde: true, unidad: "",
           extra: "Sin render",
-          plazo: "5 días hábiles", revisiones: 2,
+          plazo: "", revisiones: 2,
           incluye: ["Modelo 3D completo", "2 vistas de trabajo"]
         },
         {
           nombre: "Modelado + 2 renders",
-          precio: 260, desde: false, unidad: "",
+          precio: 260, desde: true, unidad: "",
           extra: "",
-          plazo: "6 días hábiles", revisiones: 2,
+          plazo: "", revisiones: 2,
           incluye: ["Modelo 3D", "2 renders fotorrealistas"]
         },
         {
           nombre: "Modelado + 4 renders",
           destacado: true,
-          precio: 360, desde: false, unidad: "",
+          precio: 360, desde: true, unidad: "",
           extra: "",
-          plazo: "7 días hábiles", revisiones: 2,
+          plazo: "", revisiones: 2,
           incluye: ["Modelo 3D", "4 renders interior y exterior"]
         },
         {
           nombre: "Pack comercial",
-          precio: 520, desde: false, unidad: "",
+          precio: 520, desde: true, unidad: "",
           extra: "Para vender un proyecto",
-          plazo: "10 días hábiles", revisiones: 2,
+          plazo: "", revisiones: 2,
           incluye: ["Modelo 3D", "6 renders", "Axonometría", "Planta ambientada a color"]
         }
       ],
@@ -286,24 +292,24 @@ window.PRECIOS = {
       productos: [
         {
           nombre: "Cómputo",
-          precio: 200, desde: false, unidad: "",
+          precio: 200, desde: true, unidad: "",
           extra: "USD 1,5 por m² adicional",
-          plazo: "5 días hábiles", revisiones: 1,
+          plazo: "", revisiones: 1,
           incluye: ["Cómputo métrico por rubro", "Listado de materiales", "Excel editable + PDF"]
         },
         {
           nombre: "Presupuesto",
-          precio: 160, desde: false, unidad: "",
+          precio: 160, desde: true, unidad: "",
           extra: "Sobre cómputo que aportás vos",
-          plazo: "4 días hábiles", revisiones: 1,
+          plazo: "", revisiones: 1,
           incluye: ["Materiales + mano de obra por rubro", "Precios a la fecha de entrega", "Excel editable + PDF"]
         },
         {
           nombre: "Cómputo + Presupuesto",
           destacado: true,
-          precio: 320, desde: false, unidad: "",
+          precio: 320, desde: true, unidad: "",
           extra: "USD 2,5 por m² adicional",
-          plazo: "7 días hábiles", revisiones: 1,
+          plazo: "", revisiones: 1,
           incluye: ["Cómputo y presupuesto completos", "Resumen por rubro e incidencias", "Costo por m²", "Excel editable + PDF"]
         }
       ],
@@ -328,38 +334,38 @@ window.PRECIOS = {
       productos: [
         {
           nombre: "Plano comercial",
-          precio: 40, desde: false, unidad: "",
+          precio: 40, desde: true, unidad: "",
           extra: "Pack 5: USD 170 · Pack 10: USD 300",
-          plazo: "48 h", revisiones: 1,
+          plazo: "", revisiones: 1,
           incluye: ["Planta 2D ambientada a color", "Medidas y m²", "Lista para publicar (hasta 100 m²)"]
         },
         {
           nombre: "Visualización de reforma",
-          precio: 30, desde: false, unidad: "/imagen",
+          precio: 30, desde: true, unidad: "/imagen",
           extra: "Pack de 3: USD 75",
-          plazo: "48 h", revisiones: 1,
+          plazo: "", revisiones: 1,
           incluye: ["Foto actual del ambiente", "Imagen de cómo quedaría reformado"]
         },
         {
           nombre: "Potencial de propiedad",
           destacado: true,
-          precio: 150, desde: false, unidad: "",
+          precio: 150, desde: true, unidad: "",
           extra: "",
-          plazo: "5 días hábiles", revisiones: 1,
+          plazo: "", revisiones: 1,
           incluye: ["Qué se puede construir o ampliar (FOS y FOT disponibles)", "Esquema volumétrico", "1 render"]
         },
         {
           nombre: "Visualización para venta",
-          precio: 250, desde: false, unidad: "",
+          precio: 250, desde: true, unidad: "",
           extra: "Pozo o propiedades a reciclar",
-          plazo: "5 días hábiles", revisiones: 2,
+          plazo: "", revisiones: 2,
           incluye: ["Planta comercial", "4 renders"]
         },
         {
           nombre: "Registro aéreo",
-          precio: 100, desde: false, unidad: "",
+          precio: 100, desde: true, unidad: "",
           extra: "Con drone",
-          plazo: "3 días hábiles", revisiones: 1,
+          plazo: "", revisiones: 1,
           incluye: ["Fotos aéreas", "Video corto editado"]
         }
       ],
@@ -378,7 +384,7 @@ window.PRECIOS = {
           nombre: "Maqueta simple",
           precio: 250, desde: true, unidad: "",
           extra: "Escala 1:100",
-          plazo: "a definir", revisiones: 0,
+          plazo: "", revisiones: 0,
           incluye: ["Volumetría en balsa o cartón", "Sin detalles"]
         },
         {
@@ -386,14 +392,14 @@ window.PRECIOS = {
           destacado: true,
           precio: 450, desde: true, unidad: "",
           extra: "Escala 1:100",
-          plazo: "a definir", revisiones: 0,
+          plazo: "", revisiones: 0,
           incluye: ["Terreno y base", "Aberturas y color", "Vegetación"]
         },
         {
           nombre: "Registro aéreo de obra",
-          precio: 100, desde: false, unidad: "/visita",
+          precio: 100, desde: true, unidad: "/visita",
           extra: "Por visita, no es seguimiento de obra",
-          plazo: "3 días hábiles", revisiones: 0,
+          plazo: "", revisiones: 0,
           incluye: ["Fotos y video de avance con drone"]
         }
       ],
