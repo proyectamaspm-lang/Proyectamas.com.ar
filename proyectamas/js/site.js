@@ -370,9 +370,8 @@
       var visibles = cat.lod ? [] : cat.productos; // en BIM los niveles se eligen en el selector LOD
       if (visibles.length) html += '<div class="niveles" style="--n:' + visibles.length + '">';
       visibles.forEach(function (p) {
-        html += '<article class="nivel' + (p.destacado ? " destacado" : "") + '"' + (p.imagen ? ' data-img="' + esc(p.imagen) + '" data-cap="' + esc(cat.corto || cat.nombre) + " · " + esc(p.nombre) + '"' : "") + ">";
+        html += '<article class="nivel' + (p.destacado ? " destacado" : "") + '">';
         html += "<h3>" + esc(p.nombre) + "</h3>";
-        if (p.imagen) html += '<button type="button" class="ver-ej" aria-label="Ver un ejemplo de ' + esc(p.nombre) + '"><span aria-hidden="true">◐</span> Ver ejemplo</button>';
         if (p.sub) html += '<div class="sub">' + esc(p.sub) + "</div>";
         html += precioHTML(p);
         html += '<div class="extra">' + esc(p.extra || "") + "</div>";
@@ -395,7 +394,6 @@
     var cond = document.getElementById("condiciones-lista");
     if (cond) cond.innerHTML = P.condiciones.map(function (c) { return "<li>" + esc(c) + "</li>"; }).join("");
     initLOD();
-    initPeek();
     // índice activo según scroll
     if ("IntersectionObserver" in window && ind) {
       var links = ind.querySelectorAll("a");
@@ -408,50 +406,6 @@
       }, { rootMargin: "-40% 0px -55% 0px" });
       document.querySelectorAll(".categoria").forEach(function (s) { io.observe(s); });
     }
-  }
-
-  /* Ejemplo que se despliega al costado de cada tarjeta del tarifario */
-  function initPeek() {
-    var cards = document.querySelectorAll(".nivel[data-img]");
-    if (!cards.length) return;
-    var pk = document.createElement("figure");
-    pk.className = "peek"; pk.setAttribute("aria-hidden", "true");
-    pk.innerHTML = '<img alt=""><figcaption><b></b><span>Imagen de referencia</span></figcaption><button type="button" class="peek-x" aria-label="Cerrar">✕</button>';
-    document.body.appendChild(pk);
-    var img = pk.querySelector("img"), cap = pk.querySelector("b"), activa = null;
-    var hover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    function mostrar(card, comoHoja) {
-      activa = card;
-      img.src = card.getAttribute("data-img"); img.alt = card.getAttribute("data-cap");
-      cap.textContent = card.getAttribute("data-cap");
-      pk.classList.toggle("hoja", !!comoHoja);
-      if (!comoHoja) {
-        var r = card.getBoundingClientRect(), w = Math.min(380, window.innerWidth * 0.32), h = w * 0.78 + 46;
-        var derecha = window.innerWidth - r.right > w + 24;
-        var x = derecha ? r.right + 14 : r.left - w - 14;
-        if (x < 8) x = Math.max(8, r.right - w);
-        var y = Math.min(Math.max(r.top + 30, 80), window.innerHeight - h - 12);
-        pk.style.width = w + "px"; pk.style.left = x + "px"; pk.style.top = y + "px";
-        pk.classList.toggle("izq", !derecha);
-      } else { pk.style.width = ""; pk.style.left = ""; pk.style.top = ""; }
-      pk.classList.add("on"); pk.setAttribute("aria-hidden", "false");
-    }
-    function ocultar() { activa = null; pk.classList.remove("on"); pk.setAttribute("aria-hidden", "true"); }
-    cards.forEach(function (c) {
-      if (hover) {
-        c.addEventListener("pointerenter", function () { mostrar(c, false); });
-        c.addEventListener("pointerleave", ocultar);
-      }
-      var b = c.querySelector(".ver-ej");
-      if (b) b.addEventListener("click", function (e) {
-        e.stopPropagation();
-        if (activa === c && pk.classList.contains("hoja")) ocultar(); else mostrar(c, true);
-      });
-    });
-    pk.querySelector(".peek-x").addEventListener("click", ocultar);
-    document.addEventListener("click", function (e) { if (pk.classList.contains("hoja") && !pk.contains(e.target)) ocultar(); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape") ocultar(); });
-    window.addEventListener("scroll", function () { if (activa && !pk.classList.contains("hoja")) ocultar(); }, { passive: true });
   }
 
   /* Selector de LOD con un muro dibujado que gana detalle */

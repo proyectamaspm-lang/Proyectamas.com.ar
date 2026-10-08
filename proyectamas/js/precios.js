@@ -11,9 +11,7 @@
    - unidad: texto que va después del precio (ej. "/m²", "/imagen", "")
    - extra:  línea chica debajo del precio (ej. m² adicional)
    - plazo:  dejalo "" para no mostrarlo, o escribí uno (ej. "10 días hábiles")
-   - imagen: ruta de una imagen de ejemplo, ej. "assets/estudio/electrico.jpg".
-             En BIM se ve en el selector de LOD; en el resto se despliega
-             al costado de la tarjeta al pasar el mouse. "" = sin imagen.
+   - imagen: (solo BIM/LOD) ruta de la imagen del nivel, ej. "assets/lod/lod-300.jpg"
    - Para agregar un producto, copiá un bloque { ... } completo,
      pegalo debajo y cambiá los datos. Ojo con las comas.
 
@@ -47,7 +45,6 @@ window.PRECIOS = {
       intro: "Documentación de instalaciones lista para que el instalador ejecute sin adivinar. Eléctrica según AEA 90364, más sanitaria y gas en el paquete integral.",
       productos: [
         {
-          imagen: "assets/plano-unidades.jpg",
           nombre: "Básico",
           precio: 200, desde: true, unidad: "",
           extra: "USD 1,5 por m² adicional",
@@ -61,7 +58,6 @@ window.PRECIOS = {
           ]
         },
         {
-          imagen: "assets/lod/lod-350.jpg",
           nombre: "Completo",
           destacado: true,
           precio: 400, desde: true, unidad: "",
@@ -77,7 +73,6 @@ window.PRECIOS = {
           ]
         },
         {
-          imagen: "assets/lod/lod-350.jpg",
           nombre: "Integral",
           precio: 840, desde: true, unidad: "",
           extra: "USD 6 por m² adicional",
@@ -111,7 +106,6 @@ window.PRECIOS = {
       intro: "De la idea al proyecto documentado. Cada nivel suma al anterior, así elegís hasta dónde llegar.",
       productos: [
         {
-          imagen: "assets/lod/lod-200.jpg",
           nombre: "Anteproyecto",
           precio: 400, desde: true, unidad: "",
           extra: "USD 4 por m² adicional",
@@ -124,7 +118,6 @@ window.PRECIOS = {
           ]
         },
         {
-          imagen: "assets/plano-unidades.jpg",
           nombre: "Proyecto",
           precio: 600, desde: true, unidad: "",
           extra: "USD 6 por m² adicional",
@@ -137,7 +130,6 @@ window.PRECIOS = {
           ]
         },
         {
-          imagen: "assets/lod/lod-300.jpg",
           nombre: "Proyecto + Documentación",
           destacado: true,
           precio: 1000, desde: true, unidad: "",
@@ -151,7 +143,6 @@ window.PRECIOS = {
           ]
         },
         {
-          imagen: "assets/render_4.jpg",
           nombre: "Proyecto + BIM + Visualización",
           precio: 1300, desde: true, unidad: "",
           extra: "USD 13 por m² adicional",
@@ -251,7 +242,6 @@ window.PRECIOS = {
       intro: "Imágenes para entender, vender o aprobar un proyecto antes de construirlo.",
       productos: [
         {
-          imagen: "assets/trabajos/t06.jpg",
           nombre: "Render express IA",
           precio: 30, desde: true, unidad: "/imagen",
           extra: "A partir de una foto o modelo simple",
@@ -259,7 +249,6 @@ window.PRECIOS = {
           incluye: ["1 imagen en alta resolución", "Ideal para redes e inmobiliarias"]
         },
         {
-          imagen: "assets/lod/lod-300.jpg",
           nombre: "Modelado 3D",
           precio: 160, desde: true, unidad: "",
           extra: "Sin render",
@@ -267,7 +256,6 @@ window.PRECIOS = {
           incluye: ["Modelo 3D completo", "2 vistas de trabajo"]
         },
         {
-          imagen: "assets/trabajos/t15.jpg",
           nombre: "Modelado + 2 renders",
           precio: 260, desde: true, unidad: "",
           extra: "",
@@ -275,7 +263,6 @@ window.PRECIOS = {
           incluye: ["Modelo 3D", "2 renders fotorrealistas"]
         },
         {
-          imagen: "assets/trabajos/t08.jpg",
           nombre: "Modelado + 4 renders",
           destacado: true,
           precio: 360, desde: true, unidad: "",
@@ -284,7 +271,6 @@ window.PRECIOS = {
           incluye: ["Modelo 3D", "4 renders interior y exterior"]
         },
         {
-          imagen: "assets/render_6.jpg",
           nombre: "Pack comercial",
           precio: 520, desde: true, unidad: "",
           extra: "Para vender un proyecto",
@@ -353,7 +339,6 @@ window.PRECIOS = {
       intro: "Piezas rápidas para publicar y vender mejor una propiedad.",
       productos: [
         {
-          imagen: "assets/plano-unidades.jpg",
           nombre: "Plano comercial",
           precio: 40, desde: true, unidad: "",
           extra: "Pack 5: USD 170 · Pack 10: USD 300",
@@ -361,7 +346,6 @@ window.PRECIOS = {
           incluye: ["Planta 2D ambientada a color", "Medidas y m²", "Lista para publicar (hasta 100 m²)"]
         },
         {
-          imagen: "assets/trabajos/t16.jpg",
           nombre: "Visualización de reforma",
           precio: 30, desde: true, unidad: "/imagen",
           extra: "Pack de 3: USD 75",
@@ -369,7 +353,6 @@ window.PRECIOS = {
           incluye: ["Foto actual del ambiente", "Imagen de cómo quedaría reformado"]
         },
         {
-          imagen: "assets/lod/lod-100.jpg",
           nombre: "Potencial de propiedad",
           destacado: true,
           precio: 150, desde: true, unidad: "",
@@ -378,7 +361,6 @@ window.PRECIOS = {
           incluye: ["Qué se puede construir o ampliar (FOS y FOT disponibles)", "Esquema volumétrico", "1 render"]
         },
         {
-          imagen: "assets/trabajos/t13.jpg",
           nombre: "Visualización para venta",
           precio: 250, desde: true, unidad: "",
           extra: "Pozo o propiedades a reciclar",
@@ -386,7 +368,6 @@ window.PRECIOS = {
           incluye: ["Planta comercial", "4 renders"]
         },
         {
-          imagen: "assets/trabajos/t11.jpg",
           nombre: "Registro aéreo",
           precio: 100, desde: true, unidad: "",
           extra: "Con drone",
@@ -406,7 +387,6 @@ window.PRECIOS = {
       intro: "Maquetas hechas a mano y registro aéreo de obra por visita.",
       productos: [
         {
-          imagen: "assets/lod/lod-100.jpg",
           nombre: "Maqueta simple",
           precio: 250, desde: true, unidad: "",
           extra: "Escala 1:100",
@@ -414,7 +394,6 @@ window.PRECIOS = {
           incluye: ["Volumetría en balsa o cartón", "Sin detalles"]
         },
         {
-          imagen: "assets/lod/lod-200.jpg",
           nombre: "Maqueta completa",
           destacado: true,
           precio: 450, desde: true, unidad: "",
@@ -423,7 +402,6 @@ window.PRECIOS = {
           incluye: ["Terreno y base", "Aberturas y color", "Vegetación"]
         },
         {
-          imagen: "assets/trabajos/t19.jpg",
           nombre: "Registro aéreo de obra",
           precio: 100, desde: true, unidad: "/visita",
           extra: "Por visita, no es seguimiento de obra",

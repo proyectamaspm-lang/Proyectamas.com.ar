@@ -58,7 +58,7 @@ window.PRODUCTOS = {
         {
           nombre: "Kit completo · Proyecto de Instalaciones",
           texto: "Manual de 81 páginas con 7 proyectos, planilla MEP, caso con planos DXF, bloques CAD, plantillas y calculadoras.",
-          precio: 24900, antes: 34900, nota: "Lanzamiento · pago único",
+          precio: 24999, antes: 34900, nota: "Lanzamiento · pago único",
           estado: "nuevo", destacado: true,
           portada: "P07", portadaTexto: "Manual + 11 bonos",
           media: null,
@@ -67,7 +67,7 @@ window.PRODUCTOS = {
         {
           nombre: "Manual de Proyecto de Instalaciones",
           texto: "Eléctrica, sanitaria y gas, de la vivienda al edificio. Incluye calculadoras web y ficha técnica.",
-          precio: 14900, antes: 17900, nota: "Lanzamiento · pago único",
+          precio: 14999, antes: 17900, nota: "Lanzamiento · pago único",
           estado: "nuevo",
           portada: "81", portadaTexto: "páginas · PDF",
           media: null,
@@ -76,7 +76,7 @@ window.PRODUCTOS = {
         {
           nombre: "Cursos grabados",
           texto: "Clases cortas sobre un tema puntual: cálculo de cañerías de gas, caída de tensión, cómputo eléctrico.",
-          precio: 20000, precioDesde: true, nota: "Precio estimado",
+          precio: 19999, precioDesde: true, nota: "Precio estimado",
           estado: "pronto",
           portada: "▶", portadaTexto: "videos cortos",
           media: null,
@@ -164,7 +164,7 @@ window.PRODUCTOS = {
         {
           nombre: "Planillas sueltas",
           texto: "Comprá sólo el rubro que necesitás: albañilería, eléctrica, steel frame, SIP, climatización y más.",
-          precio: 19900, precioDesde: true, nota: "Por planilla",
+          precio: 19999, precioDesde: true, nota: "Por planilla",
           portada: "1", portadaTexto: "rubro",
           media: null,
           comprar: "", ver: ""
