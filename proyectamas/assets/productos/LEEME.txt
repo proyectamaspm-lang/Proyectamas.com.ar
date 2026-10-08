@@ -1,0 +1,14 @@
+Fotos y videos de los productos (página Productos).
+
+1. Subí acá el archivo (ej. suite.jpg o suite.mp4).
+2. En js/productos.js, en el producto que quieras, cambiá:
+     media: null
+   por
+     media: { tipo: "imagen", src: "assets/productos/suite.jpg" }
+   o
+     media: { tipo: "video", src: "assets/productos/suite.mp4", poster: "assets/productos/suite.jpg" }
+
+Recomendado:
+- Imágenes: 1200 px de ancho, JPG, formato horizontal (16:10).
+- Videos: 10 a 20 segundos, sin sonido, MP4, menos de 5 MB.
+  En la compu se reproducen al pasar el mouse; en el celular, al verse en pantalla.

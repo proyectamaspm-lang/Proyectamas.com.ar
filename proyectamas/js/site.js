@@ -70,6 +70,10 @@
       for (var r = 0; r * ch < this.h + ch; r++)
         for (var col = 0; col * cw < this.w + cw; col++)
           pts.push({ x: col * cw, y: r * ch, r: r, col: col, glow: 0, val: (Math.random() * 9000 + 100) | 0 });
+    } else if (this.mode === "bloques") {
+      var bs = this.w < 700 ? 34 : 46; this.bs = bs;
+      for (var by = bs * 0.6; by < this.h + bs; by += bs)
+        for (var bx = bs * 0.4; bx < this.w + bs; bx += bs) pts.push({ x: bx, y: by, lift: 0 });
     } else if (this.mode === "curvas") {
       this.lines = Math.round(this.h / 16);
     } else {
@@ -265,6 +269,45 @@
     ctx.setLineDash([]);
     ctx.fillStyle = "rgb(" + YELLOW + ")";
     ctx.beginPath(); ctx.moveTo(mx - 7, my - 12); ctx.lineTo(mx + 7, my - 12); ctx.lineTo(mx, my + 4); ctx.closePath(); ctx.fill();
+  };
+
+  /* Productos: bloques (cajas) que se levantan en 3D alrededor del cursor */
+  Plano.prototype.draw_bloques = function (ctx) {
+    var mx = this.cur.x, my = this.cur.y, R = this.w < 700 ? 130 : 190, s = this.bs * 0.62;
+    // primero los bajos, después los altos (para que se superpongan bien)
+    for (var i = 0; i < this.pts.length; i++) {
+      var b = this.pts[i];
+      var d = Math.hypot(b.x + s / 2 - mx, b.y + s / 2 - my);
+      var f = d < R ? 1 - d / R : 0;
+      b.lift += (f * f * 26 - b.lift) * 0.16;
+    }
+    var orden = this.pts.slice().sort(function (a, c) { return a.lift - c.lift; });
+    ctx.lineWidth = 1;
+    for (var j = 0; j < orden.length; j++) {
+      var q = orden[j], h = q.lift, ox = -h * 0.55, oy = -h;
+      if (h < 0.6) {
+        ctx.strokeStyle = "rgba(" + WHITE + ",0.14)";
+        ctx.strokeRect(q.x + 0.5, q.y + 0.5, s, s);
+        continue;
+      }
+      var a = Math.min(1, h / 26);
+      // caras laterales (extrusión)
+      ctx.fillStyle = "rgba(30,73,130," + (0.55 + a * 0.4).toFixed(3) + ")";
+      ctx.beginPath();
+      ctx.moveTo(q.x, q.y + s); ctx.lineTo(q.x + ox, q.y + s + oy); ctx.lineTo(q.x + ox, q.y + oy);
+      ctx.lineTo(q.x + s + ox, q.y + oy); ctx.lineTo(q.x + s, q.y); ctx.lineTo(q.x, q.y); ctx.closePath(); ctx.fill();
+      ctx.strokeStyle = "rgba(" + YELLOW + "," + (0.25 + a * 0.6).toFixed(3) + ")";
+      ctx.beginPath();
+      ctx.moveTo(q.x, q.y); ctx.lineTo(q.x + ox, q.y + oy);
+      ctx.moveTo(q.x + s, q.y); ctx.lineTo(q.x + s + ox, q.y + oy);
+      ctx.moveTo(q.x, q.y + s); ctx.lineTo(q.x + ox, q.y + s + oy);
+      ctx.stroke();
+      // tapa
+      ctx.fillStyle = "rgba(" + YELLOW + "," + (0.08 + a * 0.55).toFixed(3) + ")";
+      ctx.fillRect(q.x + ox, q.y + oy, s, s);
+      ctx.strokeStyle = "rgba(" + YELLOW + "," + (0.4 + a * 0.6).toFixed(3) + ")";
+      ctx.strokeRect(q.x + ox + 0.5, q.y + oy + 0.5, s, s);
+    }
   };
 
   /* Desarrollos: líneas de terreno; el cursor levanta una loma */
@@ -492,6 +535,127 @@
         if (Math.abs(dx) > 50) abrir(actual + (dx < 0 ? 1 : -1));
       });
     }
+  }
+
+
+  /* ---------- Productos: catálogo desde js/productos.js ---------- */
+  var cont = document.getElementById("productos");
+  if (cont && window.PRODUCTOS) {
+    var PR = window.PRODUCTOS;
+    var waP = function (t) { return "https://wa.me/" + (PR.whatsapp || "5493425104877") + "?text=" + encodeURIComponent(t); };
+    var pesos = function (n) { return (PR.moneda || "$") + n.toLocaleString("es-AR"); };
+    var etiquetas = { nuevo: "Nuevo", pronto: "Próximamente", desarrollo: "En desarrollo", gratis: "Gratis" };
+    var mediaHTML = function (p) {
+      var m = p.media;
+      if (m && m.tipo === "video" && m.src) {
+        return '<div class="pr-media"><video muted loop playsinline preload="none"' + (m.poster ? ' poster="' + esc(m.poster) + '"' : "") + ' data-src="' + esc(m.src) + '" aria-label="Video de ' + esc(p.nombre) + '"></video><span class="pr-play" aria-hidden="true">▶ Video</span></div>';
+      }
+      if (m && m.tipo === "imagen" && m.src) {
+        return '<div class="pr-media"><img src="' + esc(m.src) + '" alt="' + esc(p.nombre) + '" loading="lazy" decoding="async"></div>';
+      }
+      return '<div class="pr-media pr-portada" aria-hidden="true"><b>' + esc(p.portada || "+") + '</b><span>' + esc(p.portadaTexto || "") + "</span></div>";
+    };
+    var precioP = function (p) {
+      if (p.precio === null || p.precio === undefined) return '<div class="pr-precio pr-precio--txt">' + esc(p.precioTexto || "Consultá") + "</div>";
+      if (p.precio === 0) return '<div class="pr-precio">Gratis</div>';
+      return '<div class="pr-precio">' + (p.antes ? "<s>" + pesos(p.antes) + "</s> " : "") + (p.precioDesde ? '<span class="desde">desde</span>' : "") + pesos(p.precio) + "</div>";
+    };
+    var botones = function (p) {
+      var h = "";
+      if (p.accion === "prueba") {
+        h += '<a class="btn btn--yellow" href="#prueba">Quiero probarlo</a>';
+      } else if (p.accion === "avisame") {
+        h += '<a class="btn btn--line" target="_blank" rel="noopener" href="' + waP("Hola Proyecta+, avisame cuando salga: " + p.nombre + ".") + '">Avisame cuando salga</a>';
+      } else if (p.precio === 0) {
+        h += '<a class="btn btn--yellow" target="_blank" rel="noopener" href="' + (p.comprar ? esc(p.comprar) : waP("Hola Proyecta+, quiero la " + p.nombre + " gratis.")) + '">' + esc(p.gratisTexto || "Descargar") + "</a>";
+      } else if (p.verKit) {
+        h += '<a class="btn btn--line" href="#formacion">Ver el kit</a>';
+      } else {
+        var txtCompra = "Hola Proyecta+, quiero comprar: " + p.nombre + (p.precio ? " (" + pesos(p.precio) + ")" : "") + ". ¿Cómo pago?";
+        h += '<a class="btn ' + (p.destacado ? "btn--ink" : "btn--yellow") + '" target="_blank" rel="noopener" href="' + (p.comprar ? esc(p.comprar) : waP(txtCompra)) + '">Comprar</a>';
+      }
+      if (p.ver) h += '<a class="pr-ver" target="_blank" rel="noopener" href="' + esc(p.ver) + '">Ver más</a>';
+      return h;
+    };
+    var html = "", filtrosH = '<button type="button" aria-pressed="true" data-f="todo">Todo</button>';
+    PR.categorias.forEach(function (cat) {
+      filtrosH += '<button type="button" aria-pressed="false" data-f="' + cat.id + '">' + esc(cat.corto || cat.nombre) + "</button>";
+      html += '<section class="categoria pr-cat" id="' + cat.id + '" data-cat="' + cat.id + '" aria-labelledby="h-' + cat.id + '"><div class="wrap">';
+      html += '<div class="cat-head"><h2 class="d2" id="h-' + cat.id + '">' + esc(cat.nombre) + "</h2><p>" + esc(cat.intro) + "</p></div>";
+      html += '<div class="pr-grid">';
+      cat.productos.forEach(function (p) {
+        var et = p.etiqueta || etiquetas[p.estado] || "";
+        html += '<article class="pr' + (p.destacado ? " pr--dest" : "") + '">' + mediaHTML(p) + '<div class="pr-body">';
+        if (et) html += '<span class="pr-et pr-et--' + esc(p.estado || "nuevo") + '">' + esc(et) + "</span>";
+        html += "<h3>" + esc(p.nombre) + "</h3>";
+        if (p.lista) html += "<ul>" + p.lista.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>";
+        else html += "<p>" + esc(p.texto || "") + "</p>";
+        html += '<div class="pr-compra">' + precioP(p) + '<small>' + esc(p.nota || "") + '</small><div class="pr-btns">' + botones(p) + "</div></div>";
+        html += "</div></article>";
+      });
+      html += "</div></div></section>";
+    });
+    html += '<div class="wrap pr-pagos"><p class="aviso">' + esc(PR.pagos || "") + " Precios en pesos argentinos, sujetos a cambios.</p></div>";
+    cont.innerHTML = html;
+    var fil = document.getElementById("filtros");
+    if (fil) {
+      fil.innerHTML = filtrosH;
+      fil.addEventListener("click", function (e) {
+        var b = e.target.closest("button[data-f]"); if (!b) return;
+        var f = b.getAttribute("data-f");
+        fil.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+        cont.querySelectorAll("[data-cat]").forEach(function (sec) { sec.hidden = !(f === "todo" || sec.getAttribute("data-cat") === f); });
+        var top = document.getElementById("catalogo");
+        if (top && top.getBoundingClientRect().top < 0) top.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+      });
+      // si llegan con #planillas, #software, etc. filtramos esa categoría
+      var h = location.hash.replace("#", "");
+      var btn = h && fil.querySelector('button[data-f="' + h + '"]');
+      if (btn) setTimeout(function () { btn.click(); var el = document.getElementById(h); if (el) el.scrollIntoView(); }, 0);
+    }
+    // videos: se cargan y reproducen al pasar el mouse (escritorio) o al verse en pantalla (celular)
+    var vids = cont.querySelectorAll("video[data-src]");
+    var cargar = function (v) { if (!v.src) v.src = v.getAttribute("data-src"); };
+    var hover = window.matchMedia("(hover: hover)").matches;
+    vids.forEach(function (v) {
+      var card = v.closest(".pr");
+      if (hover) {
+        card.addEventListener("pointerenter", function () { cargar(v); if (!reduce) v.play().catch(function () {}); card.classList.add("reproduciendo"); });
+        card.addEventListener("pointerleave", function () { v.pause(); card.classList.remove("reproduciendo"); });
+      }
+    });
+    if (!hover && !reduce && "IntersectionObserver" in window) {
+      var io2 = new IntersectionObserver(function (en) {
+        en.forEach(function (e) {
+          var v = e.target;
+          if (e.isIntersecting) { cargar(v); v.play().catch(function () {}); v.closest(".pr").classList.add("reproduciendo"); }
+          else { v.pause(); v.closest(".pr").classList.remove("reproduciendo"); }
+        });
+      }, { threshold: 0.6 });
+      vids.forEach(function (v) { io2.observe(v); });
+    }
+  }
+
+  /* Prueba del software */
+  var fp = document.getElementById("form-prueba");
+  if (fp) {
+    fp.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var d = new FormData(fp), err = fp.querySelector(".error");
+      var nombre = (d.get("nombre") || "").trim(), mail = (d.get("email") || "").trim();
+      if (!nombre || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) { err.textContent = "Completá tu nombre y un mail válido."; return; }
+      err.textContent = "";
+      var cfg = window.PRODUCTOS || {};
+      if (cfg.pruebaUrl) {
+        var u = cfg.pruebaUrl + (cfg.pruebaUrl.indexOf("?") > -1 ? "&" : "?") + "nombre=" + encodeURIComponent(nombre) + "&email=" + encodeURIComponent(mail);
+        window.open(u, "_blank", "noopener");
+        return;
+      }
+      var t = "Hola Proyecta+, quiero probar 1 hora el software de seguimiento de obra.\nNombre: " + nombre + "\nMail: " + mail +
+        (d.get("tel") ? "\nWhatsApp: " + d.get("tel") : "") + "\nPerfil: " + d.get("perfil");
+      window.open("https://wa.me/" + (cfg.whatsapp || "5493425104877") + "?text=" + encodeURIComponent(t), "_blank", "noopener");
+      fp.querySelector("button[type=submit]").textContent = "¡Listo! Te mandamos el acceso";
+    });
   }
 
   /* ---------------- Contacto ---------------- */

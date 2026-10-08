@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Productos · Planillas, manuales y software | Proyecta Más</title>
+  <meta name="description" content="Planillas de cómputo y presupuesto, manuales de instalaciones, recursos CAD y software para la construcción. Comprá online o probá el software gratis.">
+  <meta name="theme-color" content="#122e54">
+  <meta property="og:title" content="Productos · Proyecta Más">
+  <meta property="og:description" content="Planillas, manuales, recursos CAD y software hechos desde la obra, para colegas.">
+  <meta property="og:image" content="assets/render_4.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icon/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icon/favicon-192.png">
+  <link rel="apple-touch-icon" href="assets/icon/apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body data-pagina="productos">
+  <a class="sr-only" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="logo" href="index.html" aria-label="Proyecta Más, inicio">PROYECTA<span>+</span></a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menú</button>
+      <nav class="nav" id="nav" aria-label="Principal">
+        <a href="index.html">Inicio</a>
+        <a href="estudio.html">Estudio</a>
+        <a href="tech.html">Tech</a>
+        <a href="construcciones.html">Construcciones</a>
+        <a href="desarrollos.html">Desarrollos</a>
+        <a href="productos.html" aria-current="page">Productos</a>
+        <a class="nav-cta" href="contacto.html">Contacto</a>
+      </nav>
+    </div>
+  </header>
+  <main id="contenido">
+    <section class="plano plano--short" aria-labelledby="h1">
+      <canvas data-modo="bloques" aria-hidden="true"></canvas>
+      <div class="rotulo" aria-hidden="true">
+        <div>Plano</div><div><b>P+ 05</b></div>
+        <div>Lámina</div><div><b>Productos</b></div>
+        <div>Escala</div><div><b>1:1</b></div>
+        <div>X</div><div><b data-rot-x>0.00 m</b></div>
+        <div>Y</div><div><b data-rot-y>0.00 m</b></div>
+      </div>
+      <div class="wrap">
+        <h1 class="d1" id="h1">Herramientas para proyectar, presupuestar y construir.</h1>
+        <p class="lead" style="margin-top:24px">Planillas, manuales, recursos CAD y software hechos desde la obra, por un Maestro Mayor de Obras, para colegas.</p>
+        <div class="hero-actions"><a class="btn btn--yellow" href="#catalogo">Ver productos</a><a class="btn btn--ghost" href="#prueba">Probar el software gratis</a></div>
+      </div>
+    </section>
+
+    <nav class="indice filtros" id="catalogo" aria-label="Filtrar productos">
+      <div class="wrap" id="filtros" role="group" aria-label="Filtrar por categoría"></div>
+    </nav>
+    <div id="productos">
+      <noscript><div class="wrap sec"><p>Activá JavaScript para ver los productos, o escribinos por WhatsApp y te mandamos el catálogo.</p></div></noscript>
+    </div>
+
+    <section class="sec prueba" id="prueba" aria-labelledby="h-prueba">
+      <div class="wrap prueba-grid">
+        <div>
+          <p class="u-amb" style="color:var(--yellow)">Software · versión de prueba</p>
+          <h2 class="d2" id="h-prueba">Probá el seguimiento de obra durante 1 hora.</h2>
+          <p class="lead">Creá tu cuenta, cargá una obra de ejemplo y mirá cómo se ven tus pagos, pendientes y alertas desde tu compu o tu celular. Al terminar la hora, la prueba se cierra y te contamos cómo seguir.</p>
+          <ol class="secuencia" style="--n:3">
+            <li><h3>Registrate</h3><p>Nombre, mail y WhatsApp.</p></li>
+            <li><h3>Cargá una obra</h3><p>Pagos, gastos y pendientes.</p></li>
+            <li><h3>Probalo 60 minutos</h3><p>Después hablamos.</p></li>
+          </ol>
+        </div>
+        <form class="form" id="form-prueba" novalidate>
+          <h3 class="d3">Pedí tu acceso</h3>
+          <label>Nombre<input name="nombre" autocomplete="name" required></label>
+          <label>Email<input name="email" type="email" autocomplete="email" required></label>
+          <label>WhatsApp<input name="tel" type="tel" autocomplete="tel"></label>
+          <label>¿A qué te dedicás?
+            <select name="perfil"><option>Maestro Mayor de Obras</option><option>Arquitecto/a</option><option>Ingeniero/a</option><option>Constructor/a o contratista</option><option>Desarrollista</option><option>Otro</option></select>
+          </label>
+          <p class="error" role="alert"></p>
+          <button class="btn btn--yellow" type="submit">Quiero probarlo 1 hora</button>
+          <p class="note" style="margin:0">Sin tarjeta. Usamos tus datos sólo para darte el acceso y contarte novedades.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="sec sec--sheet" aria-labelledby="h-ayuda">
+      <div class="wrap split">
+        <h2 class="d2" id="h-ayuda">¿No sabés cuál te conviene?</h2>
+        <div>
+          <p class="lead" style="margin-top:0">Contanos qué tipo de obras hacés y te recomendamos la planilla o el pack justo. Sin vueltas.</p>
+          <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
+            <a class="btn btn--ink" target="_blank" rel="noopener" href="https://wa.me/5493425104877?text=Hola%20Proyecta%2B%2C%20quiero%20que%20me%20recomienden%20un%20producto.">Escribinos por WhatsApp</a>
+            <a class="btn btn--line" href="estudio.html#computos">Prefiero que lo hagan ustedes</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="cols">
+        <div>
+          <a class="logo" href="index.html">PROYECTA<span>+</span></a>
+          <p style="margin-top:12px;max-width:28em">Proyectamos, modelamos, construimos y desarrollamos. Rosario, Santa Fe, y trabajo digital para toda la Argentina.</p>
+        </div>
+        <div>
+          <h4>Unidades</h4>
+          <ul><li><a href="estudio.html">Estudio</a></li><li><a href="tech.html">Tech</a></li><li><a href="construcciones.html">Construcciones</a></li><li><a href="desarrollos.html">Desarrollos</a></li><li><a href="productos.html">Productos</a></li></ul>
+        </div>
+        <div>
+          <h4>Estudio</h4>
+          <ul><li><a href="estudio.html#tarifas">Servicios y tarifas</a></li><li><a href="estudio.html#bim">BIM Revit</a></li><li><a href="estudio.html#inmobiliarias">Inmobiliarias</a></li></ul>
+        </div>
+        <div>
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="https://wa.me/5493425104877" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href="mailto:hola@proyectamas.com.ar">hola@proyectamas.com.ar</a></li>
+            <li><a href="https://instagram.com/_proyectamas_" target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="legal"><span>© <span id="anio">2026</span> Proyecta Más</span><span>Precios de referencia en dólares, sujetos a cambios.</span></div>
+    </div>
+  </footer>
+  <a class="wa-float" href="https://wa.me/5493425104877" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3z"/></svg></a>
+  <script src="js/productos.js"></script>
+  <script src="js/site.js"></script>
+</body>
+</html>
