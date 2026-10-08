@@ -370,8 +370,9 @@
       var visibles = cat.lod ? [] : cat.productos; // en BIM los niveles se eligen en el selector LOD
       if (visibles.length) html += '<div class="niveles" style="--n:' + visibles.length + '">';
       visibles.forEach(function (p) {
-        html += '<article class="nivel' + (p.destacado ? " destacado" : "") + '">';
+        html += '<article class="nivel' + (p.destacado ? " destacado" : "") + '"' + (p.imagen ? ' data-img="' + esc(p.imagen) + '" data-cap="' + esc(cat.corto || cat.nombre) + " · " + esc(p.nombre) + '"' : "") + ">";
         html += "<h3>" + esc(p.nombre) + "</h3>";
+        if (p.imagen) html += '<button type="button" class="ver-ej" aria-label="Ver un ejemplo de ' + esc(p.nombre) + '"><span aria-hidden="true">◐</span> Ver ejemplo</button>';
         if (p.sub) html += '<div class="sub">' + esc(p.sub) + "</div>";
         html += precioHTML(p);
         html += '<div class="extra">' + esc(p.extra || "") + "</div>";
@@ -394,6 +395,7 @@
     var cond = document.getElementById("condiciones-lista");
     if (cond) cond.innerHTML = P.condiciones.map(function (c) { return "<li>" + esc(c) + "</li>"; }).join("");
     initLOD();
+    initPeek();
     // índice activo según scroll
     if ("IntersectionObserver" in window && ind) {
       var links = ind.querySelectorAll("a");
@@ -406,6 +408,50 @@
       }, { rootMargin: "-40% 0px -55% 0px" });
       document.querySelectorAll(".categoria").forEach(function (s) { io.observe(s); });
     }
+  }
+
+  /* Ejemplo que se despliega al costado de cada tarjeta del tarifario */
+  function initPeek() {
+    var cards = document.querySelectorAll(".nivel[data-img]");
+    if (!cards.length) return;
+    var pk = document.createElement("figure");
+    pk.className = "peek"; pk.setAttribute("aria-hidden", "true");
+    pk.innerHTML = '<img alt=""><figcaption><b></b><span>Imagen de referencia</span></figcaption><button type="button" class="peek-x" aria-label="Cerrar">✕</button>';
+    document.body.appendChild(pk);
+    var img = pk.querySelector("img"), cap = pk.querySelector("b"), activa = null;
+    var hover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    function mostrar(card, comoHoja) {
+      activa = card;
+      img.src = card.getAttribute("data-img"); img.alt = card.getAttribute("data-cap");
+      cap.textContent = card.getAttribute("data-cap");
+      pk.classList.toggle("hoja", !!comoHoja);
+      if (!comoHoja) {
+        var r = card.getBoundingClientRect(), w = Math.min(380, window.innerWidth * 0.32), h = w * 0.78 + 46;
+        var derecha = window.innerWidth - r.right > w + 24;
+        var x = derecha ? r.right + 14 : r.left - w - 14;
+        if (x < 8) x = Math.max(8, r.right - w);
+        var y = Math.min(Math.max(r.top + 30, 80), window.innerHeight - h - 12);
+        pk.style.width = w + "px"; pk.style.left = x + "px"; pk.style.top = y + "px";
+        pk.classList.toggle("izq", !derecha);
+      } else { pk.style.width = ""; pk.style.left = ""; pk.style.top = ""; }
+      pk.classList.add("on"); pk.setAttribute("aria-hidden", "false");
+    }
+    function ocultar() { activa = null; pk.classList.remove("on"); pk.setAttribute("aria-hidden", "true"); }
+    cards.forEach(function (c) {
+      if (hover) {
+        c.addEventListener("pointerenter", function () { mostrar(c, false); });
+        c.addEventListener("pointerleave", ocultar);
+      }
+      var b = c.querySelector(".ver-ej");
+      if (b) b.addEventListener("click", function (e) {
+        e.stopPropagation();
+        if (activa === c && pk.classList.contains("hoja")) ocultar(); else mostrar(c, true);
+      });
+    });
+    pk.querySelector(".peek-x").addEventListener("click", ocultar);
+    document.addEventListener("click", function (e) { if (pk.classList.contains("hoja") && !pk.contains(e.target)) ocultar(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") ocultar(); });
+    window.addEventListener("scroll", function () { if (activa && !pk.classList.contains("hoja")) ocultar(); }, { passive: true });
   }
 
   /* Selector de LOD con un muro dibujado que gana detalle */
@@ -572,7 +618,7 @@
         h += '<a class="btn btn--line" href="#formacion">Ver el kit</a>';
       } else {
         var txtCompra = "Hola Proyecta+, quiero comprar: " + p.nombre + (p.precio ? " (" + pesos(p.precio) + ")" : "") + ". ¿Cómo pago?";
-        h += '<a class="btn ' + (p.destacado ? "btn--ink" : "btn--yellow") + '" target="_blank" rel="noopener" href="' + (p.comprar ? esc(p.comprar) : waP(txtCompra)) + '">Comprar</a>';
+        h += '<a class="btn ' + (p.destacado ? "btn--ink" : "btn--yellow") + '" target="_blank" rel="noopener" href="' + (p.comprar ? esc(p.comprar) : waP(txtCompra)) + '">' + esc(p.botonTexto || "Comprar") + "</a>";
       }
       if (p.ver) h += '<a class="pr-ver" target="_blank" rel="noopener" href="' + esc(p.ver) + '">Ver más</a>';
       return h;
@@ -581,15 +627,17 @@
     PR.categorias.forEach(function (cat) {
       filtrosH += '<button type="button" aria-pressed="false" data-f="' + cat.id + '">' + esc(cat.corto || cat.nombre) + "</button>";
       html += '<section class="categoria pr-cat" id="' + cat.id + '" data-cat="' + cat.id + '" aria-labelledby="h-' + cat.id + '"><div class="wrap">';
-      html += '<div class="cat-head"><h2 class="d2" id="h-' + cat.id + '">' + esc(cat.nombre) + "</h2><p>" + esc(cat.intro) + "</p></div>";
+      html += '<div class="cat-head"><h2 class="d2" id="h-' + cat.id + '">' + esc(cat.nombre) + "</h2><p>" + esc(cat.intro) + "</p>" + (cat.nota ? '<p class="pr-nota">' + esc(cat.nota) + "</p>" : "") + "</div>";
       html += '<div class="pr-grid">';
       cat.productos.forEach(function (p) {
         var et = p.etiqueta || etiquetas[p.estado] || "";
         html += '<article class="pr' + (p.destacado ? " pr--dest" : "") + '">' + mediaHTML(p) + '<div class="pr-body">';
         if (et) html += '<span class="pr-et pr-et--' + esc(p.estado || "nuevo") + '">' + esc(et) + "</span>";
         html += "<h3>" + esc(p.nombre) + "</h3>";
-        if (p.lista) html += "<ul>" + p.lista.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>";
-        else html += "<p>" + esc(p.texto || "") + "</p>";
+        if (p.texto) html += "<p>" + esc(p.texto) + "</p>";
+        if (p.lista && p.listaPlegable) html += '<details class="pr-plegable"><summary>' + esc(p.listaPlegable) + '</summary><ul class="pr-chips">' + p.lista.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul></details>";
+        else if (p.lista) html += '<ul class="pr-lista">' + p.lista.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>";
+        if (p.bonos) html += '<ul class="pr-bonos">' + p.bonos.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>";
         html += '<div class="pr-compra">' + precioP(p) + '<small>' + esc(p.nota || "") + '</small><div class="pr-btns">' + botones(p) + "</div></div>";
         html += "</div></article>";
       });

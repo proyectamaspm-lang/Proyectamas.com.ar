@@ -6,7 +6,10 @@
 
    Campos de cada producto:
    - nombre, texto: lo que se lee en la tarjeta.
-   - lista: (opcional) viñetas en vez de texto.
+   - lista: (opcional) viñetas. Con listaPlegable: "Ver las 31 planillas"
+            la lista queda escondida detrás de ese botón.
+   - bonos: (opcional) líneas con regalito (ej. descuentos exclusivos).
+   - botonTexto: (opcional) texto del botón de compra.
    - precio: número en pesos (ej. 24900). null = no muestra número.
    - antes: (opcional) precio tachado, ej. 34900.
    - precioTexto: (opcional) texto en lugar del precio, ej. "Consultá".
@@ -86,31 +89,77 @@ window.PRODUCTOS = {
       nombre: "Planillas de cómputo y presupuesto",
       corto: "Planillas",
       intro: "Método clásico de cómputo y presupuesto, con APU, certificación por avance y dashboard. Materiales y mano de obra separados.",
+      nota: "Todas incluyen manuales útiles, planillas de rendimientos y proporciones, checklists y tablas técnicas.",
       productos: [
         {
-          nombre: "Suite Cómputo y Presupuesto PRO",
-          texto: "Todos los rubros de la obra, la planilla maestra para consolidar y el verificador técnico de obra de regalo.",
-          precio: 249900, nota: "Pago único",
+          nombre: "Suite Proyecta Más · 31 planillas PRO",
+          texto: "Todos los rubros de la obra en un solo sistema, con la planilla maestra para consolidar el presupuesto.",
+          lista: ["Electricidad", "Sanitarias", "Gas", "Climatización", "Detección de Incendio", "Extinción de Incendio",
+                  "Movimiento de Suelo", "Hormigón Armado", "Albañilería", "Trabajos preliminares", "Morteros y Hormigones",
+                  "Estruct. Hierro y Madera", "Antisísmica y Entrepisos", "Cielorrasos", "Solados", "Pintura", "Carpintería",
+                  "Herrería", "Vidrios", "Cubiertas", "Steel Frame", "Paneles SIP", "Wood Frame", "Domótica", "Revestimientos",
+                  "CCTV y Alarmas", "Energía Solar", "Demolición", "Ascensores", "Paisajismo y Piletas", "Topografía"],
+          listaPlegable: "Ver las 31 planillas",
+          bonos: ["75 % OFF vs. compra individual", "Garantía de 7 días · compra protegida"],
+          precio: 239242, antes: 956968, nota: "Pago único · hasta 3 cuotas sin interés con Mercado Pago",
           estado: "nuevo", etiqueta: "La más completa", destacado: true,
-          portada: "+45", portadaTexto: "planillas por rubro",
+          portada: "31", portadaTexto: "planillas PRO",
           media: null,
-          comprar: "", ver: "https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra"
+          botonTexto: "Llevar la suite completa",
+          comprar: "", ver: ""
         },
         {
           nombre: "Pack Instalaciones",
-          texto: "Eléctrica, sanitaria, gas, detección y extinción de incendio, y más, con el mismo sistema de la suite.",
-          precio: 89900, nota: "Pago único",
-          portada: "6", portadaTexto: "planillas",
+          lista: ["Electricidad PRO", "Sanitarias PRO", "Gas PRO", "Climatización PRO", "Extinción de Incendio PRO",
+                  "Domótica PRO", "Detección de Incendio PRO", "CCTV y Alarmas PRO", "Energía Solar PRO"],
+          bonos: ["Descuentos exclusivos en los servicios de Proyecta Más"],
+          precio: 166495, antes: 332991, nota: "Pago único",
+          estado: "nuevo", etiqueta: "★ Más vendido",
+          portada: "9", portadaTexto: "planillas",
           media: null,
-          comprar: "", ver: "https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra"
+          botonTexto: "Comprar Pack Instalaciones",
+          comprar: "", ver: ""
         },
         {
-          nombre: "Packs por etapa",
-          lista: ["Obra Gruesa y Estructuras", "Construcción en Seco", "Obras Especiales", "Terminaciones"],
-          precio: null, precioTexto: "Consultá", nota: "Precio por pack",
-          portada: "4", portadaTexto: "packs",
+          nombre: "Pack Obra Gruesa y Estructuras",
+          lista: ["Movimiento de Suelos", "Hormigón Armado", "Albañilería", "Demolición", "Morteros y Hormigones",
+                  "Estructuras de Hierro y Madera", "Antisísmica y Entrepisos", "Trabajos preliminares"],
+          bonos: ["Descuentos exclusivos en los servicios de Proyecta Más"],
+          precio: 79996, antes: 159992, nota: "Pago único",
+          portada: "8", portadaTexto: "planillas",
           media: null,
-          comprar: "", ver: "https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra"
+          botonTexto: "Comprar Pack Obra Gruesa",
+          comprar: "", ver: ""
+        },
+        {
+          nombre: "Pack Terminaciones",
+          lista: ["Cielorrasos", "Solados", "Revestimientos", "Pintura", "Carpintería", "Herrería", "Vidrios", "Cubiertas"],
+          bonos: ["Descuentos exclusivos en los servicios de Proyecta Más"],
+          precio: 111996, antes: 223992, nota: "Pago único",
+          portada: "8", portadaTexto: "planillas",
+          media: null,
+          botonTexto: "Comprar Pack Terminaciones",
+          comprar: "", ver: ""
+        },
+        {
+          nombre: "Pack Construcción en Seco",
+          lista: ["Steel Frame", "Paneles SIP", "Wood Frame"],
+          bonos: ["Descuentos exclusivos en los servicios de Proyecta Más"],
+          precio: 59998, antes: 119997, nota: "Pago único",
+          portada: "3", portadaTexto: "planillas",
+          media: null,
+          botonTexto: "Comprar Pack Construcción en Seco",
+          comprar: "", ver: ""
+        },
+        {
+          nombre: "Pack Obras Especiales",
+          lista: ["Ascensores", "Paisajismo y Piletas", "Pavimentos y veredas de H°", "Topografía"],
+          bonos: ["Descuentos exclusivos en los servicios de Proyecta Más"],
+          precio: 59998, antes: 119996, nota: "Pago único",
+          portada: "5", portadaTexto: "planillas",
+          media: null,
+          botonTexto: "Comprar Pack Obras Especiales",
+          comprar: "", ver: ""
         },
         {
           nombre: "Planillas sueltas",
@@ -118,13 +167,13 @@ window.PRODUCTOS = {
           precio: 19900, precioDesde: true, nota: "Por planilla",
           portada: "1", portadaTexto: "rubro",
           media: null,
-          comprar: "", ver: "https://tienda.proyectamas.com.ar/pages/planillas-para-presupuestar-tu-obra"
+          comprar: "", ver: ""
         },
         {
           nombre: "Planilla demo",
           texto: "Probá cómo funciona el sistema con una versión recortada de Movimiento de Suelos.",
           precio: 0, nota: "Descarga gratuita",
-          estado: "gratis", destacado: true,
+          estado: "gratis",
           portada: "0", portadaTexto: "pesos",
           media: null,
           comprar: "", ver: "", gratisTexto: "Pedir la demo"
