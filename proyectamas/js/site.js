@@ -657,7 +657,7 @@
       var t = "Hola Proyecta+, quiero probar 1 hora el software de seguimiento de obra.\nNombre: " + nombre + "\nMail: " + mail +
         (d.get("tel") ? "\nWhatsApp: " + d.get("tel") : "") + "\nPerfil: " + d.get("perfil");
       window.open("https://wa.me/" + (cfg.whatsapp || "5493425104877") + "?text=" + encodeURIComponent(t), "_blank", "noopener");
-      fp.querySelector("button[type=submit]").textContent = "¡Listo! Te mandamos el acceso";
+      fp.querySelector("button[type=submit]").textContent = "¡Listo! Te respondemos por WhatsApp";
     });
   }
 

@@ -42,9 +42,9 @@ window.PRODUCTOS = {
   whatsapp: "5493425104877",
   email: "hola@proyectamas.com.ar",
 
-  /* Prueba del software: cuando tengas la página de registro de la
-     prueba de 1 hora, pegá acá el link y el formulario manda ahí.
-     Mientras esté vacío, el pedido llega por WhatsApp. */
+  /* Prueba del software: dejalo vacío para que todos los pedidos de
+     prueba te lleguen por WhatsApp y el acceso lo des vos.
+     Solo si algún día querés registro automático, pegá acá ese link. */
   pruebaUrl: "",
 
   pagos: "Pagás con Mercado Pago o transferencia. Recibís los archivos por mail.",
