@@ -563,7 +563,8 @@
     var botones = function (p) {
       var h = "";
       if (p.accion === "prueba") {
-        h += '<a class="btn btn--yellow" href="#prueba">Quiero probarlo</a>';
+        var txtPrueba = "Hola Proyecta+, quiero probar 1 hora el software de seguimiento de obra. ¿Me pasan el acceso?";
+        h += '<a class="btn btn--yellow" target="_blank" rel="noopener" href="' + (PR.pruebaUrl ? esc(PR.pruebaUrl) : waP(txtPrueba)) + '">Quiero probarlo</a>';
       } else if (p.accion === "avisame") {
         h += '<a class="btn btn--line" target="_blank" rel="noopener" href="' + waP("Hola Proyecta+, avisame cuando salga: " + p.nombre + ".") + '">Avisame cuando salga</a>';
       } else if (p.precio === 0) {
