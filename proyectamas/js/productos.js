@@ -51,16 +51,37 @@ window.PRODUCTOS = {
 
   categorias: [
     {
-      id: "formacion",
-      nombre: "Formación",
-      intro: "Aprendé el método completo, con cálculos explicados y casos resueltos.",
+      id: "manuales",
+      nombre: "Manuales",
+      intro: "Explicados paso a paso para que los entienda cualquiera, con Casa Los Ceibos como caso práctico en todos: la modelás, la dibujás, la planificás y la presupuestás.",
+      nota: "Cada manual trae PDF, Word editable, checklists imprimibles y planillas Excel. Comprás uno o los llevás todos.",
       productos: [
+        {
+          nombre: "Biblioteca completa Proyecta +",
+          texto: "Los 8 manuales con todas sus planillas, checklists y plantillas. La mitad de lo que cuestan por separado.",
+          lista: ["Proyecto Integral", "Proyecto de Instalaciones", "Presupuesto de obra", "BIM con Revit", "AutoCAD", "SketchUp", "MS Project", "Excel para obra"],
+          listaPlegable: "Ver los 8 manuales",
+          bonos: ["Acceso permanente a la comunidad r/PROYECTAMAS", "15 % de descuento en servicios de + Estudio"],
+          precio: 69999, antes: 139992, nota: "Pago único · hasta 3 cuotas sin interés",
+          estado: "nuevo", etiqueta: "Todo incluido · 50 % OFF", destacado: true,
+          portada: "8", portadaTexto: "manuales",
+          media: null,
+          botonTexto: "Llevar la biblioteca",
+          comprar: "", ver: ""
+        },
+        {
+          nombre: "Manual de Proyecto Integral",
+          texto: "Las 14 fases de un proyecto, de la idea a la obra: una casa de 347 m² y un edificio de 16 unidades con flujo de fondos, punto de equilibrio y TIR. 44 ejercicios, portfolio, 7 plantillas Word y examen.",
+          precio: 29999, nota: "Pago único · PDF + Word + Excel", estado: "nuevo",
+          portada: "14", portadaTexto: "fases del proyecto",
+          media: null,
+          comprar: "", ver: ""
+        },
         {
           nombre: "Kit completo · Proyecto de Instalaciones",
           texto: "Manual de 81 páginas con 7 proyectos, planilla MEP, caso con planos DXF, bloques CAD, plantillas y calculadoras.",
           precio: 24999, antes: 34900, nota: "Lanzamiento · pago único",
-          estado: "nuevo", destacado: true,
-          portada: "P07", portadaTexto: "Manual + 11 bonos",
+          portada: "P07", portadaTexto: "manual + 11 bonos",
           media: null,
           comprar: "", ver: ""
         },
@@ -68,8 +89,66 @@ window.PRODUCTOS = {
           nombre: "Manual de Proyecto de Instalaciones",
           texto: "Eléctrica, sanitaria y gas, de la vivienda al edificio. Incluye calculadoras web y ficha técnica.",
           precio: 14999, antes: 17900, nota: "Lanzamiento · pago único",
-          estado: "nuevo",
           portada: "81", portadaTexto: "páginas · PDF",
+          media: null,
+          comprar: "", ver: ""
+        },
+        {
+          nombre: "Presupuesto de obra · análisis de precios",
+          texto: "El método clásico paso a paso: mano de obra con cargas, equipos, análisis de precios, gastos generales, coeficiente de pase, certificado y redeterminación. Con planilla de práctica conectada y 40 ejercicios.",
+          precio: 19999, nota: "Pago único · PDF + Word + Excel",
+          portada: "APU", portadaTexto: "análisis de precios",
+          media: null,
+          comprar: "", ver: ""
+        },
+        {
+          nombre: "Pack Software para obra",
+          texto: "Los 5 manuales de herramientas digitales para dibujar, modelar, presentar, planificar y calcular.",
+          lista: ["BIM con Revit", "AutoCAD", "SketchUp", "MS Project", "Excel para obra"],
+          precio: 44999, antes: 74995, nota: "Pago único · PDF + Word + Excel",
+          etiqueta: "40 % OFF",
+          portada: "5", portadaTexto: "manuales",
+          media: null,
+          botonTexto: "Comprar el pack",
+          comprar: "", ver: ""
+        },
+        {
+          nombre: "BIM con Revit",
+          texto: "De la plantilla al modelo: BEP, matriz LOD, vistas, cómputo desde el modelo, horas y control de calidad. 40 ejercicios resueltos.",
+          precio: 14999, nota: "Pago único · PDF + Word + Excel",
+          portada: "LOD", portadaTexto: "de 100 a 500",
+          media: null,
+          comprar: "", ver: ""
+        },
+        {
+          nombre: "AutoCAD",
+          texto: "Escalas, capas, plumas y más de 100 comandos explicados, con plantilla de dibujo, cómputo desde AutoCAD y control de láminas. 40 ejercicios resueltos.",
+          precio: 14999, nota: "Pago único · PDF + Word + Excel",
+          portada: "21", portadaTexto: "capítulos",
+          media: null,
+          comprar: "", ver: ""
+        },
+        {
+          nombre: "SketchUp",
+          texto: "Modelado, etiquetas, escenas, materiales y render para presentar proyectos, con presupuesto de visualización. 40 ejercicios resueltos.",
+          precio: 14999, nota: "Pago único · PDF + Word + Excel",
+          portada: "55", portadaTexto: "páginas",
+          media: null,
+          comprar: "", ver: ""
+        },
+        {
+          nombre: "MS Project",
+          texto: "Cronograma de 41 tareas listo para importar, ruta crítica, curva S, valor ganado y control semanal de obra. 40 ejercicios resueltos.",
+          precio: 14999, nota: "Pago único · PDF + Word + Excel",
+          portada: "41", portadaTexto: "tareas listas",
+          media: null,
+          comprar: "", ver: ""
+        },
+        {
+          nombre: "Excel para obra",
+          texto: "27 ejercicios que se corrigen solos y 10 plantillas conectadas: cómputo, análisis de precios, presupuesto, certificado, pedidos, gastos y Gantt.",
+          precio: 14999, nota: "Pago único · PDF + Word + Excel",
+          portada: "27", portadaTexto: "ejercicios autocorregibles",
           media: null,
           comprar: "", ver: ""
         },

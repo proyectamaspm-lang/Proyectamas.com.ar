@@ -70,6 +70,13 @@
       for (var r = 0; r * ch < this.h + ch; r++)
         for (var col = 0; col * cw < this.w + cw; col++)
           pts.push({ x: col * cw, y: r * ch, r: r, col: col, glow: 0, val: (Math.random() * 9000 + 100) | 0 });
+    } else if (this.mode === "red") {
+      var cant = Math.round(this.w * this.h / (this.w < 700 ? 3400 : 4600)), sem = 7;
+      var rnd = function () { sem = (sem * 9301 + 49297) % 233280; return sem / 233280; };
+      for (var k = 0; k < cant; k++) {
+        var ox = rnd() * this.w, oy = rnd() * this.h;
+        pts.push({ ox: ox, oy: oy, x: ox, y: oy, f: rnd() * 6.28, v: 0.4 + rnd() * 0.8, pro: rnd() < 0.3 });
+      }
     } else if (this.mode === "bloques") {
       var bs = this.w < 700 ? 34 : 46; this.bs = bs;
       for (var by = bs * 0.6; by < this.h + bs; by += bs)
@@ -120,7 +127,7 @@
     if (this.cur.x < -1000) { this.cur.x = tx; this.cur.y = ty; }
     this.cur.x += (tx - this.cur.x) * 0.12;
     this.cur.y += (ty - this.cur.y) * 0.12;
-    if (this.readX && this.mode !== "celdas" && this.t % 4 === 0) {
+    if (this.readX && this.mode !== "celdas" && this.mode !== "red" && this.t % 4 === 0) {
       this.readX.textContent = (this.cur.x / 100).toFixed(2) + " m";
       this.readY.textContent = ((this.h - this.cur.y) / 100).toFixed(2) + " m";
     }
@@ -269,6 +276,50 @@
     ctx.setLineDash([]);
     ctx.fillStyle = "rgb(" + YELLOW + ")";
     ctx.beginPath(); ctx.moveTo(mx - 7, my - 12); ctx.lineTo(mx + 7, my - 12); ctx.lineTo(mx, my + 4); ctx.closePath(); ctx.fill();
+  };
+
+  /* Red: nodos (profesionales y proyectos) que se conectan entre sí y con el cursor */
+  Plano.prototype.draw_red = function (ctx) {
+    var mx = this.cur.x, my = this.cur.y, R = this.w < 700 ? 150 : 220, L = this.w < 700 ? 84 : 112, t = this.t * 0.012;
+    var P = this.pts, i, j, a, b, d;
+    for (i = 0; i < P.length; i++) {
+      a = P[i];
+      var tx = a.ox + Math.sin(t * a.v + a.f) * 9, ty = a.oy + Math.cos(t * a.v * 0.8 + a.f) * 9;
+      d = Math.hypot(tx - mx, ty - my);
+      if (d < R) { var k = (1 - d / R) * 0.28; tx += (mx - tx) * k; ty += (my - ty) * k; }
+      a.x += (tx - a.x) * 0.12; a.y += (ty - a.y) * 0.12;
+      a.cerca = d < R ? 1 - d / R : 0;
+    }
+    ctx.lineWidth = 1;
+    for (i = 0; i < P.length; i++) {
+      a = P[i];
+      for (j = i + 1; j < P.length; j++) {
+        b = P[j];
+        var dx = a.x - b.x, dy = a.y - b.y;
+        if (Math.abs(dx) > L || Math.abs(dy) > L) continue;
+        d = Math.sqrt(dx * dx + dy * dy);
+        if (d > L) continue;
+        var c = Math.max(a.cerca, b.cerca), al = (1 - d / L);
+        ctx.strokeStyle = c > 0.05 ? "rgba(" + YELLOW + "," + (al * (0.25 + c * 0.6)).toFixed(3) + ")" : "rgba(" + WHITE + "," + (al * 0.16).toFixed(3) + ")";
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      }
+      if (a.cerca > 0.35) {
+        ctx.strokeStyle = "rgba(" + YELLOW + "," + (a.cerca * 0.55).toFixed(3) + ")";
+        ctx.beginPath(); ctx.moveTo(mx, my); ctx.lineTo(a.x, a.y); ctx.stroke();
+      }
+    }
+    for (i = 0; i < P.length; i++) {
+      a = P[i];
+      var r = (a.pro ? 3.2 : 2) + a.cerca * 2.6;
+      ctx.fillStyle = a.cerca > 0.05 ? "rgba(" + YELLOW + "," + (0.5 + a.cerca * 0.5).toFixed(3) + ")" : (a.pro ? "rgba(" + WHITE + ",0.55)" : "rgba(" + WHITE + ",0.3)");
+      ctx.beginPath(); ctx.arc(a.x, a.y, r, 0, 6.283); ctx.fill();
+      if (a.pro && a.cerca > 0.2) { ctx.strokeStyle = "rgba(" + YELLOW + ",0.6)"; ctx.beginPath(); ctx.arc(a.x, a.y, r + 4, 0, 6.283); ctx.stroke(); }
+    }
+    if (this.readX && this.t % 6 === 0) {
+      var n = 0; for (i = 0; i < P.length; i++) if (P[i].cerca > 0.35) n++;
+      this.readX.textContent = n + " conectados";
+      this.readY.textContent = P.length + " nodos";
+    }
   };
 
   /* Productos: bloques (cajas) que se levantan en 3D alrededor del cursor */
@@ -570,7 +621,7 @@
       } else if (p.precio === 0) {
         h += '<a class="btn btn--yellow" target="_blank" rel="noopener" href="' + (p.comprar ? esc(p.comprar) : waP("Hola Proyecta+, quiero la " + p.nombre + " gratis.")) + '">' + esc(p.gratisTexto || "Descargar") + "</a>";
       } else if (p.verKit) {
-        h += '<a class="btn btn--line" href="#formacion">Ver el kit</a>';
+        h += '<a class="btn btn--line" href="#manuales">Ver el kit</a>';
       } else {
         var txtCompra = "Hola Proyecta+, quiero comprar: " + p.nombre + (p.precio ? " (" + pesos(p.precio) + ")" : "") + ". ¿Cómo pago?";
         h += '<a class="btn ' + (p.destacado ? "btn--ink" : "btn--yellow") + '" target="_blank" rel="noopener" href="' + (p.comprar ? esc(p.comprar) : waP(txtCompra)) + '">' + esc(p.botonTexto || "Comprar") + "</a>";
@@ -658,6 +709,23 @@
         (d.get("tel") ? "\nWhatsApp: " + d.get("tel") : "") + "\nPerfil: " + d.get("perfil");
       window.open("https://wa.me/" + (cfg.whatsapp || "5493425104877") + "?text=" + encodeURIComponent(t), "_blank", "noopener");
       fp.querySelector("button[type=submit]").textContent = "¡Listo! Te respondemos por WhatsApp";
+    });
+  }
+
+
+  /* ---------- Proyecta + Red: botones de preinscripción ---------- */
+  var redBtns = document.querySelectorAll("[data-red]");
+  if (redBtns.length) {
+    var RC = window.RED || {};
+    var msgs = {
+      publicar: "Hola Proyecta+, quiero preinscribirme en Proyecta + Red para publicar un proyecto.",
+      profesional: "Hola Proyecta+, quiero preinscribirme en Proyecta + Red como profesional. Soy: "
+    };
+    redBtns.forEach(function (b) {
+      var rol = b.getAttribute("data-red");
+      b.href = RC.url ? RC.url + (RC.url.indexOf("?") > -1 ? "&" : "?") + "rol=" + rol
+                      : "https://wa.me/" + (RC.whatsapp || "5493425104877") + "?text=" + encodeURIComponent(msgs[rol] || msgs.publicar);
+      b.target = "_blank"; b.rel = "noopener";
     });
   }
 
