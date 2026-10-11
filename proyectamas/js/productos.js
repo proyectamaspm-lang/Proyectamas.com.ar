@@ -65,7 +65,7 @@ window.PRODUCTOS = {
           precio: 69999, antes: 139992, nota: "Pago único · hasta 3 cuotas sin interés",
           estado: "nuevo", etiqueta: "Todo incluido · 50 % OFF", destacado: true,
           portada: "8", portadaTexto: "manuales",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/biblioteca.webp" },
           botonTexto: "Llevar la biblioteca",
           comprar: "", ver: ""
         },
@@ -74,7 +74,7 @@ window.PRODUCTOS = {
           texto: "Las 14 fases de un proyecto, de la idea a la obra: una casa de 347 m² y un edificio de 16 unidades con flujo de fondos, punto de equilibrio y TIR. 44 ejercicios, portfolio, 7 plantillas Word y examen.",
           precio: 29999, nota: "Pago único · PDF + Word + Excel", estado: "nuevo",
           portada: "14", portadaTexto: "fases del proyecto",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/proyecto-integral.webp" },
           comprar: "", ver: ""
         },
         {
@@ -82,7 +82,7 @@ window.PRODUCTOS = {
           texto: "Manual de 81 páginas con 7 proyectos, planilla MEP, caso con planos DXF, bloques CAD, plantillas y calculadoras.",
           precio: 24999, antes: 34900, nota: "Lanzamiento · pago único",
           portada: "P07", portadaTexto: "manual + 11 bonos",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/kit-instalaciones.webp" },
           comprar: "", ver: ""
         },
         {
@@ -90,7 +90,7 @@ window.PRODUCTOS = {
           texto: "Eléctrica, sanitaria y gas, de la vivienda al edificio. Incluye calculadoras web y ficha técnica.",
           precio: 14999, antes: 17900, nota: "Lanzamiento · pago único",
           portada: "81", portadaTexto: "páginas · PDF",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/manual-instalaciones.webp" },
           comprar: "", ver: ""
         },
         {
@@ -98,7 +98,7 @@ window.PRODUCTOS = {
           texto: "El método clásico paso a paso: mano de obra con cargas, equipos, análisis de precios, gastos generales, coeficiente de pase, certificado y redeterminación. Con planilla de práctica conectada y 40 ejercicios.",
           precio: 19999, nota: "Pago único · PDF + Word + Excel",
           portada: "APU", portadaTexto: "análisis de precios",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/presupuesto.webp" },
           comprar: "", ver: ""
         },
         {
@@ -108,7 +108,7 @@ window.PRODUCTOS = {
           precio: 44999, antes: 74995, nota: "Pago único · PDF + Word + Excel",
           etiqueta: "40 % OFF",
           portada: "5", portadaTexto: "manuales",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/pack-software.webp" },
           botonTexto: "Comprar el pack",
           comprar: "", ver: ""
         },
@@ -117,7 +117,7 @@ window.PRODUCTOS = {
           texto: "De la plantilla al modelo: BEP, matriz LOD, vistas, cómputo desde el modelo, horas y control de calidad. 40 ejercicios resueltos.",
           precio: 14999, nota: "Pago único · PDF + Word + Excel",
           portada: "LOD", portadaTexto: "de 100 a 500",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/bim.webp" },
           comprar: "", ver: ""
         },
         {
@@ -125,7 +125,7 @@ window.PRODUCTOS = {
           texto: "Escalas, capas, plumas y más de 100 comandos explicados, con plantilla de dibujo, cómputo desde AutoCAD y control de láminas. 40 ejercicios resueltos.",
           precio: 14999, nota: "Pago único · PDF + Word + Excel",
           portada: "21", portadaTexto: "capítulos",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/autocad.webp" },
           comprar: "", ver: ""
         },
         {
@@ -133,7 +133,7 @@ window.PRODUCTOS = {
           texto: "Modelado, etiquetas, escenas, materiales y render para presentar proyectos, con presupuesto de visualización. 40 ejercicios resueltos.",
           precio: 14999, nota: "Pago único · PDF + Word + Excel",
           portada: "55", portadaTexto: "páginas",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/sketchup.webp" },
           comprar: "", ver: ""
         },
         {
@@ -141,7 +141,7 @@ window.PRODUCTOS = {
           texto: "Cronograma de 41 tareas listo para importar, ruta crítica, curva S, valor ganado y control semanal de obra. 40 ejercicios resueltos.",
           precio: 14999, nota: "Pago único · PDF + Word + Excel",
           portada: "41", portadaTexto: "tareas listas",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/msproject.webp" },
           comprar: "", ver: ""
         },
         {
@@ -149,7 +149,7 @@ window.PRODUCTOS = {
           texto: "27 ejercicios que se corrigen solos y 10 plantillas conectadas: cómputo, análisis de precios, presupuesto, certificado, pedidos, gastos y Gantt.",
           precio: 14999, nota: "Pago único · PDF + Word + Excel",
           portada: "27", portadaTexto: "ejercicios autocorregibles",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/excel.webp" },
           comprar: "", ver: ""
         },
         {
@@ -158,7 +158,7 @@ window.PRODUCTOS = {
           precio: 19999, precioDesde: true, nota: "Precio estimado",
           estado: "pronto",
           portada: "▶", portadaTexto: "videos cortos",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/cursos.webp" },
           accion: "avisame"
         }
       ]
@@ -183,7 +183,7 @@ window.PRODUCTOS = {
           precio: 239242, antes: 956968, nota: "Pago único · hasta 3 cuotas sin interés con Mercado Pago",
           estado: "nuevo", etiqueta: "La más completa", destacado: true,
           portada: "31", portadaTexto: "planillas PRO",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/suite.webp" },
           botonTexto: "Llevar la suite completa",
           comprar: "", ver: ""
         },
@@ -195,7 +195,7 @@ window.PRODUCTOS = {
           precio: 166495, antes: 332991, nota: "Pago único",
           estado: "nuevo", etiqueta: "★ Más vendido",
           portada: "9", portadaTexto: "planillas",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/pack-instalaciones.webp" },
           botonTexto: "Comprar Pack Instalaciones",
           comprar: "", ver: ""
         },
@@ -206,7 +206,7 @@ window.PRODUCTOS = {
           bonos: ["Descuentos exclusivos en los servicios de Proyecta Más"],
           precio: 79996, antes: 159992, nota: "Pago único",
           portada: "8", portadaTexto: "planillas",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/pack-obra-gruesa.webp" },
           botonTexto: "Comprar Pack Obra Gruesa",
           comprar: "", ver: ""
         },
@@ -216,7 +216,7 @@ window.PRODUCTOS = {
           bonos: ["Descuentos exclusivos en los servicios de Proyecta Más"],
           precio: 111996, antes: 223992, nota: "Pago único",
           portada: "8", portadaTexto: "planillas",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/pack-terminaciones.webp" },
           botonTexto: "Comprar Pack Terminaciones",
           comprar: "", ver: ""
         },
@@ -226,7 +226,7 @@ window.PRODUCTOS = {
           bonos: ["Descuentos exclusivos en los servicios de Proyecta Más"],
           precio: 59998, antes: 119997, nota: "Pago único",
           portada: "3", portadaTexto: "planillas",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/pack-seco.webp" },
           botonTexto: "Comprar Pack Construcción en Seco",
           comprar: "", ver: ""
         },
@@ -236,7 +236,7 @@ window.PRODUCTOS = {
           bonos: ["Descuentos exclusivos en los servicios de Proyecta Más"],
           precio: 59998, antes: 119996, nota: "Pago único",
           portada: "5", portadaTexto: "planillas",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/pack-especiales.webp" },
           botonTexto: "Comprar Pack Obras Especiales",
           comprar: "", ver: ""
         },
@@ -245,7 +245,7 @@ window.PRODUCTOS = {
           texto: "Comprá sólo el rubro que necesitás: albañilería, eléctrica, steel frame, SIP, climatización y más.",
           precio: 19999, precioDesde: true, nota: "Por planilla",
           portada: "1", portadaTexto: "rubro",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/sueltas.webp" },
           comprar: "", ver: ""
         },
         {
@@ -254,7 +254,7 @@ window.PRODUCTOS = {
           precio: 0, nota: "Descarga gratuita",
           estado: "gratis",
           portada: "0", portadaTexto: "pesos",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/demo.webp" },
           comprar: "", ver: "", gratisTexto: "Pedir la demo"
         }
       ]
@@ -270,7 +270,7 @@ window.PRODUCTOS = {
           precio: null, precioTexto: "En el Kit", nota: "Proyecto de Instalaciones",
           estado: "nuevo", etiqueta: "Incluido en el Kit",
           portada: "29", portadaTexto: "bloques DXF",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/cad-biblioteca.webp" },
           comprar: "", ver: "", verKit: true
         },
         {
@@ -279,7 +279,7 @@ window.PRODUCTOS = {
           precio: null, precioTexto: "Pronto", nota: "Lista de espera",
           estado: "pronto",
           portada: "AEA", portadaTexto: "bloques eléctricos",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/cad-aea.webp" },
           accion: "avisame"
         }
       ]
@@ -295,7 +295,7 @@ window.PRODUCTOS = {
           precio: null, precioTexto: "Probalo", nota: "1 hora gratis",
           estado: "desarrollo", etiqueta: "En desarrollo · versión de prueba", destacado: true,
           portada: "1 h", portadaTexto: "prueba gratis",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/software-obra.webp" },
           accion: "prueba"
         },
         {
@@ -304,7 +304,7 @@ window.PRODUCTOS = {
           precio: null, precioTexto: "Pronto", nota: "Lista de espera",
           estado: "desarrollo", etiqueta: "En desarrollo",
           portada: "$", portadaTexto: "cotizador",
-          media: null,
+          media: { tipo: "imagen", src: "assets/productos/cotizador.webp" },
           accion: "avisame"
         }
       ]
