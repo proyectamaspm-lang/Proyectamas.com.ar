@@ -638,3 +638,19 @@ form.form { border-radius: var(--r); }
 .suscribir--caja .suscribir-msg { grid-column: 1 / -1; margin: 0; }
 .suscribir--caja .suscribir-msg:empty { display: none; }
 @media (max-width: 860px) { .suscribir--caja { grid-template-columns: 1fr; } }
+
+/* ---------- Instagram ---------- */
+.nav .nav-ig { display: inline-flex; align-items: center; gap: 8px; padding: 8px 10px; }
+.nav .nav-ig svg { width: 20px; height: 20px; flex: none; }
+.nav-ig-txt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 900px) {
+  .nav .nav-ig { padding: 16px 12px; }
+  .nav .nav-ig svg { width: 26px; height: 26px; }
+  .nav-ig-txt { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
+}
+.suscribir-ig { display: inline-flex; align-items: center; gap: 10px; margin-top: 14px; color: #fff; text-decoration: none; font-size: 15px; padding: 8px 16px 8px 10px; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid var(--line-dark); transition: background .2s, color .2s; }
+.suscribir-ig svg { flex: none; color: var(--yellow); }
+.suscribir-ig b { color: var(--yellow); }
+.suscribir-ig:hover { background: var(--yellow); color: var(--ink); }
+.suscribir-ig:hover svg, .suscribir-ig:hover b { color: var(--ink); }
+.btn--ig { display: inline-flex; align-items: center; gap: 8px; }
