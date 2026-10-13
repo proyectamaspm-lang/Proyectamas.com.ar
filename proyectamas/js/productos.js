@@ -155,7 +155,7 @@ window.PRODUCTOS = {
         {
           nombre: "Cursos grabados",
           texto: "Clases cortas sobre un tema puntual: cálculo de cañerías de gas, caída de tensión, cómputo eléctrico.",
-          precio: 19999, precioDesde: true, nota: "Precio estimado",
+          precio: null, precioTexto: "Próximamente", nota: "Te avisamos cuando salgan",
           estado: "pronto",
           portada: "▶", portadaTexto: "videos cortos",
           media: { tipo: "imagen", src: "assets/productos/cursos.webp" },
@@ -181,7 +181,7 @@ window.PRODUCTOS = {
           listaPlegable: "Ver las 31 planillas",
           bonos: ["75 % OFF vs. compra individual", "Garantía de 7 días · compra protegida"],
           precio: 239242, antes: 956968, nota: "Pago único · hasta 3 cuotas sin interés con Mercado Pago",
-          estado: "nuevo", etiqueta: "La más completa", destacado: true,
+          estado: "nuevo", etiqueta: "★ Más vendido", destacado: true,
           portada: "31", portadaTexto: "planillas PRO",
           media: { tipo: "imagen", src: "assets/productos/suite.webp" },
           botonTexto: "Llevar la suite completa",
@@ -193,8 +193,7 @@ window.PRODUCTOS = {
                   "Domótica PRO", "Detección de Incendio PRO", "CCTV y Alarmas PRO", "Energía Solar PRO"],
           bonos: ["Descuentos exclusivos en los servicios de Proyecta Más"],
           precio: 166495, antes: 332991, nota: "Pago único",
-          estado: "nuevo", etiqueta: "★ Más vendido",
-          portada: "9", portadaTexto: "planillas",
+                    portada: "9", portadaTexto: "planillas",
           media: { tipo: "imagen", src: "assets/productos/pack-instalaciones.webp" },
           botonTexto: "Comprar Pack Instalaciones",
           comprar: "", ver: ""
@@ -267,11 +266,11 @@ window.PRODUCTOS = {
         {
           nombre: "Biblioteca de instalaciones",
           texto: "Símbolos eléctricos, sanitarios y de gas, plantilla de capas, láminas A3 con rótulo y unifilar tipo.",
-          precio: null, precioTexto: "En el Kit", nota: "Proyecto de Instalaciones",
-          estado: "nuevo", etiqueta: "Incluido en el Kit",
+          precio: null, precioTexto: "Pronto", nota: "Lista de espera",
+          estado: "pronto",
           portada: "29", portadaTexto: "bloques DXF",
           media: { tipo: "imagen", src: "assets/productos/cad-biblioteca.webp" },
-          comprar: "", ver: "", verKit: true
+          accion: "avisame"
         },
         {
           nombre: "Pack de bloques eléctricos",
