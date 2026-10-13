@@ -234,7 +234,7 @@ window.PRODUCTOS = {
           lista: ["Ascensores", "Paisajismo y Piletas", "Pavimentos y veredas de H°", "Topografía"],
           bonos: ["Descuentos exclusivos en los servicios de Proyecta Más"],
           precio: 59998, antes: 119996, nota: "Pago único",
-          portada: "5", portadaTexto: "planillas",
+          portada: "4", portadaTexto: "planillas",
           media: { tipo: "imagen", src: "assets/productos/pack-especiales.webp" },
           botonTexto: "Comprar Pack Obras Especiales",
           comprar: "", ver: ""
