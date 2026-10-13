@@ -1,12 +1,12 @@
 /* =====================================================================
-   PROYECTA + RED — configuración de los botones de la página red.html
+   PROYECTA + RED — a dónde llevan los botones de la Red
    ---------------------------------------------------------------------
-   url: cuando la plataforma esté online (ej. "https://red.proyectamas.com.ar"),
-        pegá el link acá y los botones "Publicar un proyecto" y
-        "Sumarme como profesional" llevan directo a la Red.
-        Mientras esté vacío, la preinscripción llega por WhatsApp.
+   url: la plataforma de la Red. Todos los botones "Publicar un proyecto",
+        "Sumarme como profesional" y "Ver proyectos" llevan ahí.
+        Si algún día la dejás vacía (""), los botones vuelven a mandar
+        la consulta por WhatsApp.
    ===================================================================== */
 window.RED = {
-  url: "",
+  url: "https://red.proyectamas.com.ar",
   whatsapp: "5493425104877"
 };

@@ -721,19 +721,24 @@
   }
 
 
-  /* ---------- Proyecta + Red: botones de preinscripción ---------- */
+  /* ---------- Proyecta + Red: botones hacia red.proyectamas.com.ar ---------- */
   var redBtns = document.querySelectorAll("[data-red]");
   if (redBtns.length) {
     var RC = window.RED || {};
     var msgs = {
-      publicar: "Hola Proyecta+, quiero preinscribirme en Proyecta + Red para publicar un proyecto.",
-      profesional: "Hola Proyecta+, quiero preinscribirme en Proyecta + Red como profesional. Soy: "
+      publicar: "Hola Proyecta+, quiero publicar un proyecto en Proyecta + Red.",
+      profesional: "Hola Proyecta+, quiero sumarme a Proyecta + Red como profesional. Soy: ",
+      proyectos: "Hola Proyecta+, quiero ver los proyectos abiertos de Proyecta + Red."
     };
+    var anclas = { proyectos: "#proyectos" };
     redBtns.forEach(function (b) {
       var rol = b.getAttribute("data-red");
-      b.href = RC.url ? RC.url + (RC.url.indexOf("?") > -1 ? "&" : "?") + "rol=" + rol
-                      : "https://wa.me/" + (RC.whatsapp || "5493425104877") + "?text=" + encodeURIComponent(msgs[rol] || msgs.publicar);
-      b.target = "_blank"; b.rel = "noopener";
+      if (RC.url) {
+        b.href = RC.url.replace(/\/$/, "") + "/?rol=" + rol + "&utm_source=proyectamas.com.ar" + (anclas[rol] || "");
+      } else {
+        b.href = "https://wa.me/" + (RC.whatsapp || "5493425104877") + "?text=" + encodeURIComponent(msgs[rol] || msgs.publicar);
+        b.target = "_blank"; b.rel = "noopener";
+      }
     });
   }
 
