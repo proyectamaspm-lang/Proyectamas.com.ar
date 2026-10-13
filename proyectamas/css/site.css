@@ -612,3 +612,29 @@ form.form { border-radius: var(--r); }
   .nav .nav-cta { margin: 20px 0 0; text-align: center; background: var(--ink); color: #fff; border: 0; }
 }
 .red-pre-box .hero-actions { gap: 14px; margin-top: 26px; }
+
+/* ---------- Suscripción a novedades ---------- */
+.hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; opacity: 0; }
+.suscribir { position: relative; }
+.suscribir-campos { display: flex; gap: 10px; flex-wrap: wrap; }
+.suscribir-campos input[type=email] { flex: 1 1 220px; min-width: 0; font: inherit; font-size: 16px; padding: 13px 18px; border-radius: 999px; border: 2px solid var(--ink); background: #fff; color: var(--text); }
+.suscribir-campos input[type=email]:focus { outline: 3px solid var(--yellow); outline-offset: 1px; }
+.suscribir-campos .btn { flex: none; }
+.suscribir-campos .btn[disabled] { opacity: .7; cursor: wait; }
+.suscribir-msg { margin: 10px 0 0; font-size: 14px; min-height: 1.2em; }
+.suscribir-msg.ok { font-weight: 700; }
+.suscribir-msg.err { color: #b3261e; font-weight: 600; }
+.suscribir--pie { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 16px 40px; align-items: center; margin-top: 40px; padding: 26px 30px; border-radius: 30px 56px 28px 48px / 36px 30px 48px 30px; background: rgba(255,255,255,.06); border: 1px solid var(--line-dark); }
+.suscribir--pie h4 { color: var(--yellow); font-size: 20px; margin: 0 0 4px; }
+.suscribir--pie p { margin: 0; }
+.suscribir--pie .suscribir-campos input[type=email] { border-color: transparent; }
+.suscribir--pie .suscribir-msg { grid-column: 1 / -1; margin: 0; color: #fff; }
+.suscribir--pie .suscribir-msg.err { color: #ffb4ab; }
+.suscribir--pie .suscribir-msg:empty { display: none; }
+@media (max-width: 860px) { .suscribir--pie { grid-template-columns: 1fr; padding: 22px; } }
+.suscribir--caja { margin-top: 34px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 18px 40px; align-items: center; padding: clamp(24px, 3.5vw, 40px); background: var(--yellow); border: 2px solid var(--ink); border-radius: 40px 80px 36px 72px / 52px 40px 64px 44px; }
+.suscribir--caja h3 { font-size: clamp(24px, 2.4vw, 32px); font-variation-settings: "wdth" 106; margin: 12px 0 8px; }
+.suscribir--caja p { margin: 0; color: var(--ink); }
+.suscribir--caja .suscribir-msg { grid-column: 1 / -1; margin: 0; }
+.suscribir--caja .suscribir-msg:empty { display: none; }
+@media (max-width: 860px) { .suscribir--caja { grid-template-columns: 1fr; } }

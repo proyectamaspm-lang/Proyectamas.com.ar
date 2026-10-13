@@ -647,7 +647,15 @@
         html += '<div class="pr-compra">' + precioP(p) + '<small>' + esc(p.nota || "") + '</small><div class="pr-btns">' + botones(p) + "</div></div>";
         html += "</div></article>";
       });
-      html += "</div></div></section>";
+      html += "</div>";
+      if (cat.id === "planillas") html += '<form class="suscribir suscribir--caja" action="/api/suscribir" method="post" data-suscribir>' +
+        '<div class="suscribir-txt"><span class="red-tag">Lanzamientos</span><h3>Recibí las novedades y descuentos de lanzamiento.</h3>' +
+        '<p>Cada planilla nueva, actualización de precios y descuento de lanzamiento te llega primero a vos.</p></div>' +
+        '<div class="suscribir-campos"><input type="hidden" name="origen" value="planillas">' +
+        '<label class="sr-only" for="sus-email-pl">Tu email</label><input id="sus-email-pl" type="email" name="email" placeholder="tu@email.com" autocomplete="email" required>' +
+        '<input class="hp" type="text" name="web" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+        '<button class="btn btn--ink" type="submit">Quiero enterarme</button></div><p class="suscribir-msg" role="status" aria-live="polite"></p></form>';
+      html += "</div></section>";
     });
     html += '<div class="wrap pr-pagos"><p class="aviso">' + esc(PR.pagos || "") + " Precios en pesos argentinos, sujetos a cambios.</p></div>";
     cont.innerHTML = html;
@@ -727,6 +735,42 @@
                       : "https://wa.me/" + (RC.whatsapp || "5493425104877") + "?text=" + encodeURIComponent(msgs[rol] || msgs.publicar);
       b.target = "_blank"; b.rel = "noopener";
     });
+  }
+
+
+  /* ---------- Suscripción a novedades (Resend vía /api/suscribir) ---------- */
+  function initSuscribir(root) {
+    (root || document).querySelectorAll("form[data-suscribir]:not([data-listo])").forEach(function (f) {
+      f.setAttribute("data-listo", "1");
+      f.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var msg = f.querySelector(".suscribir-msg"), btn = f.querySelector("button[type=submit]");
+        var d = new FormData(f), email = String(d.get("email") || "").trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { msg.textContent = "Revisá el email, parece que falta algo."; msg.className = "suscribir-msg err"; return; }
+        btn.disabled = true; var txt = btn.textContent; btn.textContent = "Enviando…"; msg.textContent = ""; msg.className = "suscribir-msg";
+        var cuerpo = { email: email, origen: d.get("origen") || "otro", web: d.get("web") || "", sitio: location.hostname || "proyectamas.com.ar" };
+        fetch(f.getAttribute("action"), { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(cuerpo) })
+          .then(function (r) { return r.json().catch(function () { return { ok: false }; }).then(function (j) { return { r: r, j: j }; }); })
+          .then(function (x) {
+            if (x.r.ok && x.j.ok) {
+              f.classList.add("ok");
+              msg.className = "suscribir-msg ok";
+              msg.textContent = x.j.existente ? "¡Ya estabas suscripto! Seguís recibiendo las novedades." : "¡Listo! Te mandamos un mail de bienvenida. Si no lo ves, revisá spam o promociones.";
+              f.querySelector("input[type=email]").value = "";
+            } else {
+              msg.className = "suscribir-msg err";
+              msg.textContent = x.j.error === "email" ? "Ese email no parece válido." : "No pudimos suscribirte ahora. Probá de nuevo en un rato.";
+            }
+          })
+          .catch(function () { msg.className = "suscribir-msg err"; msg.textContent = "Sin conexión. Probá de nuevo en un rato."; })
+          .then(function () { btn.disabled = false; btn.textContent = txt; });
+      });
+    });
+  }
+  initSuscribir();
+  if (/[?&]error=1/.test(location.search)) {
+    var gok = document.querySelector("[data-gracias-ok]"), gerr = document.querySelector("[data-gracias-error]");
+    if (gok && gerr) { gok.hidden = true; gerr.hidden = false; }
   }
 
   /* ---------------- Contacto ---------------- */

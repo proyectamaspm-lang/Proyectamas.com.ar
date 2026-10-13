@@ -151,6 +151,20 @@
           </ul>
         </div>
       </div>
+      <form class="suscribir suscribir--pie" action="/api/suscribir" method="post" data-suscribir>
+        <div class="suscribir-txt">
+          <h4>Novedades y lanzamientos</h4>
+          <p>Descuentos de lanzamiento, planillas nuevas y herramientas. Pocos mails, solo cuando vale la pena.</p>
+        </div>
+        <div class="suscribir-campos">
+          <input type="hidden" name="origen" value="pie">
+          <label class="sr-only" for="sus-email-pie">Tu email</label>
+          <input id="sus-email-pie" type="email" name="email" placeholder="tu@email.com" autocomplete="email" required>
+          <input class="hp" type="text" name="web" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn--yellow" type="submit">Suscribirme</button>
+        </div>
+        <p class="suscribir-msg" role="status" aria-live="polite"></p>
+      </form>
       <div class="legal"><span>© <span id="anio">2026</span> Proyecta Más</span><span>Precios de referencia en dólares, sujetos a cambios.</span></div>
     </div>
   </footer>
